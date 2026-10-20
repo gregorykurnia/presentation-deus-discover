@@ -13,6 +13,7 @@ import { chromium } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
 import { mkdirSync, readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { slideLabel } from '../src/model.js';
 import { exportPdf } from '../export-pdf.js';
 import {
@@ -22,8 +23,12 @@ import {
 const MIN_FONT_PX = 26;
 const TOLERANCE_PX = 1; // sub-pixel rounding only; see the plan's check
 
-/** Runs in the page: returns [{ slideId, kind, ... }] for every problem found. */
-function inspectSlides({ minFont, tol }) {
+/**
+ * Runs in the page (page.evaluate(inspectSlides, { minFont, tol })), so it must not
+ * use anything outside its own body. Returns [{ slideId, kind, ... }] for every
+ * problem found: kind 'overflow' | 'outside' | 'overlap' | 'font'.
+ */
+export function inspectSlides({ minFont, tol }) {
   const out = [];
   const nameOf = (el) => {
     if (el.dataset.field) return { what: 'field', name: el.dataset.field };
@@ -149,7 +154,10 @@ async function main() {
   console.log('QA: all checks passed (overflow, overlap, inside slide, text >= 26px, page count).');
 }
 
-main().catch((err) => {
-  console.error(`FAIL ${err.stack ?? err.message}`);
-  process.exit(1);
-});
+const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+if (isMain) {
+  main().catch((err) => {
+    console.error(`FAIL ${err.stack ?? err.message}`);
+    process.exit(1);
+  });
+}

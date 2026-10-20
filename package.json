@@ -6,6 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "dev": "vite --open /present.html",
+    "edit": "vite --open /edit.html",
     "test:e2e": "playwright test",
     "export:offline": "node scripts/build-offline.js",
     "pdf": "node export-pdf.js",

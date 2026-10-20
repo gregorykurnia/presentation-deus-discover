@@ -72,14 +72,16 @@ export function text(tag, slide, path, ctx, opts = {}) {
 
 /**
  * Symbols the bundled DM Sans subset lacks (Rulings R8, R9), drawn as inline
- * SVG in currentColor so they match the text around them. Glyph boxes are
- * 1em tall (top at 0.8em above the baseline, see .glyph in layouts.css),
- * 32 units = 1em, math axis at y = 15.
+ * SVG in currentColor so they match the text around them. In text, a glyph box
+ * is w/32 em wide and 1em tall (top at 0.8em above the baseline, see .glyph in
+ * layouts.css): 32 viewBox units = 1em, math axis at y = 15, so a drawing is
+ * never stretched or squashed. `deco` is the decorative arrow between items
+ * (sized by .arrow).
  */
 const SYMBOLS = {
-  '→': { viewBox: '0 0 40 24', d: 'M2 12h34M26 3l10 9-10 9' },
-  '≤': { viewBox: '0 0 20 32', d: 'M16 6L4 12.5 16 19M4 24.5h12' },
-  '≈': { viewBox: '0 0 20 32', d: 'M3.5 12.5q3.25-3.5 6.5 0t6.5 0M3.5 19.5q3.25-3.5 6.5 0t6.5 0' },
+  '→': { w: 28, d: 'M3 15h21M17 8.5l7 6.5-7 6.5', deco: { viewBox: '0 0 40 24', d: 'M2 12h34M26 3l10 9-10 9' } },
+  '≤': { w: 20, d: 'M16 6L4 12.5 16 19M4 24.5h12' },
+  '≈': { w: 20, d: 'M3.5 12.5q3.25-3.5 6.5 0t6.5 0M3.5 19.5q3.25-3.5 6.5 0t6.5 0' },
 };
 const SYMBOL_RE = new RegExp(`[${Object.keys(SYMBOLS).join('')}]`, 'g');
 
@@ -92,10 +94,10 @@ const SYMBOL_RE = new RegExp(`[${Object.keys(SYMBOLS).join('')}]`, 'g');
  * the deck text, while nothing is painted in a fallback font.
  */
 export function symbol(ch, { decorative = false, cls = '' } = {}) {
-  const spec = SYMBOLS[ch];
+  const spec = decorative ? SYMBOLS[ch].deco : SYMBOLS[ch];
   const svg = document.createElementNS(SVG_NS, 'svg');
   svg.setAttribute('class', (decorative ? cls : `glyph__svg ${cls}`).trim());
-  svg.setAttribute('viewBox', spec.viewBox);
+  svg.setAttribute('viewBox', spec.viewBox ?? `0 0 ${spec.w} 32`);
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
   const path = document.createElementNS(SVG_NS, 'path');
@@ -107,8 +109,10 @@ export function symbol(ch, { decorative = false, cls = '' } = {}) {
   if (decorative) path.setAttribute('stroke-width', '3');
   svg.append(path);
   if (decorative) return svg;
-  return h('span', { class: 'glyph', role: 'img', 'aria-label': ch },
+  const glyph = h('span', { class: 'glyph', role: 'img', 'aria-label': ch },
     svg, h('span', { class: 'glyph__text', 'aria-hidden': 'true' }, ch));
+  glyph.style.setProperty('--glyph-w', `${spec.w / 32}em`);
+  return glyph;
 }
 
 /** Replaces every symbol character in el's text with its SVG glyph (in place). */

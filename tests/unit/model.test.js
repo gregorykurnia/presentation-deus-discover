@@ -37,6 +37,12 @@ describe('validateDeck', () => {
     expect(validateDeck(deck)).toContain("Slide s-a: duplicate id");
   });
 
+  it('reports null or non-object slide entries instead of throwing (Upload JSON)', () => {
+    const deck = { id: 'd', rev: 1, slides: [slide('s-a', 'title'), null, 'x'] };
+    expect(() => validateDeck(deck)).not.toThrow();
+    expect(validateDeck(deck)).toEqual(['Slide 2: not a slide object', 'Slide 3: not a slide object']);
+  });
+
   it('flags a bad section', () => {
     const deck = { id: 'd', rev: 1, slides: [slide('s-a', 'title', { section: 'x' })] };
     expect(validateDeck(deck)).toContain("Slide s-a: invalid section 'x'");

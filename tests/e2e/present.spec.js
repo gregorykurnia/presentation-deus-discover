@@ -133,14 +133,17 @@ test('navigation keys are ignored in a contenteditable element', async ({ page }
 for (const [w, h] of [[1280, 720], [1000, 900]]) {
   test(`slide keeps 16:9 and fits a ${w}x${h} viewport`, async ({ page }) => {
     await page.setViewportSize({ width: w, height: h });
-    const box = await current(page).boundingBox();
-    expect(box.width / box.height).toBeCloseTo(16 / 9, 2);
-    expect(box.x).toBeGreaterThanOrEqual(-0.5);
-    expect(box.y).toBeGreaterThanOrEqual(-0.5);
-    expect(box.x + box.width).toBeLessThanOrEqual(w + 0.5);
-    expect(box.y + box.height).toBeLessThanOrEqual(h + 0.5);
-    // the slide fills the limiting dimension
-    expect(Math.max(box.width / w, box.height / h)).toBeGreaterThan(0.99);
+    // The browser fires `resize` on its next frame, so retry until the slide has been refit.
+    await expect(async () => {
+      const box = await current(page).boundingBox();
+      expect(box.width / box.height).toBeCloseTo(16 / 9, 2);
+      expect(box.x).toBeGreaterThanOrEqual(-0.5);
+      expect(box.y).toBeGreaterThanOrEqual(-0.5);
+      expect(box.x + box.width).toBeLessThanOrEqual(w + 0.5);
+      expect(box.y + box.height).toBeLessThanOrEqual(h + 0.5);
+      // the slide fills the limiting dimension
+      expect(Math.max(box.width / w, box.height / h)).toBeGreaterThan(0.99);
+    }).toPass({ timeout: 3000 });
   });
 }
 

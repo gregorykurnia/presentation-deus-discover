@@ -66,7 +66,9 @@ async function buildHtml() {
       assetsInlineLimit: 100_000_000, // DM Sans woff2 becomes a data: URI
       cssCodeSplit: false,
       modulePreload: false,
-      rollupOptions: { input: join(root, 'present.html') },
+      // present.js loads the deck with import() (so ?source=draft never fetches it);
+      // inlined here so the offline file stays one script.
+      rollupOptions: { input: join(root, 'present.html'), output: { codeSplitting: false } },
     },
   });
   const files = (Array.isArray(result) ? result : [result]).flatMap((r) => r.output);

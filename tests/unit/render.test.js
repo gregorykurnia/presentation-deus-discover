@@ -269,6 +269,31 @@ describe('renderDeck', () => {
     }
   });
 
+  it('draws a typed "→" in text as an unsquashed glyph: its box has the viewBox aspect', () => {
+    const deck = clone();
+    deck.slides[2].fields.bullets[0] = 'Apply → Play ≤ Score ≈ Hire';
+    const item = byId(renderDeck(deck, ctx()), 's-problem').querySelector('[data-field="bullets.0"]');
+    const glyphs = [...item.querySelectorAll('.glyph')];
+    expect(glyphs.map((g) => g.getAttribute('aria-label'))).toEqual(['→', '≤', '≈']);
+    for (const g of glyphs) {
+      const [, , vbW, vbH] = g.querySelector('svg').getAttribute('viewBox').split(' ').map(Number);
+      const width = Number.parseFloat(g.style.getPropertyValue('--glyph-w'));
+      // CSS box: width x 1em; 32 viewBox units = 1em, so the drawing is never scaled unevenly.
+      expect(vbH, g.getAttribute('aria-label')).toBe(32);
+      expect(width * 32, g.getAttribute('aria-label')).toBeCloseTo(vbW, 5);
+    }
+    expect(item.textContent).toBe('Apply → Play ≤ Score ≈ Hire');
+  });
+
+  it('gives the pricing table, "Prepared for" and the pilot contact line a sized data-fit box', () => {
+    const els = renderDeck(seed, ctx({ mode: 'print' }));
+    const table = byId(els, 'a9-pricing').querySelector('.price-table');
+    expect(table.hasAttribute('data-fit')).toBe(false);
+    expect(table.parentElement.matches('.price-table-box[data-fit]')).toBe(true);
+    expect(byId(els, 's-title').querySelector('.title__prepared[data-fit]')).not.toBeNull();
+    expect(byId(els, 's-pilot').querySelector('.pilot__contact-text[data-fit]')).not.toBeNull();
+  });
+
   it('marks fixed-size text boxes with data-fit', () => {
     for (const el of renderDeck(seed, ctx({ mode: 'print' }))) {
       expect(el.querySelectorAll('[data-fit]').length, el.dataset.slideId).toBeGreaterThan(0);

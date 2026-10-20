@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEUS deck editor</title>
+  <link rel="stylesheet" href="/src/styles/daybreak.css">
+  <link rel="stylesheet" href="/src/styles/layouts.css">
+  <link rel="stylesheet" href="/src/styles/editor.css">
+</head>
+<body class="editor">
+  <header class="ed-toolbar">
+    <div class="ed-brand">
+      <img class="ed-brand__logo" src="/assets/logo-mark-wordmark-dark.svg" alt="DEUS">
+      <span class="ed-brand__name">Deck editor</span>
+    </div>
+    <p class="ed-status" role="status" aria-live="polite" data-state="loading">Loading…</p>
+    <div class="ed-actions">
+      <div class="ed-group">
+        <button type="button" class="ed-btn ed-btn--icon" data-action="undo" title="Undo (Ctrl+Z)" disabled>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 5 4 8.5 7.5 12M4.5 8.5h7a4.5 4.5 0 0 1 0 9H9"/></svg>
+          <span>Undo</span>
+        </button>
+        <button type="button" class="ed-btn ed-btn--icon" data-action="redo" title="Redo (Ctrl+Shift+Z)" disabled>
+          <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 5 16 8.5 12.5 12M15.5 8.5h-7a4.5 4.5 0 0 0 0 9H11"/></svg>
+          <span>Redo</span>
+        </button>
+      </div>
+      <div class="ed-group">
+        <button type="button" class="ed-btn" data-action="download">Download JSON</button>
+        <button type="button" class="ed-btn" data-action="upload">Upload JSON</button>
+        <input type="file" accept=".json,application/json" data-upload-json hidden>
+      </div>
+      <div class="ed-group">
+        <button type="button" class="ed-btn" data-action="preview">Preview</button>
+        <button type="button" class="ed-btn" data-action="lock">Lock</button>
+        <button type="button" class="ed-btn ed-btn--primary" data-action="publish">Publish</button>
+      </div>
+    </div>
+  </header>
+  <div class="ed-notice" role="alert" hidden></div>
+  <div class="ed-body">
+    <aside class="ed-sidebar" aria-label="Slides" hidden></aside>
+    <main class="ed-canvas" aria-label="Slides to edit"></main>
+  </div>
+  <section class="ed-drawer" aria-label="Speaker notes" hidden></section>
+  <script type="module">
+    // The store adapter is chosen here: local (dev server, Phase 2) now, Firebase in Phase 3.
+    import { startEditor } from '/src/editor/editor.js';
+    import { createLocalStore } from '/src/store/local.js';
+    startEditor({ store: createLocalStore() });
+  </script>
+</body>
+</html>

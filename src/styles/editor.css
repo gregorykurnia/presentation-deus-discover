@@ -1,0 +1,124 @@
+/* =====================================================================
+   Editor chrome (edit.html). Daybreak tokens from daybreak.css; calm and
+   quiet so the slides stay the focus. Slides are scaled into .ed-stage
+   (--stage-w / --stage-scale are set by src/editor/editor.js).
+   ===================================================================== */
+.editor {
+  --ed-bg: #EEF1F8;
+  --ed-panel: #FFFFFF;
+  --ed-line: rgba(15, 26, 58, 0.12);
+  --ed-line-strong: rgba(15, 26, 58, 0.22);
+  --ed-error-tint: #FDECEC;
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ed-bg);
+  color: var(--ink);
+  font: 500 14px/1.4 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+.editor *, .editor *::before, .editor *::after { box-sizing: border-box; }
+
+/* ---------- Toolbar ---------- */
+.ed-toolbar {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 20px;
+  height: 60px; padding: 0 20px;
+  background: rgba(255, 255, 255, 0.92);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--ed-line);
+}
+.ed-brand { display: flex; align-items: center; gap: 12px; flex: none; }
+.ed-brand__logo { height: 26px; width: auto; display: block; }
+.ed-brand__name { padding-left: 12px; border-left: 1px solid var(--ed-line-strong); color: var(--muted); font-weight: 600; }
+
+.ed-status {
+  display: flex; align-items: center; gap: 8px; margin: 0;
+  color: var(--muted); font-weight: 500; white-space: nowrap;
+}
+.ed-status::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--ed-line-strong);
+}
+.ed-status[data-state="saved"]::before { background: var(--cobalt); }
+.ed-status[data-state="pending"]::before,
+.ed-status[data-state="saving"]::before { background: var(--cobalt); opacity: 0.4; }
+.ed-status[data-state="error"], .ed-status[data-state="conflict"] { color: var(--error); }
+.ed-status[data-state="error"]::before, .ed-status[data-state="conflict"]::before { background: var(--error); }
+
+.ed-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.ed-group { display: flex; align-items: center; gap: 6px; }
+.ed-group + .ed-group { padding-left: 8px; border-left: 1px solid var(--ed-line); }
+
+.ed-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 34px; padding: 0 14px;
+  border: 1px solid var(--ed-line-strong); border-radius: 999px;
+  background: var(--ed-panel); color: var(--ink);
+  font: 600 13px/1 var(--font); cursor: pointer;
+  transition: background-color 120ms, border-color 120ms;
+}
+.ed-btn:hover:not(:disabled) { background: #F3F6FF; border-color: rgba(45, 91, 255, 0.45); }
+.ed-btn:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 2px; }
+.ed-btn:disabled { opacity: 0.45; cursor: default; }
+.ed-btn--icon { padding: 0 12px 0 10px; }
+.ed-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ed-btn--primary { background: var(--cobalt); border-color: var(--cobalt); color: var(--white); }
+.ed-btn--primary:hover:not(:disabled) { background: #2450E6; border-color: #2450E6; }
+
+/* ---------- Notice (validation errors, conflicts) ---------- */
+.ed-notice {
+  position: sticky; top: 72px; z-index: 15;
+  display: flex; gap: 16px; align-items: flex-start;
+  max-width: 880px; margin: 12px auto 0; padding: 14px 16px 14px 18px;
+  background: var(--ed-panel); border: 1px solid var(--ed-line); border-left: 4px solid var(--error);
+  border-radius: 12px; box-shadow: 0 12px 32px -20px rgba(15, 26, 58, 0.5);
+}
+.ed-notice[hidden] { display: none; }
+.ed-notice__body { flex: 1; min-width: 0; }
+.ed-notice__title { margin: 0; font-weight: 600; }
+.ed-notice__list { margin: 6px 0 0; padding-left: 18px; color: var(--muted); }
+.ed-notice__actions { margin-top: 10px; }
+.ed-notice__close {
+  flex: none; width: 28px; height: 28px; border: 0; border-radius: 50%;
+  background: transparent; color: var(--muted); font: 400 20px/1 var(--font); cursor: pointer;
+}
+.ed-notice__close:hover { background: var(--ed-bg); }
+
+/* ---------- Layout: sidebar (Task 9) + canvas ---------- */
+.ed-body { display: flex; align-items: flex-start; }
+.ed-sidebar[hidden], .ed-drawer[hidden] { display: none; }
+.ed-canvas {
+  flex: 1; min-width: 0;
+  display: flex; flex-direction: column; align-items: center; gap: 36px;
+  padding: 28px 32px 80px;
+}
+
+/* ---------- One slide ---------- */
+.ed-frame { width: var(--stage-w, 960px); }
+.ed-frame__bar { display: flex; align-items: center; gap: 10px; height: 28px; margin-bottom: 8px; }
+.ed-frame__label { font-weight: 700; color: var(--ink); }
+.ed-frame__label--hidden { color: var(--muted); }
+.ed-frame__layout { color: var(--muted); }
+.ed-fit-warning {
+  margin-left: auto; padding: 4px 12px; border-radius: 999px;
+  background: var(--ed-error-tint); color: var(--error); font-weight: 600;
+}
+.ed-stage {
+  position: relative; overflow: hidden;
+  width: var(--stage-w, 960px); height: calc(var(--stage-w, 960px) * 9 / 16);
+  border-radius: 10px; background: var(--ed-panel);
+  box-shadow: 0 1px 2px rgba(15, 26, 58, 0.06), 0 18px 40px -28px rgba(15, 26, 58, 0.45);
+}
+.ed-stage > .slide { position: absolute; left: 0; top: 0; transform: scale(var(--stage-scale, 0.5)); transform-origin: 0 0; }
+
+/* ---------- Editable text (sizes are slide pixels, shown at ~0.6x) ---------- */
+.ed-stage [data-field][contenteditable] { cursor: text; border-radius: 6px; caret-color: var(--cobalt); }
+.ed-stage [data-field][contenteditable]:hover { outline: 3px dashed rgba(45, 91, 255, 0.4); outline-offset: 6px; }
+.ed-stage [data-field][contenteditable]:focus {
+  outline: 3px solid var(--cobalt); outline-offset: 6px;
+  /* Typed spaces stay real spaces (no no-break spaces) while editing. */
+  white-space-collapse: preserve;
+}
+.ed-stage span[data-field]:empty { display: inline-block; min-width: 1ch; min-height: 1em; }
+.ed-stage .fits-error,
+.ed-stage .fits-error[data-field]:hover,
+.ed-stage .fits-error[data-field]:focus { outline: 4px solid var(--error); outline-offset: 6px; }
