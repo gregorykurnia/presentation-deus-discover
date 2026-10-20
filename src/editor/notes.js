@@ -48,7 +48,7 @@ export function notesPlugin(api) {
     where.textContent = slide ? nameOf(slideLabel(deck, slide.id)) : '';
     const notes = slide?.notes ?? '';
     if (box.value !== notes) box.value = notes; // e.g. after an undo
-    box.disabled = !slide;
+    box.disabled = !slide || api.readOnly;
   }
 
   function commit() {
@@ -58,7 +58,7 @@ export function notesPlugin(api) {
   }
 
   box.addEventListener('input', () => {
-    if (!shownId) return;
+    if (!shownId || api.readOnly) return;
     typed = true;
     api.edit(setNotes(api.deck, shownId, box.value));
   });
@@ -75,5 +75,6 @@ export function notesPlugin(api) {
     show();
   });
   api.onChange(show);
+  api.onReadOnly(show); // after a conflict the notes can no longer be edited
   show();
 }

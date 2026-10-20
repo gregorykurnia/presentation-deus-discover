@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  setField, moveSlide, setHidden, duplicateSlide, deleteSlide, setImage, setNotes, slideLabel,
+  setField, moveSlide, setHidden, duplicateSlide, deleteSlide, setImage, setNotes, slideLabel, onlyNotesChanged,
 } from '../../src/model.js';
 import { createHistory } from '../../src/editor/history.js';
 
@@ -182,6 +182,24 @@ describe('setNotes', () => {
 
   it('throws on an unknown slide id', () => {
     expect(() => setNotes(makeDeck(), 'nope', 'x')).toThrow(/nope/);
+  });
+});
+
+describe('onlyNotesChanged', () => {
+  it('is true when a slide differs from another only in its notes (a notes edit or its undo)', () => {
+    const deck = makeDeck();
+    const out = setNotes(deck, 'm2', 'Say this.');
+    expect(onlyNotesChanged(deck.slides[1], out.slides[1])).toBe(true);
+    expect(onlyNotesChanged(out.slides[1], deck.slides[1])).toBe(true);
+  });
+
+  it('is false for any other change, and for no slide', () => {
+    const deck = makeDeck();
+    const s = deck.slides[1];
+    expect(onlyNotesChanged(s, setField(deck, 'm2', 'headline', 'x').slides[1])).toBe(false);
+    expect(onlyNotesChanged(s, setHidden(deck, 'm2', true).slides[1])).toBe(false);
+    expect(onlyNotesChanged(s, { ...s, notes: 'n', extra: 1 })).toBe(false);
+    expect(onlyNotesChanged(undefined, s)).toBe(false);
   });
 });
 

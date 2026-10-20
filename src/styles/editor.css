@@ -42,8 +42,9 @@
 .ed-status[data-state="saved"]::before { background: var(--cobalt); }
 .ed-status[data-state="pending"]::before,
 .ed-status[data-state="saving"]::before { background: var(--cobalt); opacity: 0.4; }
-.ed-status[data-state="error"], .ed-status[data-state="conflict"] { color: var(--error); }
-.ed-status[data-state="error"]::before, .ed-status[data-state="conflict"]::before { background: var(--error); }
+.ed-status[data-state="error"], .ed-status[data-state="failed"], .ed-status[data-state="conflict"] { color: var(--error); }
+.ed-status[data-state="error"]::before, .ed-status[data-state="failed"]::before,
+.ed-status[data-state="conflict"]::before { background: var(--error); }
 
 .ed-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 .ed-group { display: flex; align-items: center; gap: 6px; }
@@ -65,9 +66,23 @@
 .ed-btn--primary { background: var(--cobalt); border-color: var(--cobalt); color: var(--white); }
 .ed-btn--primary:hover:not(:disabled) { background: #2450E6; border-color: #2450E6; }
 
-/* ---------- Notice (validation errors, conflicts) ---------- */
+/* ---------- Messages: the conflict banner (stays) and the notice (errors) ---------- */
+.ed-messages { position: sticky; top: 72px; z-index: 15; pointer-events: none; }
+.ed-messages > * { pointer-events: auto; }
+.ed-conflict {
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+  max-width: 880px; margin: 12px auto 0; padding: 14px 16px 14px 18px;
+  background: var(--ed-error-tint); border: 1px solid rgba(229, 37, 42, 0.3); border-left: 4px solid var(--error);
+  border-radius: 12px; box-shadow: 0 12px 32px -20px rgba(15, 26, 58, 0.5);
+}
+.ed-conflict[hidden] { display: none; }
+.ed-conflict__body { flex: 1 1 360px; min-width: 0; }
+.ed-conflict__title { margin: 0; font-weight: 600; }
+.ed-conflict__text { margin: 4px 0 0; color: var(--muted); }
+.ed-conflict__actions { display: flex; gap: 8px; flex: none; }
+.ed-canvas.is-readonly .ed-stage, .ed-canvas.is-readonly .ed-stage * { cursor: default; }
+
 .ed-notice {
-  position: sticky; top: 72px; z-index: 15;
   display: flex; gap: 16px; align-items: flex-start;
   max-width: 880px; margin: 12px auto 0; padding: 14px 16px 14px 18px;
   background: var(--ed-panel); border: 1px solid var(--ed-line); border-left: 4px solid var(--error);

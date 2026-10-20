@@ -2,8 +2,13 @@
 // content/deck.json, or the file named by the DECK_FILE env variable. Uploads go
 // to assets/uploads/, or to the UPLOAD_DIR env directory (served at the same
 // /assets/uploads/ URLs). The e2e specs point both at temp paths.
-//   GET  /__deck    -> { deck, locked: false, role: 'editor' }
-//   PUT  /__deck    { deck, expectedRev } -> { rev }  (409 when the file's rev differs)
+//   GET  /__deck    -> { deck, locked: false, role: 'editor', hash }
+//   PUT  /__deck    { deck, expectedRev, expectedHash } -> { rev, hash }
+//                   409 when the file's rev differs, or when its content is not the
+//                   one the editor was served or last wrote (hash): an edit made
+//                   outside the editor (Claude Code, git, by hand) is never overwritten.
+// The deck file is left out of Vite's hot updates: a save never reloads open pages
+// (present.html in dev reads the deck from GET /__deck, not as a module).
 //   POST /__upload  raw bytes, content-type image/jpeg|png|webp or video/mp4
 //                   -> { src: 'assets/uploads/<content-hash>.<ext>' }
 import { createHash } from 'node:crypto';
@@ -40,18 +45,27 @@ export function uploadedFile(uploadDir, urlPath) {
   return { file, type };
 }
 
+/** The content hash of the deck file's text (sha256, hex). */
+export const hashOf = (text) => createHash('sha256').update(text).digest('hex');
+
 /** The request handlers as plain functions: each returns { status, json }. */
 export function createDeckHandlers({ deckFile, uploadDir, uploadPrefix = 'assets/uploads/' }) {
-  const read = () => JSON.parse(readFileSync(deckFile, 'utf8'));
+  const read = () => {
+    const text = readFileSync(deckFile, 'utf8');
+    return { deck: JSON.parse(text), hash: hashOf(text) };
+  };
   return {
     getDeck() {
-      return { status: 200, json: { deck: read(), locked: false, role: 'editor' } };
+      const { deck, hash } = read();
+      return { status: 200, json: { deck, locked: false, role: 'editor', hash } };
     },
 
     putDeck(body) {
-      const { deck, expectedRev } = body ?? {};
-      const current = read();
-      if (current.rev !== expectedRev) return { status: 409, json: { error: 'conflict', rev: current.rev } };
+      const { deck, expectedRev, expectedHash } = body ?? {};
+      const { deck: current, hash } = read();
+      if (current.rev !== expectedRev || hash !== expectedHash) {
+        return { status: 409, json: { error: 'conflict', rev: current.rev } };
+      }
       const errors = validateDeck(deck);
       if (errors.length) return { status: 400, json: { errors } };
       const rev = expectedRev + 1;
@@ -61,7 +75,7 @@ export function createDeckHandlers({ deckFile, uploadDir, uploadPrefix = 'assets
       const tmp = `${deckFile}.tmp`;
       writeFileSync(tmp, text);
       renameSync(tmp, deckFile); // atomic: a reader never sees half a file
-      return { status: 200, json: { rev } };
+      return { status: 200, json: { rev, hash: hashOf(text) } };
     },
 
     upload(bytes, contentType) {
@@ -100,12 +114,22 @@ function send(res, { status, json }) {
 }
 
 export function devStorePlugin() {
+  let deckFile = null;
   return {
     name: 'deus-dev-store',
     apply: 'serve',
+    configResolved(config) {
+      ({ deckFile } = storePaths(config.root));
+    },
+    // Each save rewrites the deck file. Were it a module (content/deck.json imported by
+    // present.js), Vite would reload every open tab, the editor too, mid-typing.
+    hotUpdate({ file }) {
+      if (deckFile && resolve(file) === deckFile) return [];
+      return undefined;
+    },
     configureServer(server) {
       const root = server.config.root;
-      const { deckFile, uploadDir } = storePaths(root);
+      const { uploadDir } = storePaths(root);
       // Vite serves assets/uploads/ itself; another upload dir is served here at the same URLs.
       const ownUploadDir = uploadDir !== resolve(root, 'assets/uploads');
       const api = createDeckHandlers({ deckFile, uploadDir });

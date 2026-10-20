@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
 import deck from '../../content/deck.json' with { type: 'json' };
+import { resetDraft } from './helpers/draft.js';
 
 const visible = deck.slides.filter((s) => !s.hidden);
 const current = (page) => page.locator('.slide.is-current');
 const currentId = (page) => current(page).getAttribute('data-slide-id');
+
+// On the dev server present.html shows the draft (GET /__deck): the e2e draft is a
+// fresh copy of content/deck.json.
+test.beforeAll(resetDraft);
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/present.html');

@@ -1,6 +1,9 @@
 import { test, expect } from '@playwright/test';
 import deck from '../../content/deck.json' with { type: 'json' };
 import { inspectSlides } from '../../scripts/qa.js';
+import { resetDraft } from './helpers/draft.js';
+
+test.beforeAll(resetDraft); // present.html on the dev server reads the e2e draft
 
 const OPTS = { minFont: 26, tol: 1 };
 

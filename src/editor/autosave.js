@@ -1,7 +1,9 @@
 // Debounced autosave of the draft. One save runs at a time; changes made while
 // it runs are saved right after it. A ConflictError stops saving for good (the
-// editor asks for a reload); any other error retries after a pause.
-//   onStatus({ state: 'pending' | 'saving' | 'saved' | 'error' | 'conflict', error })
+// editor asks for a reload). A refusal (an error with a 4xx .status: the deck
+// itself was not accepted) is not retried: the next change tries again. Any other
+// error (network, 5xx) retries after a pause.
+//   onStatus({ state: 'pending' | 'saving' | 'saved' | 'error' | 'failed' | 'conflict', error })
 import { ConflictError } from '../store/errors.js';
 
 export function createAutosave({ save, rev, delay = 800, retryDelay = 4000, onStatus = () => {} }) {
@@ -23,6 +25,8 @@ export function createAutosave({ save, rev, delay = 800, retryDelay = 4000, onSt
         if (error instanceof ConflictError) {
           stopped = true;
           status('conflict', error);
+        } else if (error?.status >= 400 && error.status < 500) {
+          status('failed', error); // retrying would be refused again
         } else {
           status('error', error);
           timer = setTimeout(flush, retryDelay);

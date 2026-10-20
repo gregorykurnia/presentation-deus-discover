@@ -158,6 +158,18 @@ export function setImage(deck, slideId, key, patch) {
   }));
 }
 
+/**
+ * True when slide b differs from slide a only in its speaker notes (a notes edit,
+ * or its undo): the slide looks the same, so it need not be drawn again.
+ */
+export function onlyNotesChanged(a, b) {
+  if (!a || !b) return false;
+  if (a === b) return true;
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  keys.delete('notes');
+  return [...keys].every((k) => a[k] === b[k]);
+}
+
 /** Replaces a slide's speaker notes; the same deck when they are unchanged. */
 export function setNotes(deck, slideId, notes) {
   const value = String(notes ?? '');

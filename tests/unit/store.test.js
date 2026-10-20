@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mkdtempSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { createDeckHandlers, storePaths, uploadedFile } from '../../scripts/lib/dev-store-plugin.js';
+import { createDeckHandlers, devStorePlugin, hashOf, storePaths, uploadedFile } from '../../scripts/lib/dev-store-plugin.js';
 import { createLocalStore, PHASE3_MESSAGE } from '../../src/store/local.js';
 import { ConflictError, CONFLICT_MESSAGE } from '../../src/store/errors.js';
 
@@ -25,15 +25,17 @@ describe('dev store handlers (file-backed draft, Ruling R1)', () => {
 
   const onDisk = () => JSON.parse(readFileSync(deckFile, 'utf8'));
 
-  it('GET returns the deck, unlocked, as an editor', () => {
-    expect(api.getDeck()).toEqual({ status: 200, json: { deck: seed, locked: false, role: 'editor' } });
+  const hashOnDisk = () => hashOf(readFileSync(deckFile, 'utf8'));
+
+  it('GET returns the deck, unlocked, as an editor, with the file\'s content hash', () => {
+    expect(api.getDeck()).toEqual({ status: 200, json: { deck: seed, locked: false, role: 'editor', hash: hashOnDisk() } });
   });
 
-  it('PUT with the current rev writes the deck with rev + 1', () => {
+  it('PUT with the current rev and hash writes the deck with rev + 1 and returns the new hash', () => {
     const deck = structuredClone(seed);
     deck.slides[0].fields.headline = 'Edited';
-    const res = api.putDeck({ deck, expectedRev: 3 });
-    expect(res).toEqual({ status: 200, json: { rev: 4 } });
+    const res = api.putDeck({ deck, expectedRev: 3, expectedHash: hashOnDisk() });
+    expect(res).toEqual({ status: 200, json: { rev: 4, hash: hashOnDisk() } });
     expect(onDisk().rev).toBe(4);
     expect(onDisk().slides[0].fields.headline).toBe('Edited');
     // pretty-printed, so edits show up as readable git diffs
@@ -41,14 +43,36 @@ describe('dev store handlers (file-backed draft, Ruling R1)', () => {
   });
 
   it('PUT with a stale rev is a 409 and leaves the file alone', () => {
-    const res = api.putDeck({ deck: { ...seed, slides: [] }, expectedRev: 2 });
+    const res = api.putDeck({ deck: { ...seed, slides: [] }, expectedRev: 2, expectedHash: hashOnDisk() });
     expect(res.status).toBe(409);
     expect(res.json.rev).toBe(3);
     expect(onDisk()).toEqual(seed);
   });
 
+  it('PUT after the file was changed outside the editor (same rev) is a 409 and leaves the file alone', () => {
+    const served = api.getDeck().json.hash;
+    // Claude Code, git checkout or a hand edit: new content, rev not bumped.
+    const outside = { ...seed, slides: [{ ...seed.slides[0], notes: 'edited by hand' }] };
+    writeFileSync(deckFile, JSON.stringify(outside, null, 2));
+    const res = api.putDeck({ deck: seed, expectedRev: 3, expectedHash: served });
+    expect(res.status).toBe(409);
+    expect(onDisk()).toEqual(outside);
+  });
+
+  it('PUT without the hash it was served is a 409', () => {
+    expect(api.putDeck({ deck: seed, expectedRev: 3 }).status).toBe(409);
+    expect(onDisk()).toEqual(seed);
+  });
+
+  it('two PUTs in a row: the hash returned by the first is the one the second needs', () => {
+    const first = api.putDeck({ deck: seed, expectedRev: 3, expectedHash: api.getDeck().json.hash });
+    expect(first.status).toBe(200);
+    const second = api.putDeck({ deck: seed, expectedRev: 4, expectedHash: first.json.hash });
+    expect(second).toEqual({ status: 200, json: { rev: 5, hash: hashOnDisk() } });
+  });
+
   it('PUT of an invalid deck is a 400 with the validation errors', () => {
-    const res = api.putDeck({ deck: { slides: [null] }, expectedRev: 3 });
+    const res = api.putDeck({ deck: { slides: [null] }, expectedRev: 3, expectedHash: hashOnDisk() });
     expect(res.status).toBe(400);
     expect(res.json.errors).toEqual(['Slide 1: not a slide object']);
     expect(onDisk()).toEqual(seed);
@@ -83,6 +107,28 @@ describe('dev store paths (env overrides)', () => {
   });
 });
 
+describe('dev store plugin: saving the draft never reloads open pages', () => {
+  it('the deck file is left out of Vite hot updates (no full-reload of the editor or present.html)', () => {
+    const plugin = devStorePlugin();
+    plugin.configResolved({ root: '/repo' });
+    expect(plugin.hotUpdate({ file: join('/repo', 'content/deck.json') })).toEqual([]);
+    expect(plugin.hotUpdate({ file: join('/repo', 'src/render.js') })).toBeUndefined();
+  });
+
+  it('follows DECK_FILE', () => {
+    const before = process.env.DECK_FILE;
+    process.env.DECK_FILE = '.e2e/deck.json';
+    try {
+      const plugin = devStorePlugin();
+      plugin.configResolved({ root: '/repo' });
+      expect(plugin.hotUpdate({ file: join('/repo', '.e2e/deck.json') })).toEqual([]);
+    } finally {
+      if (before === undefined) delete process.env.DECK_FILE;
+      else process.env.DECK_FILE = before;
+    }
+  });
+});
+
 describe('serving uploads from another directory', () => {
   let dir;
   beforeEach(() => {
@@ -114,14 +160,21 @@ describe('local store adapter', () => {
     expect(fetch).toHaveBeenCalledWith('/__deck', expect.objectContaining({ cache: 'no-store' }));
   });
 
-  it('saveDraft() PUTs { deck, expectedRev } and resolves the new rev', async () => {
-    const fetch = vi.fn(() => json(200, { rev: 4 }));
+  it('saveDraft() PUTs { deck, expectedRev, expectedHash } and resolves the new rev', async () => {
+    const fetch = vi.fn()
+      .mockImplementationOnce(() => json(200, { deck: seed, locked: false, role: 'editor', hash: 'h1' }))
+      .mockImplementationOnce(() => json(200, { rev: 4, hash: 'h2' }))
+      .mockImplementationOnce(() => json(200, { rev: 5, hash: 'h3' }));
     const store = createLocalStore({ fetch });
+    await store.load();
     await expect(store.saveDraft(seed, 3)).resolves.toEqual({ rev: 4 });
-    const [url, init] = fetch.mock.calls[0];
+    const [url, init] = fetch.mock.calls[1];
     expect(url).toBe('/__deck');
     expect(init.method).toBe('PUT');
-    expect(JSON.parse(init.body)).toEqual({ deck: seed, expectedRev: 3 });
+    expect(JSON.parse(init.body)).toEqual({ deck: seed, expectedRev: 3, expectedHash: 'h1' });
+    // The next save sends the hash of the file the previous save wrote.
+    await store.saveDraft(seed, 4);
+    expect(JSON.parse(fetch.mock.calls[2][1].body).expectedHash).toBe('h2');
   });
 
   it('saveDraft() rejects with ConflictError on 409', async () => {
@@ -135,6 +188,8 @@ describe('local store adapter', () => {
   it('saveDraft() rejects with the server message on other errors', async () => {
     const store = createLocalStore({ fetch: () => json(400, { errors: ['Slide 1: not a slide object'] }) });
     await expect(store.saveDraft(seed, 3)).rejects.toThrow('Slide 1: not a slide object');
+    // The status tells the autosave whether retrying can help (4xx: no).
+    await expect(store.saveDraft(seed, 3)).rejects.toMatchObject({ status: 400 });
   });
 
   it('uploadImage() POSTs the file bytes with its type', async () => {

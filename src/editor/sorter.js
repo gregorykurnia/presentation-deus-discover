@@ -8,7 +8,9 @@
 //     to that slide, and scrolling the slides makes the one in view current.
 // Every change is one api.apply() step (undo + autosave).
 import { renderSlide } from '../render.js';
-import { deleteSlide, duplicateSlide, moveSlide, setHidden, slideLabel, slideTitle } from '../model.js';
+import {
+  deleteSlide, duplicateSlide, moveSlide, onlyNotesChanged, setHidden, slideLabel, slideTitle,
+} from '../model.js';
 import { createConfirm } from './confirm.js';
 
 const CTX = { mode: 'print', highlight: true, assetBase: '' };
@@ -85,10 +87,11 @@ export function sorterPlugin(api) {
     return { li, num, stage, view, tools, slide: null, label: null };
   }
 
-  /** Re-renders the thumbnail only when its slide or number changed. */
+  /** Re-renders the thumbnail only when its slide (other than its notes) or number changed. */
   function paint(item, slide, label) {
-    if (item.slide === slide && item.label === label) return;
+    const same = item.label === label && onlyNotesChanged(item.slide, slide);
     item.slide = slide;
+    if (same) return;
     item.label = label;
     const thumb = renderSlide(slide, { ...CTX, label });
     // A picture of the slide: not a second copy of the editor's slide (tests, notes, ids).
@@ -108,9 +111,13 @@ export function sorterPlugin(api) {
       hide.title = hideLabel;
       hide.replaceChildren(icon(doc, slide.hidden ? 'show' : 'hide'));
     }
-    item.tools.up.disabled = i === 0;
-    item.tools.down.disabled = i === n - 1;
-    item.tools.delete.disabled = n === 1; // a deck keeps at least one slide
+    const locked = api.readOnly; // after a save conflict: look and go to, nothing else
+    item.tools.up.disabled = locked || i === 0;
+    item.tools.down.disabled = locked || i === n - 1;
+    item.tools.hide.disabled = locked;
+    item.tools.duplicate.disabled = locked;
+    item.tools.delete.disabled = locked || n === 1; // a deck keeps at least one slide
+    item.li.draggable = !locked;
   }
 
   function refresh() {
@@ -249,6 +256,10 @@ export function sorterPlugin(api) {
   });
   api.onRender(markCurrent);
   api.onChange(schedule);
+  api.onReadOnly(() => {
+    endDrag();
+    refresh();
+  });
 
   // ---------- Buttons ----------
   function move(from, to) {
@@ -328,6 +339,10 @@ export function sorterPlugin(api) {
   list.addEventListener('dragstart', (e) => {
     const li = e.target.closest?.('.ed-thumb');
     if (!li) return;
+    if (api.readOnly) {
+      e.preventDefault();
+      return;
+    }
     dragId = li.dataset.thumbId;
     // Only our own type: a thumbnail dropped on a text field must not insert text.
     e.dataTransfer.setData(DRAG_TYPE, dragId);

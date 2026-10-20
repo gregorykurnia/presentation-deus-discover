@@ -111,7 +111,7 @@ test('Preview opens present.html?source=draft showing the saved draft', async ({
     context.waitForEvent('page'),
     page.getByRole('button', { name: 'Preview' }).click(),
   ]);
-  await expect(preview).toHaveURL(/\/present\.html\?source=draft$/);
+  await expect(preview).toHaveURL(/\/present\.html\?source=draft(#\d+)?$/);
   await expect(preview.locator('.slide.is-current [data-field="headline"]')).toHaveText(`${HEADLINE} Draft.`);
   await preview.close();
 });

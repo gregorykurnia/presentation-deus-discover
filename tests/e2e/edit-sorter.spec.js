@@ -208,6 +208,27 @@ test('the notes drawer edits the current slide notes: data-notes and the draft f
   await expect(box).toHaveValue(notesOf('s-modules'));
 });
 
+test('typing speaker notes updates data-notes without redrawing the slide or its thumbnail', async ({ page }) => {
+  const box = notesBox(page);
+  const thumbSlide = thumbOf(page, 's-video').locator('.slide');
+  await thumbOf(page, 's-video').locator('.ed-thumb__view').click();
+  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 5');
+  // Mark the drawn elements: a redraw would replace them (and restart the video).
+  await canvasSlide(page, 's-video').evaluate((el) => { el.__drawn = 'once'; });
+  await thumbSlide.evaluate((el) => { el.__drawn = 'once'; });
+
+  await box.click();
+  await page.keyboard.press('Control+End');
+  await box.pressSequentially(' Smile.');
+  await expect(canvasSlide(page, 's-video')).toHaveAttribute('data-notes', `${notesOf('s-video')} Smile.`);
+  await box.blur();
+  await expect.poll(() => readDraft().slides.find((s) => s.id === 's-video').notes).toBe(`${notesOf('s-video')} Smile.`);
+  await page.keyboard.press('Control+z');
+  await expect(canvasSlide(page, 's-video')).toHaveAttribute('data-notes', notesOf('s-video'));
+  expect(await canvasSlide(page, 's-video').evaluate((el) => el.__drawn)).toBe('once');
+  expect(await thumbSlide.evaluate((el) => el.__drawn)).toBe('once');
+});
+
 test('placeholders and the PDF re-run on the edited draft follow its order and skip hidden slides', async ({ page }) => {
   test.setTimeout(240_000);
   const realFiles = ['content/deck.json', 'placeholders.md', 'deck.html', 'DEUS-Pitch.pdf'];

@@ -75,4 +75,37 @@ describe('createAutosave', () => {
     expect(save.mock.calls[1]).toEqual([{ n: 1 }, 1]);
     expect(states.at(-1)).toBe('saved');
   });
+
+  it('a 4xx error (the server refused the deck) is not retried until the next change', async () => {
+    const refused = Object.assign(new Error('Slide s-x: unknown layout'), { status: 400 });
+    const save = vi.fn().mockRejectedValueOnce(refused).mockResolvedValueOnce({ rev: 2 });
+    const states = [];
+    const autosave = createAutosave({ save, rev: 1, delay: 800, retryDelay: 4000, onStatus: (s) => states.push(s) });
+    autosave.schedule({ n: 1 });
+    await autosave.flush();
+    expect(states.at(-1)).toEqual({ state: 'failed', error: refused });
+    await vi.advanceTimersByTimeAsync(20_000);
+    expect(save).toHaveBeenCalledTimes(1);
+    expect(autosave.unsaved).toBe(true);
+    // A new change is tried again.
+    autosave.schedule({ n: 2 });
+    await vi.advanceTimersByTimeAsync(800);
+    expect(save).toHaveBeenCalledTimes(2);
+    expect(states.at(-1).state).toBe('saved');
+  });
+
+  it('5xx and network errors keep being retried, with the error passed on', async () => {
+    const down = Object.assign(new Error('Internal error'), { status: 500 });
+    const save = vi.fn().mockRejectedValueOnce(down).mockRejectedValueOnce(new TypeError('Failed to fetch')).mockResolvedValueOnce({ rev: 2 });
+    const states = [];
+    const autosave = createAutosave({ save, rev: 1, delay: 800, retryDelay: 4000, onStatus: (s) => states.push(s) });
+    autosave.schedule({ n: 1 });
+    await autosave.flush();
+    expect(states.at(-1)).toEqual({ state: 'error', error: down });
+    await vi.advanceTimersByTimeAsync(4000);
+    expect(states.at(-1).error.message).toBe('Failed to fetch');
+    await vi.advanceTimersByTimeAsync(4000);
+    expect(save).toHaveBeenCalledTimes(3);
+    expect(states.at(-1).state).toBe('saved');
+  });
 });

@@ -95,6 +95,7 @@ export function imagesPlugin(api) {
 
   // ---------- Upload ----------
   async function replace(at, file) {
+    if (api.readOnly) return;
     const spec = KINDS[slotKind(at.key)];
     const problem = checkImageFile(file, slotKind(at.key));
     if (problem) {
@@ -138,7 +139,7 @@ export function imagesPlugin(api) {
   doc.addEventListener('dragover', (e) => {
     if (!hasFiles(e)) return;
     e.preventDefault();
-    const slot = slotAt(e.target);
+    const slot = api.readOnly ? null : slotAt(e.target);
     e.dataTransfer.dropEffect = slot ? 'copy' : 'none';
     setDropTarget(slot);
   });
@@ -289,6 +290,7 @@ export function imagesPlugin(api) {
     const slot = slotAt(e.target);
     if (!slot || slot.classList.contains('ed-uploading')) return;
     e.preventDefault(); // e.g. no play/pause on the video while editing
+    if (api.readOnly) return;
     if (isEmpty(slot)) {
       closePopover();
       pick(where(slot));
@@ -304,11 +306,12 @@ export function imagesPlugin(api) {
   api.onRender((frames) => {
     if (open && frames.some((f) => f.dataset.slideId === open.at.slideId)) refresh();
   });
+  api.onReadOnly(closePopover);
 
   // ---------- Report callouts ----------
   canvas.addEventListener('pointerdown', (down) => {
     const mark = down.target.closest?.('.ed-stage [data-callout]');
-    if (!mark || down.button !== 0) return;
+    if (!mark || down.button !== 0 || api.readOnly) return;
     down.preventDefault();
     const at = { slideId: mark.closest('.ed-frame').dataset.slideId, key: 'report' };
     const index = Number(mark.dataset.callout);
