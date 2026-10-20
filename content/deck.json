@@ -283,8 +283,8 @@
           "src": "assets/telkom-photo.jpg",
           "fit": "cover",
           "focus": [
-            100,
-            50
+            50,
+            100
           ],
           "label": "Telkom photo"
         }

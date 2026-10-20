@@ -1,5 +1,5 @@
-// Slide 2: credibility at a glance. Full-height Telkom photo on the left, the
-// numbers on the right (2x2, "Results in" sits above "1 day").
+// Slide 2: credibility at a glance. Headline and the numbers on the left (2x2,
+// "Results in" sits above "1 day"), the Telkom group photo as a card on the right.
 import { h, text, imageSlot, slideFrame, fieldAt } from './common.js';
 
 export const name = 'proof';

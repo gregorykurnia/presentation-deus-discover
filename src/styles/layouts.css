@@ -86,13 +86,17 @@
 .layout-title .title__disc-two { left: 1610px; top: 422px; width: 564px; height: 564px; }
 
 /* ---------- 2. Proof ---------- */
-.layout-proof > .slide-header { left: 860px; }
-.layout-proof .proof__photo { left: 0; top: 0; width: 760px; height: 1080px; border-radius: 0; }
-.layout-proof .proof__headline { left: 860px; top: 170px; width: 920px; height: 210px; }
+/* Text on the left, the group photo as a landscape card on the right, so the
+   whole group fits: a full-height panel cut people off. */
+.layout-proof .proof__photo {
+  left: 1020px; top: 280px; width: 760px; height: 570px; border-radius: var(--radius);
+  box-shadow: 0 24px 48px -28px rgba(15, 26, 58, 0.55);
+}
+.layout-proof .proof__headline { left: 140px; top: 170px; width: 800px; height: 280px; }
 .layout-proof .proof__stats {
-  left: 860px; top: 430px; width: 920px; height: 490px;
+  left: 140px; top: 480px; width: 800px; height: 480px;
   grid-template-rows: auto auto auto auto auto auto; align-content: start;
-  display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; row-gap: 48px;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; row-gap: 40px;
 }
 .layout-proof .stat { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
 .layout-proof .stat__prefix { font: 500 30px/1.2 var(--font); color: var(--muted); align-self: end; margin-bottom: 6px; }
