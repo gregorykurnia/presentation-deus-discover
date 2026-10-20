@@ -80,6 +80,7 @@
 .layout-title .title__prep { left: 140px; bottom: 100px; display: flex; align-items: center; gap: 32px; }
 .layout-title .title__prepared { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; max-width: 1000px; }
 .layout-title .title__client { width: 260px; height: 104px; border-radius: var(--radius-sm); }
+.layout-title .title__client > img { object-position: left center; }
 .layout-title .title__client .img-missing { padding: 12px; }
 .layout-title .title__disc-one { left: 1430px; top: 120px; width: 564px; height: 564px; }
 .layout-title .title__disc-two { left: 1610px; top: 422px; width: 564px; height: 564px; }

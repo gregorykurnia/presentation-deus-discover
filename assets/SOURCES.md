@@ -19,7 +19,8 @@ available (same filenames).
 | `extra/report-competency-scores.jpg` | DEUS p19 | 773×524 | Competency vs norm; stitching seam removed |
 | `extra/personality-forest.jpg` | DEUS p7 | 755×473 | Alternate Heroes scene |
 | `extra/cognitive-*.jpg` | DEUS p8, p9 | — | Alternate cognitive games |
+| `client-pizza-hut.png` | Supplied directly (Pizza Hut logo file) | 488×409 | White background made transparent (soft edges kept); untouched copy in `client-pizza-hut-original.png` |
 | `fonts/dm-sans-latin-opsz-normal.woff2` | `@fontsource-variable/dm-sans` 5.3.0 (npm) | — | Variable (wght 100–1000, opsz), latin, normal; SIL OFL 1.1, see `fonts/LICENSE-OFL.txt` |
 
-Missing (not in either PDF): `demo.mp4`, `demo-poster.jpg`, client logo, QR code.
+Missing (not in either PDF): `demo.mp4`, `demo-poster.jpg`, QR code.
 Rule: no Agaté / Level Up branding anywhere in the deck.

@@ -145,7 +145,9 @@ describe('renderDeck', () => {
   });
 
   it('renders a labeled .img-missing box when an image src is null', () => {
-    const els = renderDeck(seed, ctx());
+    const deck = clone();
+    Object.assign(slideOf(deck, 's-title').images.clientLogo, { src: null, label: 'Client logo' });
+    const els = renderDeck(deck, ctx());
     const client = byId(els, 's-title').querySelector('[data-image="clientLogo"]');
     expect(client.querySelector('img')).toBeNull();
     expect(client.querySelector('.img-missing').textContent).toContain('Client logo');

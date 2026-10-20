@@ -10,7 +10,7 @@
       "fields": {
         "headline": "DEUS Game-Based Assessment",
         "subtitle": "Fit the role, they perform. Fit your company, they stay.",
-        "preparedFor": "Prepared for: Pizza Hut"
+        "preparedFor": "Prepared for"
       },
       "images": {
         "logo": {
@@ -23,13 +23,13 @@
           "label": "DEUS logo"
         },
         "clientLogo": {
-          "src": null,
+          "src": "assets/client-pizza-hut.png",
           "fit": "contain",
           "focus": [
             50,
             50
           ],
-          "label": "Client logo"
+          "label": "Pizza Hut logo"
         }
       },
       "notes": "Open with: \"Most tests only check if someone can do the job. We also check if they belong in your company.\""
