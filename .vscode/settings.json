@@ -1,0 +1,10 @@
+{
+  "terminal.integrated.profiles.linux": {
+    "tmux": {
+      "path": "tmux",
+      "args": ["new-session"],
+      "icon": "terminal-tmux"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "tmux"
+}
