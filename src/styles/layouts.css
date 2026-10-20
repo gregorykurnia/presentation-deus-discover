@@ -1,0 +1,232 @@
+/* =====================================================================
+   Layouts: positions and layout-specific styling for the 13 templates in
+   src/layouts/. Load AFTER daybreak.css (it uses its tokens and classes).
+
+   Geometry (1920 x 1080): side margins 140 (x 140-1780). Content slides
+   have the header at y 56-128 and their body inside y 170-980. Text boxes
+   marked [data-fit] get a fixed height here, so growth shows up as
+   scrollHeight > clientHeight (QA / editor warning) instead of shrinking.
+   Nothing on a slide is smaller than 26px; headlines are 60px or more.
+   ===================================================================== */
+
+/* ---------- Shared pieces ---------- */
+.slide { --soft-line: rgba(15, 26, 58, 0.14); }
+.slide > :not(.slide-header) { position: absolute; }
+.slide .line { display: block; }
+.slide h2, .slide h1 { text-wrap: balance; }
+.slide p, .slide li { text-wrap: pretty; }
+.slide cite { font-style: normal; }
+.slide--hidden { opacity: 0.45; }
+
+.arrow { display: inline-block; width: 40px; height: 24px; flex: none; color: var(--muted); }
+
+/* Lists: one item per line, generous rhythm, no cards. */
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.list__item { position: relative; font: 500 36px/1.3 var(--font); }
+.list--rule .list__item { padding: 30px 0 30px 64px; border-top: 2px solid var(--soft-line); }
+.list--rule .list__item:last-child { border-bottom: 2px solid var(--soft-line); }
+.list--rule .list__item::before {
+  content: ""; position: absolute; left: 0; top: calc(30px + 0.65em - 3px);
+  width: 36px; height: 6px; border-radius: 3px; background: var(--cobalt);
+}
+.list--check { gap: 26px; }
+.list--check .list__item { padding-left: 64px; font-size: 34px; }
+.list--check .list__item::before {
+  content: ""; position: absolute; left: 0; top: calc(0.65em - 18px);
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--sky) no-repeat center / 22px 22px
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%232D5BFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.list--plain { gap: 14px; }
+.list--plain .list__item { padding-left: 36px; font-size: 32px; }
+.list--plain .list__item::before {
+  content: ""; position: absolute; left: 0; top: calc(0.65em - 7px);
+  width: 14px; height: 14px; border-radius: 50%; background: var(--cobalt);
+}
+
+/* Step flow: pills joined by arrows; the last step is the accent. */
+.flow { display: flex; align-items: center; gap: 20px; white-space: nowrap; }
+.flow__step { padding: 20px 30px; box-shadow: 0 10px 30px -18px rgba(15, 26, 58, 0.4); }
+
+/* Quotes: coral mark, Bahasa text verbatim, attribution muted. */
+.quote { margin: 0; padding-left: 72px; }
+.quote::before {
+  content: ""; position: absolute; left: 0; top: 4px; width: 44px; height: 36px;
+  background: no-repeat center / contain
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 36'%3E%3Cpath fill='%23FF6F4E' d='M0 36V22C0 9.5 6 2.5 18 0l2 6c-6 2-9 6-9.5 11H19v19H0zm25 0V22c0-12.5 6-19.5 18-22l1 6c-6 2-9 6-9.5 11H44v19H25z'/%3E%3C/svg%3E");
+}
+.quote__text { font: 500 30px/1.4 var(--font); color: var(--ink); }
+.quote__by { display: block; margin-top: 14px; font: 600 26px/1.3 var(--font); color: var(--muted); }
+.quote--large { padding-left: 0; padding-top: 64px; }
+.quote--large .quote__text { font-size: 40px; line-height: 1.32; font-weight: 500; letter-spacing: -0.01em; }
+
+.footer-line { font: 500 30px/1.3 var(--font); color: var(--muted); }
+.small-print { font: 500 var(--fs-small)/1.35 var(--font); color: var(--muted); }
+
+/* ---------- 1. Title ---------- */
+.layout-title .title__logo { left: 140px; top: 80px; width: 223px; height: 180px; border-radius: 0; }
+.layout-title .title__logo > img { object-position: left center; }
+.layout-title .title__headline { left: 140px; top: 330px; width: 1400px; height: 230px; }
+.layout-title .title__subtitle { left: 140px; top: 600px; width: 1200px; height: 96px; }
+.layout-title .title__prep { left: 140px; bottom: 100px; display: flex; align-items: center; gap: 32px; }
+.layout-title .title__prepared { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; }
+.layout-title .title__client { width: 260px; height: 104px; border-radius: var(--radius-sm); }
+.layout-title .title__client .img-missing { padding: 12px; }
+.layout-title .title__disc-one { left: 1430px; top: 120px; width: 564px; height: 564px; }
+.layout-title .title__disc-two { left: 1610px; top: 422px; width: 564px; height: 564px; }
+
+/* ---------- 2. Proof ---------- */
+.layout-proof > .slide-header { left: 860px; }
+.layout-proof .proof__photo { left: 0; top: 0; width: 760px; height: 1080px; border-radius: 0; }
+.layout-proof .proof__caption { position: absolute; left: 48px; bottom: 48px; height: 52px; background: rgba(255, 255, 255, 0.92); }
+.layout-proof .proof__quote { left: 48px; top: 48px; width: 664px; height: 262px; padding: 40px 44px 40px 116px; }
+.layout-proof .proof__quote::before { left: 44px; top: 46px; }
+.layout-proof .proof__headline { left: 860px; top: 170px; width: 920px; height: 210px; }
+.layout-proof .proof__stats {
+  left: 860px; top: 430px; width: 920px; height: 490px;
+  grid-template-rows: auto auto auto auto auto auto; align-content: start;
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: 56px; row-gap: 48px;
+}
+.layout-proof .stat { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0; }
+.layout-proof .stat__prefix { font: 500 30px/1.2 var(--font); color: var(--muted); align-self: end; margin-bottom: 6px; }
+.layout-proof .stat__value { white-space: nowrap; }
+.layout-proof .stat__label { font: 500 28px/1.3 var(--font); color: var(--muted); margin-top: 12px; }
+
+/* ---------- 3. Problem ---------- */
+.layout-problem .problem__headline { left: 140px; top: 190px; width: 1640px; height: 240px; }
+.layout-problem .problem__headline .line + .line { color: var(--cobalt); }
+.layout-problem .problem__list { left: 140px; top: 480px; width: 1240px; height: 380px; }
+.layout-problem .problem__list .list__item { font-size: 40px; }
+.layout-problem .problem__list .list__item::before { background: var(--coral); }
+.layout-problem .problem__disc { left: 1480px; top: 600px; width: 620px; height: 620px; opacity: 0.6; }
+
+/* ---------- 4. Fit ---------- */
+.layout-fit .fit__headline {
+  left: 140px; top: 180px; width: 620px; height: 200px;
+  font: 700 88px/1.06 var(--font); letter-spacing: -0.025em;
+}
+.layout-fit .fit__disc { width: 580px; height: 580px; top: 150px; }
+.layout-fit .fit__disc--one { left: 780px; }
+.layout-fit .fit__disc--two { left: 1200px; }
+.layout-fit .fit__copy { display: flex; flex-direction: column; justify-content: center; }
+.layout-fit .fit__copy--one { left: 850px; top: 300px; width: 330px; height: 260px; }
+.layout-fit .fit__copy--two { left: 1420px; top: 290px; width: 310px; height: 280px; }
+.layout-fit .fit__title { font: 800 52px/1.05 var(--font); letter-spacing: -0.02em; margin-bottom: 18px; color: var(--ink); }
+.layout-fit .fit__text { font: 500 30px/1.3 var(--font); color: var(--ink); }
+.layout-fit .fit__one-score { left: 1280px; top: 586px; transform: translateX(-50%); padding: 16px 30px; }
+.layout-fit .fit__flow { left: 140px; top: 790px; width: 1640px; height: 90px; }
+.layout-fit .fit__footer { left: 140px; top: 920px; width: 1640px; height: 40px; }
+
+/* ---------- 5. Video ---------- */
+.layout-video .video__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
+.layout-video .video__media { left: 140px; top: 300px; width: 1120px; height: 630px; box-shadow: var(--shadow-glass); background: var(--ink); }
+.layout-video .video__media.img-slot--missing { background: none; box-shadow: none; }
+.layout-video .video__side { left: 1330px; top: 300px; width: 450px; height: 630px; display: flex; flex-direction: column; justify-content: space-between; }
+.layout-video .video__quote { position: relative; height: 330px; }
+.layout-video .video__link { display: flex; flex-direction: column; gap: 20px; }
+.layout-video .video__qr { width: 190px; height: 190px; border-radius: var(--radius-sm); }
+.layout-video .video__qr .img-missing { padding: 16px; }
+.layout-video .video__link-text { font: 600 30px/1.3 var(--font); height: 40px; }
+
+/* ---------- 6. Modules ---------- */
+.layout-modules .modules__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
+.layout-modules .modules__row { left: 140px; top: 300px; width: 1640px; display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 32px; }
+.layout-modules .module__shot { height: 330px; border-radius: var(--radius); box-shadow: 0 24px 48px -28px rgba(15, 26, 58, 0.55); }
+.layout-modules .module__copy { margin-top: 30px; height: 250px; }
+.layout-modules .module__name { font: 700 40px/1.15 var(--font); letter-spacing: -0.015em; }
+.layout-modules .module__measures { margin-top: 10px; min-height: 2.6em; font: 500 28px/1.3 var(--font); color: var(--muted); }
+.layout-modules .module__feeds { margin-top: 18px; display: flex; align-items: center; gap: 14px; font: 600 30px/1.2 var(--font); color: var(--cobalt); }
+.layout-modules .module__arrow { color: var(--cobalt); }
+.layout-modules .modules__footer { left: 140px; top: 916px; width: 1640px; height: 44px; }
+
+/* ---------- 7. Report ---------- */
+.layout-report .report__headline { left: 140px; top: 200px; width: 560px; height: 420px; }
+.layout-report .report__frame { left: 740px; top: 200px; width: 1180px; height: 740px; }
+.layout-report .report__shot {
+  width: 100%; height: 100%; border-radius: var(--radius) 0 0 var(--radius);
+  background: var(--white); box-shadow: var(--shadow-glass);
+}
+.layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
+.layout-report .callout {
+  position: absolute; display: flex; align-items: center; gap: 14px;
+  transform: translate(-16px, -50%); white-space: nowrap;
+}
+.layout-report .callout--left { flex-direction: row-reverse; transform: translate(calc(-100% + 16px), -50%); }
+.layout-report .callout__dot {
+  flex: none; width: 32px; height: 32px; border-radius: 50%;
+  background: var(--coral); border: 6px solid var(--white);
+  box-shadow: 0 0 0 3px var(--coral), 0 8px 20px -6px rgba(15, 26, 58, 0.5);
+}
+.layout-report .callout__label {
+  padding: 12px 22px; border-radius: var(--radius-pill);
+  background: var(--ink); color: var(--white); font: 600 28px/1.1 var(--font);
+  box-shadow: 0 12px 28px -12px rgba(15, 26, 58, 0.6);
+}
+.layout-report .report__footer { left: 140px; top: 870px; height: 70px; }
+
+/* ---------- 8. Trust ---------- */
+.layout-trust .trust__headline { left: 140px; top: 200px; width: 760px; height: 440px; }
+.layout-trust .trust__list { left: 980px; top: 210px; width: 800px; height: 640px; justify-content: center; }
+.layout-trust .trust__list .list__item { font-size: 36px; }
+.layout-trust .trust__disc { left: -180px; top: 700px; width: 640px; height: 640px; opacity: 0.55; }
+
+/* ---------- 9. Package ---------- */
+.layout-package .package__col { top: 170px; height: 720px; }
+.layout-package .package__changes { left: 140px; width: 760px; padding-top: 56px; }
+.layout-package .package__recommended { left: 980px; width: 800px; padding: 56px 60px; }
+.layout-package .package__title { margin-bottom: 44px; }
+.layout-package .package__changes .list--check { gap: 30px; }
+.layout-package .package__modules { margin-bottom: 40px; }
+.layout-package .package__price { padding-top: 36px; border-top: 2px solid var(--soft-line); }
+.layout-package .price { color: var(--ink); }
+.layout-package .price .lead-part { display: block; font: 700 var(--fs-number)/1 var(--font); letter-spacing: -0.03em; color: var(--cobalt); }
+.layout-package .price .rest-part { display: block; margin-top: 8px; font: 600 34px/1.2 var(--font); }
+.layout-package .price__note { margin-top: 14px; font: 500 30px/1.3 var(--font); color: var(--muted); }
+.layout-package .package__small { left: 140px; top: 930px; width: 1640px; height: 36px; }
+
+/* ---------- 10. Pilot ---------- */
+.layout-pilot .pilot__headline { left: 140px; top: 170px; width: 1640px; height: 220px; }
+.layout-pilot .pilot__list { left: 140px; top: 450px; width: 1180px; height: 340px; }
+.layout-pilot .pilot__contact { left: 140px; top: 850px; height: 104px; padding: 0 44px; display: flex; align-items: center; }
+.layout-pilot .pilot__contact-text { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; }
+.layout-pilot .pilot__disc-one { left: 1440px; top: 470px; width: 520px; height: 520px; }
+.layout-pilot .pilot__disc-two { left: 1620px; top: 700px; width: 520px; height: 520px; }
+
+/* ---------- Divider ---------- */
+.layout-divider .divider__headline {
+  left: 140px; top: 430px; width: 1200px; height: 200px;
+  font: 700 160px/1.16 var(--font); letter-spacing: -0.03em;
+}
+.layout-divider .divider__disc-one { left: 1260px; top: 160px; width: 640px; height: 640px; }
+.layout-divider .divider__disc-two { left: 1500px; top: 480px; width: 640px; height: 640px; }
+
+/* ---------- Appendix (A1-A8, A10, A11) ---------- */
+.layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
+.layout-appendix .appendix__measures { left: 140px; top: 296px; width: 1640px; height: 50px; }
+.layout-appendix .appendix__shots { left: 140px; top: 400px; width: 1640px; height: 480px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.layout-appendix .appendix__shot { height: 480px; border-radius: var(--radius); }
+.layout-appendix .appendix__shot:not(.img-slot--missing) { box-shadow: 0 24px 48px -28px rgba(15, 26, 58, 0.55); }
+.layout-appendix .appendix__panel {
+  left: 140px; top: 320px; width: 1640px; height: 560px;
+  display: grid; place-items: center; padding: 60px;
+  border: 2px dashed var(--line); box-shadow: none; background: rgba(255, 255, 255, 0.55);
+}
+.layout-appendix .appendix__placeholder { font: 500 40px/1.35 var(--font); text-align: center; max-width: 1200px; max-height: 480px; }
+.layout-appendix .appendix__list { left: 140px; top: 320px; width: 1200px; height: 620px; }
+.layout-appendix .appendix__flow { left: 140px; top: 420px; width: 1640px; height: 100px; }
+
+/* ---------- A9: Pricing table ---------- */
+.layout-table .table__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
+.layout-table .table__subtitle { left: 140px; top: 268px; width: 1640px; height: 50px; }
+.layout-table .table__panel { left: 140px; top: 350px; width: 1640px; padding: 20px 56px; }
+.layout-table .price-table { width: 100%; height: 486px; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.layout-table .price-table th, .layout-table .price-table td { padding: 0 8px; text-align: left; }
+.layout-table .price-table .num { text-align: right; }
+.layout-table .price-table th { height: 86px; font: 600 28px/1.2 var(--font); color: var(--muted); border-bottom: 2px solid var(--soft-line); }
+.layout-table .price-table td { height: 100px; font: 500 38px/1.2 var(--font); border-bottom: 2px solid var(--soft-line); }
+.layout-table .price-table tbody tr:last-child td { border-bottom: 0; font-weight: 700; }
+.layout-table .price-table td.num { font-weight: 600; }
+.layout-table .table__footer { left: 140px; top: 916px; width: 1640px; height: 40px; }
+
+/* ---------- Unknown layout ---------- */
+.slide-error { left: 140px; top: 300px; width: 1640px; height: 500px; }
