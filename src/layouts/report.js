@@ -17,7 +17,8 @@ export function render(slide, ctx) {
       'data-no-overlap': 'callouts',
     }, h('span', { class: 'callout__dot', 'aria-hidden': 'true' }), label);
     mark.style.left = `${c.x}%`;
-    mark.style.top = `${c.y}%`;
+    // top comes from --y in layouts.css, clamped so the label stays inside the screenshot.
+    mark.style.setProperty('--y', `${c.y}%`);
     return mark;
   });
   el.append(

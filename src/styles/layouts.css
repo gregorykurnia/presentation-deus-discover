@@ -156,6 +156,13 @@
   background: var(--white); box-shadow: var(--shadow-glass);
 }
 .layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
+/* The dot sits at --y (percent of the screenshot, from deck.json). It is clamped to
+   --callout-half from the top and bottom edges: half the label pill (12 + 12 padding,
+   28px x 1.1 text = 55px) plus 8px, so a label never pokes over the screenshot's edge. */
+.layout-report .callout {
+  --callout-half: 36px;
+  top: clamp(var(--callout-half), var(--y, 50%), calc(100% - var(--callout-half)));
+}
 .layout-report .callout {
   position: absolute; display: flex; align-items: center; gap: 14px;
   transform: translate(-16px, -50%); white-space: nowrap;

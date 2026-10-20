@@ -209,7 +209,7 @@ describe('renderDeck', () => {
     callouts.forEach((c, i) => {
       expect(c.dataset.callout).toBe(String(i));
       expect(c.style.left).toBe(`${spec[i].x}%`);
-      expect(c.style.top).toBe(`${spec[i].y}%`);
+      expect(c.style.getPropertyValue('--y')).toBe(`${spec[i].y}%`);
       expect(c.textContent).toContain(spec[i].label);
       expect(c.dataset.noOverlap).toBe('callouts');
     });
