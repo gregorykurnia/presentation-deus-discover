@@ -111,7 +111,7 @@
 
 /* ---------- 4. Fit ---------- */
 .layout-fit .fit__headline {
-  left: 140px; top: 180px; width: 620px; height: 200px;
+  left: 140px; top: 180px; width: 620px; height: 400px;
   font: 700 88px/1.06 var(--font); letter-spacing: -0.025em;
 }
 .layout-fit .fit__disc { width: 580px; height: 580px; top: 150px; }

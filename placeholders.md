@@ -7,7 +7,7 @@ Slide numbers match the presenter and the PDF (hidden slides skipped). 24 placeh
 
 - [ ] `[Company]` in "Prepared for [Company]" (field `preparedFor`)
 
-## Slide 4: Two kinds of fit. One score.
+## Slide 4: We score each candidate on job fit and culture fit
 
 - [ ] `[X]` in "Profiles ready in [X] days." (field `footer`)
 
