@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <script>
+    const SHOW_PLACEHOLDER_HIGHLIGHT = true; // set to false for the final version
+    globalThis.SHOW_PLACEHOLDER_HIGHLIGHT = SHOW_PLACEHOLDER_HIGHLIGHT; // top-level const is not a globalThis property
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEUS HCS</title>
+  <link rel="stylesheet" href="/src/styles/daybreak.css">
+  <link rel="stylesheet" href="/src/styles/layouts.css">
+  <style>
+    body { margin: 0; }
+    body.present { height: 100vh; overflow: hidden; background: #0b1330; }
+    body.present .slide { position: absolute; left: 0; top: 0; transform-origin: top left; }
+    body.present .slide:not(.is-current) { display: none; }
+    .counter {
+      position: fixed; right: 14px; bottom: 10px; z-index: 10;
+      font: 500 13px/1 "DM Sans", system-ui, sans-serif; color: rgba(255, 255, 255, 0.55);
+      pointer-events: none; user-select: none;
+    }
+    .notes-panel {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; max-height: 38vh; overflow: auto;
+      box-sizing: border-box; padding: 18px 28px 22px;
+      font: 400 18px/1.5 "DM Sans", system-ui, sans-serif; color: #f1f4ff;
+      background: rgba(11, 19, 48, 0.94); border-top: 1px solid rgba(255, 255, 255, 0.15);
+      white-space: pre-wrap;
+    }
+    .notes-panel[hidden] { display: none; }
+  </style>
+</head>
+<body>
+  <div id="deck-root"></div>
+  <script type="module" src="/src/present/present.js"></script>
+</body>
+</html>
