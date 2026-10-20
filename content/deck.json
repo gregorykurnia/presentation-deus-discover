@@ -82,8 +82,7 @@
       "section": "main",
       "hidden": false,
       "fields": {
-        "headline": "From game to fit score in 60 seconds.",
-        "linkLine": "Watch the demo: [link]",
+        "headline": "This is what your candidates play.",
         "quote": "Tidak terasa seperti psikotest. Sangat menyenangkan!",
         "quoteBy": "Telkom MT candidate"
       },
@@ -100,15 +99,6 @@
             50
           ],
           "label": "Demo video poster"
-        },
-        "qr": {
-          "src": null,
-          "fit": "contain",
-          "focus": [
-            50,
-            50
-          ],
-          "label": "QR code to the demo"
         }
       },
       "notes": "\"While she played the balloon game, it measured how she takes risks and learns from mistakes. That feeds directly into her fit.\""

@@ -248,12 +248,13 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    expect(md).toContain('## Slide 3: From game to fit score in 60 seconds.');
-    expect(md).toContain('## Slide 4: We score each candidate on job fit and culture fit');
+    // Slides 3 to 6 have no text placeholders; their asset to-dos carry the new numbers.
+    expect(md).toContain('- [ ] Slide 3: Product demo video');
+    expect(md).toContain('- [ ] Slide 6: Replace report screenshot');
     expect(md).toContain('## Slide 8: What it changes');
     expect(md).not.toContain('Built for Indonesians'); // hidden
     expect(md).not.toContain("See if we pick who you'd pick"); // deleted
-    expect(headings.slice(0, 5)).toEqual(['## Slide 3', '## Slide 4', '## Slide 5', '## Slide 8', '## Slide A1']);
+    expect(headings.slice(0, 2)).toEqual(['## Slide 8', '## Slide A1']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
     const pdf = join(out, 'DEUS-Pitch.pdf');
@@ -261,7 +262,7 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     expect(visible).toHaveLength(20);
     expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+20$/m);
     const page3 = execFileSync('pdftotext', ['-f', '3', '-l', '3', pdf, '-'], { encoding: 'utf8' });
-    expect(page3).toContain('From game to fit score');
+    expect(page3).toContain('This is what your candidates play');
     const all = execFileSync('pdftotext', [pdf, '-'], { encoding: 'utf8' });
     expect(all).not.toContain('Built for Indonesians');
   } finally {

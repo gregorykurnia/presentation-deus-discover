@@ -1,6 +1,6 @@
-// Slide 5: the product working. Present/edit: <video controls>. Print: the
-// poster image + "Watch the demo: [link]" + a QR slot. Edit mode adds the poster
-// as a small slot over the video's corner, so it can be replaced too.
+// Slide 4: the game trailer. Present/edit: <video controls>. Print: the poster
+// image. Edit mode adds the poster as a small slot over the video's corner, so it
+// can be replaced too.
 import { h, text, imageSlot, slideFrame } from './common.js';
 
 export const name = 'video';
@@ -18,12 +18,6 @@ export function render(slide, ctx) {
     h('blockquote', { class: 'quote quote--large video__quote', 'data-fit': true },
       text('p', slide, 'quote', ctx, { class: 'quote__text' }),
       text('cite', slide, 'quoteBy', ctx, { class: 'quote__by' })));
-  // The link and QR are for the PDF; edit mode shows them too so they can be edited.
-  if (ctx.mode !== 'present') {
-    side.append(h('div', { class: 'video__link' },
-      imageSlot(slide, 'qr', ctx, { class: 'video__qr' }),
-      text('p', slide, 'linkLine', ctx, { class: 'video__link-text', fit: true })));
-  }
   el.append(
     text('h2', slide, 'headline', ctx, { class: 't-headline video__headline', fit: true, group: 'main' }),
     media,

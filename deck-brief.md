@@ -81,9 +81,9 @@ Purpose: this is the core idea and our main differentiator. It should be the mos
 Notes: "Same games, different definition of success. Culture fit means your values written down, not 'people like us.'"
 
 ### Slide 5: Video
-Purpose: show the product working, from game to result.
-- Headline: "From game to fit score in 60 seconds."
-- Video: assets/demo.mp4 (with controls). In the PDF, show the poster image assets/demo-poster.jpg plus "Watch the demo: [link]" and a QR code placeholder.
+Purpose: a trailer of the games, showing what candidates actually play.
+- Headline: "This is what your candidates play."
+- Video: assets/demo.mp4, the game trailer (with controls). No link or QR code. In the PDF, show the poster image assets/demo-poster.jpg.
 - Quote: "Tidak terasa seperti psikotest. Sangat menyenangkan!" — Telkom MT candidate
 Notes: "While she played the balloon game, it measured how she takes risks and learns from mistakes. That feeds directly into her fit."
 

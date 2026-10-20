@@ -197,14 +197,13 @@ describe('renderDeck', () => {
     expect(video.querySelector('[data-image="video"] .img-missing').textContent).toContain('Product demo video');
   });
 
-  it('renders poster + "Watch the demo: [link]" + QR slot instead of <video> in print mode', () => {
+  it('renders the poster instead of <video> in print mode, with no link or QR', () => {
     const video = byId(renderDeck(seed, ctx({ mode: 'print', assetBase: './' })), 's-video');
     expect(video.querySelector('video')).toBeNull();
     const poster = video.querySelector('[data-image="poster"] img');
     expect(poster.getAttribute('src')).toBe('./assets/demo-poster.jpg');
-    expect(video.querySelector('[data-field="linkLine"]').textContent).toBe('Watch the demo: [link]');
-    const qr = video.querySelector('[data-image="qr"]');
-    expect(qr.querySelector('.img-missing').textContent).toContain('QR code to the demo');
+    expect(video.querySelector('[data-field="linkLine"]')).toBeNull();
+    expect(video.querySelector('[data-image="qr"]')).toBeNull();
   });
 
   it('plays the report video muted and looping in place of the screenshot and callouts in present mode', () => {

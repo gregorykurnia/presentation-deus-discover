@@ -18,8 +18,7 @@ const md = checklistMarkdown(deck, {
   exists: (p) => existsSync(join(root, p)),
   assetNotes: {
     's-video.video': 'The presenter plays this file with controls; the PDF shows the poster instead.',
-    's-video.poster': 'Shown in the PDF in place of the video (a frame from the demo works well).',
-    's-video.qr': 'Encode the demo link, the same link as "Watch the demo: [link]" on this slide (still a placeholder).',
+    's-video.poster': 'Shown in the PDF in place of the video (a frame from the trailer works well).',
     's-title.clientLogo': 'Per client: add the logo next to "Prepared for" (no company name in the text when the logo is there).',
   },
   extraAssets: [
