@@ -49,7 +49,9 @@
     import { startEditor } from '/src/editor/editor.js';
     import { createLocalStore } from '/src/store/local.js';
     import { imagesPlugin } from '/src/editor/images.js';
-    startEditor({ store: createLocalStore(), plugins: [imagesPlugin] });
+    import { sorterPlugin } from '/src/editor/sorter.js';
+    import { notesPlugin } from '/src/editor/notes.js';
+    startEditor({ store: createLocalStore(), plugins: [imagesPlugin, sorterPlugin, notesPlugin] });
   </script>
 </body>
 </html>

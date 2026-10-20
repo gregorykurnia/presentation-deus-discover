@@ -7,19 +7,26 @@
 // api below before the first render:
 //   api.deck                   the current deck (immutable; never mutate it)
 //   api.apply(nextDeck)        record an edit: undo step + re-render changed slides + autosave
+//   api.edit(nextDeck)         a live edit while typing (notes): re-render + autosave; all
+//                              such edits become one undo step at api.commit() (or the next apply)
+//   api.commit()               ends a live edit; resolves once it is saved
+//   api.onChange(fn)           fn(deck) after every change of api.deck (edits, typing, undo)
 //   api.onRender(fn)           fn(frames) after slides are (re)rendered; frame = .ed-frame,
 //                              its slide is frame.querySelector('.slide')
+//   api.current, api.setCurrent(id), api.onCurrent(fn)
+//                              the slide being worked on (sidebar highlight, notes drawer)
 //   api.frameOf(slideId)       the .ed-frame of a slide
 //   api.canvas                 the column of .ed-frame elements
-//   api.notify(title, lines)   shows a message (an error) above the slides
+//   api.notify(title, lines)   shows a message (an error) above the slides; api.clearNotice()
 //   api.store                  the store adapter (uploadImage, ...)
+//   api.rev                    the draft's saved revision
 //   api.sidebar, api.drawer    empty, hidden regions to fill (unhide them when used)
 import { renderSlide } from '../render.js';
-import { setField, slideLabel, validateDeck } from '../model.js';
+import { setField, slideLabel } from '../model.js';
 import { createHistory } from './history.js';
 import { createAutosave } from './autosave.js';
 import { attachTextEditing, checkFit, makeEditable } from './text.js';
-import { PHASE3_MESSAGE } from '../store/local.js';
+import { attachToolbar } from './toolbar.js';
 
 const CTX = { mode: 'edit', highlight: true, assetBase: '' };
 const SLIDE_W = 1920;
@@ -47,7 +54,6 @@ export async function startEditor({ store, plugins = [], doc = document }) {
   const statusEl = $('.ed-status');
   const notice = $('.ed-notice');
   const buttons = Object.fromEntries([...doc.querySelectorAll('[data-action]')].map((b) => [b.dataset.action, b]));
-  const uploadInput = $('input[data-upload-json]');
 
   // ---------- Messages ----------
   function showNotice(title, lines = [], actions = []) {
@@ -84,6 +90,9 @@ export async function startEditor({ store, plugins = [], doc = document }) {
   history.push(deck);
   const rendered = new WeakMap(); // frame -> { slide, label } it was rendered from
   const renderListeners = [];
+  const changeListeners = [];
+  const currentListeners = [];
+  let current = deck.slides[0]?.id ?? null;
 
   const autosave = createAutosave({
     save: (d, rev) => store.saveDraft(d, rev),
@@ -153,23 +162,60 @@ export async function startEditor({ store, plugins = [], doc = document }) {
     history.push(deck);
   }
 
+  function setCurrent(id) {
+    if (id === current || !slideById(id)) return;
+    current = id;
+    currentListeners.forEach((fn) => fn(id));
+  }
+
+  /** Tells the plugins; when the current slide is gone, the one now at its place is current. */
+  function changed(prev) {
+    if (current && !slideById(current)) {
+      const at = Math.max(0, prev.slides.findIndex((s) => s.id === current));
+      current = null;
+      setCurrent(deck.slides[Math.min(at, deck.slides.length - 1)]?.id);
+    }
+    changeListeners.forEach((fn) => fn(deck));
+  }
+
   function apply(next) {
     commitTyping();
     if (next === deck) return;
+    const prev = deck;
     deck = next;
     history.push(deck);
     sync();
     autosave.schedule(deck);
     updateButtons();
+    changed(prev);
+  }
+
+  function edit(next) {
+    if (next === deck) return;
+    const prev = deck;
+    deck = next;
+    typing = true;
+    sync();
+    autosave.schedule(deck);
+    updateButtons();
+    changed(prev);
+  }
+
+  function commit() {
+    commitTyping();
+    updateButtons();
+    return autosave.flush();
   }
 
   function step(direction) {
     commitTyping();
     const next = direction === 'undo' ? history.undo() : history.redo();
     if (next) {
+      const prev = deck;
       deck = next;
       sync();
       autosave.schedule(deck);
+      changed(prev);
     }
     updateButtons();
   }
@@ -185,6 +231,7 @@ export async function startEditor({ store, plugins = [], doc = document }) {
       autosave.schedule(deck);
       updateFit(frame);
       updateButtons();
+      changeListeners.forEach((fn) => fn(deck));
     },
     onCommit(field) {
       const frame = field.closest('.ed-frame');
@@ -204,52 +251,8 @@ export async function startEditor({ store, plugins = [], doc = document }) {
   });
 
   // ---------- Toolbar ----------
-  for (const name of ['publish', 'lock']) {
-    buttons[name].disabled = true;
-    buttons[name].title = PHASE3_MESSAGE;
-  }
   buttons.undo.addEventListener('click', () => step('undo'));
   buttons.redo.addEventListener('click', () => step('redo'));
-
-  buttons.preview.addEventListener('click', async () => {
-    commitTyping();
-    await autosave.flush();
-    doc.defaultView.open('present.html?source=draft', '_blank');
-  });
-
-  buttons.download.addEventListener('click', async () => {
-    commitTyping();
-    await autosave.flush();
-    const { id, rev: _rev, ...rest } = deck;
-    const json = `${JSON.stringify({ id, rev: autosave.rev, ...rest }, null, 2)}\n`;
-    const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
-    const a = el('a', { href: url, download: 'deck.json' });
-    doc.body.append(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  });
-
-  buttons.upload.addEventListener('click', () => uploadInput.click());
-  uploadInput.addEventListener('change', async () => {
-    const file = uploadInput.files[0];
-    uploadInput.value = '';
-    if (!file) return;
-    let next;
-    try {
-      next = JSON.parse(await file.text());
-    } catch (err) {
-      showNotice(`${file.name} isn't valid JSON, so nothing was changed.`, [err.message]);
-      return;
-    }
-    const errors = validateDeck(next);
-    if (errors.length) {
-      showNotice(`${file.name} can't be used, so nothing was changed:`, errors);
-      return;
-    }
-    notice.hidden = true;
-    apply(next); // one undo step: Ctrl+Z brings the previous deck back
-  });
 
   // ---------- Keys, sizing, leaving ----------
   doc.addEventListener('keydown', (e) => {
@@ -268,7 +271,9 @@ export async function startEditor({ store, plugins = [], doc = document }) {
     canvas.style.setProperty('--stage-w', `${w}px`);
     canvas.style.setProperty('--stage-scale', String(w / SLIDE_W));
   };
-  new ResizeObserver(resize).observe(canvas);
+  // Next frame: resizing the slides changes the canvas height, which would re-notify
+  // the observer inside its own callback (a "ResizeObserver loop" error).
+  new ResizeObserver(() => doc.defaultView.requestAnimationFrame(resize)).observe(canvas);
   resize();
 
   doc.defaultView.addEventListener('beforeunload', (e) => {
@@ -279,14 +284,23 @@ export async function startEditor({ store, plugins = [], doc = document }) {
   const api = {
     get deck() { return deck; },
     apply,
+    edit,
+    commit,
+    onChange(fn) { changeListeners.push(fn); },
     onRender(fn) { renderListeners.push(fn); },
+    get current() { return current; },
+    setCurrent,
+    onCurrent(fn) { currentListeners.push(fn); },
     frameOf,
     canvas,
     notify: (title, lines = []) => showNotice(title, lines),
+    clearNotice() { notice.hidden = true; },
     store,
+    get rev() { return autosave.rev; },
     sidebar: $('.ed-sidebar'),
     drawer: $('.ed-drawer'),
   };
+  attachToolbar(api, { buttons, uploadInput: $('input[data-upload-json]') });
   plugins.forEach((plugin) => plugin(api));
   sync();
   updateButtons();

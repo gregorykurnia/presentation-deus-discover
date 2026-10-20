@@ -157,3 +157,10 @@ export function setImage(deck, slideId, key, patch) {
     images: { ...slide.images, [key]: { ...slide.images?.[key], ...patch } },
   }));
 }
+
+/** Replaces a slide's speaker notes; the same deck when they are unchanged. */
+export function setNotes(deck, slideId, notes) {
+  const value = String(notes ?? '');
+  if (deck.slides[indexOf(deck, slideId)].notes === value) return deck;
+  return withSlide(deck, slideId, (slide) => ({ ...slide, notes: value }));
+}

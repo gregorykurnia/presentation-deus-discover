@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import {
-  setField, moveSlide, setHidden, duplicateSlide, deleteSlide, setImage, slideLabel,
+  setField, moveSlide, setHidden, duplicateSlide, deleteSlide, setImage, setNotes, slideLabel,
 } from '../../src/model.js';
 import { createHistory } from '../../src/editor/history.js';
 
@@ -159,6 +159,29 @@ describe('deleteSlide', () => {
 
   it('throws on an unknown slide id', () => {
     expect(() => deleteSlide(makeDeck(), 'nope')).toThrow(/nope/);
+  });
+});
+
+describe('setNotes', () => {
+  it('replaces the speaker notes of one slide', () => {
+    const { out } = pure((d) => setNotes(d, 'm2', 'Say this.'));
+    expect(out.slides[1].notes).toBe('Say this.');
+  });
+
+  it('shares the other slides with the input deck', () => {
+    const deck = makeDeck();
+    const out = setNotes(deck, 'm2', 'x');
+    expect(out.slides[0]).toBe(deck.slides[0]);
+    expect(out.slides[2]).toBe(deck.slides[2]);
+  });
+
+  it('returns the same deck when the notes are unchanged', () => {
+    const deck = makeDeck();
+    expect(setNotes(deck, 'm2', '')).toBe(deck);
+  });
+
+  it('throws on an unknown slide id', () => {
+    expect(() => setNotes(makeDeck(), 'nope', 'x')).toThrow(/nope/);
   });
 });
 
