@@ -152,13 +152,15 @@
   background: var(--white); box-shadow: var(--shadow-glass);
 }
 .layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
-/* The presenter's clip: a whole card inside the right margin (1780), top on the headline's,
-   as tall as the video's aspect ratio (--clip-ar, set by report.js; 1.75 until it loads),
-   with the footer's bottom on the card's bottom. */
-.layout-report.report--video { --clip-h: min(740px, 1040px / var(--clip-ar, 1.75)); }
-.layout-report.report--video .report__frame { width: 1040px; height: var(--clip-h); }
+/* The presenter's clip: a whole card inside the right margin (1780), as tall as the video's
+   aspect ratio (--clip-ar, set by report.js; 1.75 until it loads). The card and the
+   headline + footer stack (204 + 56 gap + 70 = 330px) share one vertical centre, the
+   middle of the content band (170 to 960), so the slide is balanced whatever the clip's shape. */
+.layout-report.report--video { --clip-h: min(740px, 1040px / var(--clip-ar, 1.75)); --mid: 565px; }
+.layout-report.report--video .report__frame { top: calc(var(--mid) - var(--clip-h) / 2); width: 1040px; height: var(--clip-h); }
 .layout-report.report--video .report__shot { border-radius: var(--radius); }
-.layout-report.report--video .report__footer { top: calc(200px + var(--clip-h) - 70px); }
+.layout-report.report--video .report__headline { top: calc(var(--mid) - 165px); height: 204px; }
+.layout-report.report--video .report__footer { top: calc(var(--mid) - 165px + 260px); }
 /* Once the screenshot has loaded (report.js sets --img-ar, --img-fx, --img-fy and
    data-fit), the callout layer is the image as displayed: object-fit + object-position
    math in container units of the frame. Callout x/y are percents of this box. */
