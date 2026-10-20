@@ -18,6 +18,7 @@ available (same filenames).
 | `extra/report-competency-scores.jpg` | DEUS p19 | 773×524 | Competency vs norm; stitching seam removed |
 | `extra/personality-forest.jpg` | DEUS p7 | 755×473 | Alternate Heroes scene |
 | `extra/cognitive-*.jpg` | DEUS p8, p9 | — | Alternate cognitive games |
+| `fonts/dm-sans-latin-{400,500,600,700}-normal.woff2` | `@fontsource/dm-sans` 5.3.0 (npm) | — | Latin subset, normal style; SIL OFL 1.1, see `fonts/LICENSE-OFL.txt` |
 
 Missing (not in either PDF): `demo.mp4`, `demo-poster.jpg`, client logo, QR code.
 Rule: no Agaté / Level Up branding anywhere in the deck.

@@ -1,0 +1,237 @@
+/* =====================================================================
+   Daybreak, refined: the visual system for every slide.
+   Source: design-options/design-options-v2.html #daybreak (option 1).
+   Slides are 1920 x 1080 px; the presenter scales the whole frame.
+   Layout-specific positioning lives with the layouts, not here.
+
+   Content-slide header markup (the renderer emits it; logo is an <img>
+   so its path resolves against the HTML file, not this stylesheet):
+     <section class="slide slide--content">
+       <header class="slide-header">
+         <img class="slide-header__logo" src="assets/logo-lockup-dark.svg" alt="DEUS">
+         <span class="slide-header__num">02</span>
+       </header>
+       ...
+     </section>
+   ===================================================================== */
+
+/* ---------- Fonts: DM Sans, bundled (latin subset, from @fontsource/dm-sans 5.3.0) ----------
+   "block": fonts are local, so the wait is milliseconds and text never reflows
+   after a fallback font has been measured. */
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url("../../assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url("../../assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 600;
+  font-display: block;
+  src: url("../../assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "DM Sans";
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url("../../assets/fonts/dm-sans-latin-700-normal.woff2") format("woff2");
+}
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Palette (Global Constraints) */
+  --ink: #0F1A3A;
+  --muted: #4B5677;
+  --cobalt: #2D5BFF;
+  --coral: #FF6F4E;
+  --sky: #D3E2FF;
+  --peach: #FFDCCB;
+  --lilac: #ECE4FF;
+  --base: #F7F8FC;          /* gradient ground */
+  --white: #FFFFFF;
+  --mark: #FFE45C;          /* placeholder highlight */
+  --mark-ink: #1A1A1A;
+  --error: #E5252A;         /* .fits-error outline */
+  --glass: rgba(255, 255, 255, 0.8);
+  --line: rgba(15, 26, 58, 0.25);
+
+  /* Discs: mockup stops with HSV saturation x1.15 so they survive projectors.
+     one: #C3D4FF/#93AEFF -> #BACEFF/#83A2FF; two: #FFD3C4/#FFAA90 -> #FFCCBB/#FF9D7F */
+  --disc-one-a: #BACEFF;
+  --disc-one-b: #83A2FF;
+  --disc-two-a: #FFCCBB;
+  --disc-two-b: #FF9D7F;
+
+  /* Type */
+  --font: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --fs-headline-xl: 96px;
+  --fs-headline: 72px;
+  --fs-headline-sm: 60px;   /* MIN_HEADLINE_PX */
+  --fs-lead: 34px;
+  --fs-body: 30px;
+  --fs-small: 26px;         /* MIN_TEXT_PX: nothing on a slide is smaller */
+  --fs-number: 112px;
+
+  /* Slide geometry */
+  --slide-w: 1920px;
+  --slide-h: 1080px;
+  --margin-x: 140px;
+  --content-w: 1640px;      /* slide width minus both side margins */
+  --header-top: 56px;
+  --header-logo-h: 72px;
+
+  /* Shape */
+  --radius-sm: 18px;
+  --radius: 32px;
+  --radius-lg: 40px;
+  --radius-pill: 999px;
+  --shadow-glass: 0 30px 60px -30px rgba(15, 26, 58, 0.35);
+}
+
+/* ---------- Slide frame ---------- */
+.slide {
+  --margin-top: 100px;
+  --margin-bottom: 100px;
+  position: relative;
+  box-sizing: border-box;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  padding: var(--margin-top) var(--margin-x) var(--margin-bottom);
+  overflow: hidden;
+  font-family: var(--font);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  line-height: 1.35;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 900px at -5% -10%, var(--sky) 0%, transparent 62%),
+    radial-gradient(1100px 850px at 105% 110%, var(--peach) 0%, transparent 60%),
+    radial-gradient(900px 700px at 88% 0%, var(--lilac) 0%, transparent 62%),
+    var(--base);
+  -webkit-font-smoothing: antialiased;
+}
+.slide *, .slide *::before, .slide *::after { box-sizing: border-box; }
+.slide :where(h1, h2, h3, h4, p, blockquote, figure, ul, ol, dl, dd) { margin: 0; }
+
+/* Content slides: small "logo · slide number" header, body starts below it. */
+.slide--content { --margin-top: 170px; }
+.slide--content > .slide-header {
+  position: absolute;
+  top: var(--header-top);
+  left: var(--margin-x);
+  right: var(--margin-x);
+  height: var(--header-logo-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.slide-header__logo { display: block; height: var(--header-logo-h); width: auto; }
+.slide-header__num {
+  font: 500 var(--fs-small)/1 var(--font);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Decorative discs (layouts set position and size) ---------- */
+.disc-one, .disc-two { position: absolute; border-radius: 50%; }
+.disc-one { background: radial-gradient(circle at 35% 35%, var(--disc-one-a), var(--disc-one-b)); opacity: 0.8; }
+.disc-two { background: radial-gradient(circle at 60% 40%, var(--disc-two-a), var(--disc-two-b)); opacity: 0.75; }
+
+/* ---------- Type scale ---------- */
+.t-headline-xl { font: 700 var(--fs-headline-xl)/1.08 var(--font); letter-spacing: -0.02em; }
+.t-headline    { font: 700 var(--fs-headline)/1.08 var(--font); letter-spacing: -0.02em; }
+.t-headline-sm { font: 700 var(--fs-headline-sm)/1.12 var(--font); letter-spacing: -0.02em; }
+.t-lead   { font: 500 var(--fs-lead)/1.4 var(--font); color: var(--muted); }
+.t-body   { font: 500 var(--fs-body)/1.35 var(--font); }
+.t-small  { font: 500 var(--fs-small)/1.35 var(--font); }
+.t-number { font: 700 var(--fs-number)/1 var(--font); letter-spacing: -0.03em; color: var(--cobalt); }
+.t-muted  { color: var(--muted); }
+.eyebrow {
+  font: 600 var(--fs-small)/1.2 var(--font);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cobalt);
+}
+
+/* ---------- Pills and glass panels ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 18px 28px;
+  border-radius: var(--radius-pill);
+  background: var(--glass);
+  font: 600 var(--fs-body)/1.1 var(--font);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.pill--sm { padding: 10px 20px; font-size: var(--fs-small); }
+.pill--accent { background: var(--cobalt); color: var(--white); }
+.pill--ink { background: var(--ink); color: var(--white); }
+
+.glass {
+  border-radius: var(--radius);
+  background: var(--glass);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow-glass);
+}
+
+/* ---------- Images ---------- */
+/* Layouts set --img-fit (cover|contain) and --img-focus ("50% 50%") from deck.json. */
+.img-slot { position: relative; overflow: hidden; border-radius: var(--radius-lg); }
+.img-slot > img, .img-slot > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: var(--img-fit, cover);
+  object-position: var(--img-focus, 50% 50%);
+}
+/* A missing file: a clean labeled box saying what goes there. */
+.img-missing {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  border: 2px dashed var(--line);
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.55);
+  font: 500 var(--fs-small)/1.4 var(--font);
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ---------- Placeholders and fit errors ---------- */
+mark.ph, .ph {
+  background: var(--mark);
+  color: var(--mark-ink);
+  padding: 0 0.18em;
+  border-radius: 0.18em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.fits-error { outline: 4px solid var(--error); outline-offset: 6px; }
+
+/* ---------- Print: one slide per page, edge to edge ---------- */
+@page { size: 1920px 1080px; margin: 0; }
+@media print {
+  html, body { margin: 0; padding: 0; background: none; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide {
+    transform: none !important;
+    break-inside: avoid;
+    break-after: page;
+  }
+  .slide:last-of-type { break-after: auto; }
+  .no-print { display: none !important; }
+}
