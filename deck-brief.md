@@ -57,9 +57,8 @@ Notes: Open with: "Most tests only check if someone can do the job. We also chec
 
 ### Slide 2: Proof
 Purpose: build credibility immediately. The numbers should hit hard.
-- Headline: "Telkom Group trusts us with its MT selection. 2 years running."
+- Headline: "Two years in a row, Telkom Group and its subsidiaries have run their MT selection with DEUS."
 - Stats: 1,000+ MT candidates · 7 companies (Telkom + 6 subsidiaries) · 30+ provinces, all at once · Results in 1 day
-- Quote: "Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya." — Ibu Lina, Telkom Group Selection
 - Photo: assets/telkom-photo.jpg, caption "Graha Merah Putih, Bandung"
 Notes: "Before I explain anything, this is what it looks like at scale."
 

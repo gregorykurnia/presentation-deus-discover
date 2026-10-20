@@ -89,8 +89,6 @@
 .layout-proof > .slide-header { left: 860px; }
 .layout-proof .proof__photo { left: 0; top: 0; width: 760px; height: 1080px; border-radius: 0; }
 .layout-proof .proof__caption { position: absolute; left: 48px; bottom: 48px; height: 52px; background: rgba(255, 255, 255, 0.92); }
-.layout-proof .proof__quote { left: 48px; top: 48px; width: 664px; height: 262px; padding: 40px 44px 40px 116px; }
-.layout-proof .proof__quote::before { left: 44px; top: 46px; }
 .layout-proof .proof__headline { left: 860px; top: 170px; width: 920px; height: 210px; }
 .layout-proof .proof__stats {
   left: 860px; top: 430px; width: 920px; height: 490px;
