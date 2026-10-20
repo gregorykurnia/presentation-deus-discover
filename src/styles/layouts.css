@@ -156,6 +156,23 @@
   background: var(--white); box-shadow: var(--shadow-glass);
 }
 .layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
+/* Once the screenshot has loaded (report.js sets --img-ar, --img-fx, --img-fy and
+   data-fit), the callout layer is the image as displayed: object-fit + object-position
+   math in container units of the frame. Callout x/y are percents of this box. */
+.layout-report .report__frame { container-type: size; }
+.layout-report .report__frame--sized .report__callouts {
+  --shown-w: min(100cqw, 100cqh * var(--img-ar));
+  --shown-h: min(100cqh, 100cqw / var(--img-ar));
+  inset: auto;
+  left: calc((100cqw - var(--shown-w)) * var(--img-fx, 0.5));
+  top: calc((100cqh - var(--shown-h)) * var(--img-fy, 0.5));
+  width: var(--shown-w);
+  height: var(--shown-h);
+}
+.layout-report .report__frame--sized[data-fit="cover"] .report__callouts {
+  --shown-w: max(100cqw, 100cqh * var(--img-ar));
+  --shown-h: max(100cqh, 100cqw / var(--img-ar));
+}
 /* The dot sits at --y (percent of the screenshot, from deck.json). It is clamped to
    --callout-half from the top and bottom edges: half the label pill (12 + 12 padding,
    28px x 1.1 text = 55px) plus 8px, so a label never pokes over the screenshot's edge. */

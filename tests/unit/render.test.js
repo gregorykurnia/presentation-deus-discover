@@ -215,6 +215,76 @@ describe('renderDeck', () => {
     });
   });
 
+  it('places the callouts on the displayed screenshot: its aspect ratio, fit and focus go to CSS on load', () => {
+    const deck = clone();
+    deck.slides.find((s) => s.id === 's-report').images.report.focus = [0, 100];
+    const report = byId(renderDeck(deck, ctx()), 's-report');
+    const frame = report.querySelector('.report__frame');
+    const img = frame.querySelector('[data-image="report"] img');
+    // Until the screenshot loads, the callouts use the whole frame.
+    expect(frame.style.getPropertyValue('--img-ar')).toBe('');
+    Object.defineProperty(img, 'naturalWidth', { value: 1600 });
+    Object.defineProperty(img, 'naturalHeight', { value: 800 });
+    img.dispatchEvent(new Event('load'));
+    expect(frame.style.getPropertyValue('--img-ar')).toBe('2');
+    expect(frame.dataset.fit).toBe('contain');
+    expect(frame.style.getPropertyValue('--img-fx')).toBe('0');
+    expect(frame.style.getPropertyValue('--img-fy')).toBe('1');
+  });
+
+  it('adds a "poster" slot to the video slide in edit mode only', () => {
+    const edit = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-video');
+    expect(edit.querySelectorAll('[data-image="poster"]')).toHaveLength(1);
+    expect(edit.querySelectorAll('[data-image="video"]')).toHaveLength(1);
+    const present = byId(renderDeck(seed, ctx()), 's-video');
+    expect(present.querySelector('[data-image="poster"]')).toBeNull();
+  });
+
+  describe('image labels and src values cannot inject HTML', () => {
+    const EVIL = '<img src=x onerror=alert(1)><script>alert(2)</script>';
+
+    it('in a missing-image box', () => {
+      const deck = clone();
+      deck.slides[1].images.photo = { src: null, label: EVIL };
+      const slot = byId(renderDeck(deck, ctx()), 's-proof').querySelector('[data-image="photo"]');
+      expect(slot.querySelector('.img-missing').textContent).toBe(EVIL);
+      expect(slot.querySelectorAll('img, script')).toHaveLength(0);
+    });
+
+    it('in alt text and src attributes', () => {
+      const deck = clone();
+      const evilSrc = 'x.jpg" onerror="alert(1)"><script>alert(2)</script>';
+      deck.slides[1].images.photo = { src: evilSrc, label: EVIL };
+      const slot = byId(renderDeck(deck, ctx()), 's-proof').querySelector('[data-image="photo"]');
+      const imgs = slot.querySelectorAll('img');
+      expect(imgs).toHaveLength(1);
+      expect(imgs[0].getAttribute('src')).toBe(evilSrc);
+      expect(imgs[0].getAttribute('alt')).toBe(EVIL);
+      expect(imgs[0].hasAttribute('onerror')).toBe(false);
+      expect(slot.querySelector('script')).toBeNull();
+    });
+
+    it('in a video and its poster', () => {
+      const deck = clone();
+      const video = deck.slides.find((s) => s.id === 's-video');
+      video.images.video.src = 'a.mp4"><script>alert(1)</script>';
+      video.images.poster.src = 'p.jpg" onload="alert(1)';
+      const slide = byId(renderDeck(deck, ctx({ mode: 'edit' })), 's-video');
+      const v = slide.querySelector('video');
+      expect(v.getAttribute('src')).toBe('a.mp4"><script>alert(1)</script>');
+      expect(v.getAttribute('poster')).toBe('p.jpg" onload="alert(1)');
+      expect(slide.querySelectorAll('script, [onload], [onerror]')).toHaveLength(0);
+    });
+
+    it('in report callout labels', () => {
+      const deck = clone();
+      deck.slides.find((s) => s.id === 's-report').images.report.callouts[0].label = EVIL;
+      const report = byId(renderDeck(deck, ctx()), 's-report');
+      expect(report.querySelector('[data-callout="0"] .callout__label').textContent).toBe(EVIL);
+      expect(report.querySelectorAll('.report__callouts img, .report__callouts script')).toHaveLength(0);
+    });
+  });
+
   it('draws arrows as inline SVG, never the "→" glyph', () => {
     for (const el of renderDeck(seed, ctx())) {
       expect(visibleTextNodes(el).join(''), el.dataset.slideId).not.toContain('→');

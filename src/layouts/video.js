@@ -1,5 +1,6 @@
 // Slide 5: the product working. Present/edit: <video controls>. Print: the
-// poster image + "Watch the demo: [link]" + a QR slot.
+// poster image + "Watch the demo: [link]" + a QR slot. Edit mode adds the poster
+// as a small slot over the video's corner, so it can be replaced too.
 import { h, text, imageSlot, slideFrame } from './common.js';
 
 export const name = 'video';
@@ -9,7 +10,10 @@ export function render(slide, ctx) {
   const print = ctx.mode === 'print';
   const media = print
     ? imageSlot(slide, 'poster', ctx, { class: 'video__media', group: 'main' })
-    : imageSlot(slide, 'video', ctx, { class: 'video__media', group: 'main', tag: 'video', poster: 'poster' });
+    : imageSlot(slide, 'video', ctx, {
+      class: 'video__media', group: 'main', tag: 'video', poster: 'poster',
+      overlay: ctx.mode === 'edit' ? [imageSlot(slide, 'poster', ctx, { class: 'video__poster' })] : undefined,
+    });
   const side = h('div', { class: 'video__side', 'data-no-overlap': 'main' },
     h('blockquote', { class: 'quote quote--large video__quote', 'data-fit': true },
       text('p', slide, 'quote', ctx, { class: 'quote__text' }),

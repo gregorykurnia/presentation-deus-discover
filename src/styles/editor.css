@@ -122,3 +122,68 @@
 .ed-stage .fits-error,
 .ed-stage .fits-error[data-field]:hover,
 .ed-stage .fits-error[data-field]:focus { outline: 4px solid var(--error); outline-offset: 6px; }
+
+/* ---------- Pictures (src/editor/images.js; sizes in slide pixels) ---------- */
+.ed-stage [data-image] { cursor: pointer; }
+/* Only the innermost slot under the pointer (the video's poster sits inside the video). */
+.ed-stage [data-image]:hover:not(:has([data-image]:hover)) { outline: 4px dashed rgba(45, 91, 255, 0.45); outline-offset: -4px; }
+.ed-stage [data-image].ed-pic-active,
+.ed-stage [data-image].ed-drop-target { outline: 5px solid var(--cobalt); outline-offset: -5px; }
+.ed-stage [data-image].ed-drop-target::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: rgba(45, 91, 255, 0.12); pointer-events: none;
+}
+.ed-stage [data-image].ed-uploading { cursor: progress; }
+.ed-stage [data-image].ed-uploading > * { opacity: 0.45; transition: opacity 160ms; }
+/* The video's poster: edit mode only, over the video's top-right corner. */
+.ed-stage .video__poster {
+  position: absolute; top: 24px; right: 24px; z-index: 1;
+  width: 320px; height: 180px; border-radius: var(--radius-sm);
+  background: var(--white); box-shadow: 0 0 0 4px var(--white), 0 16px 32px -16px rgba(15, 26, 58, 0.6);
+}
+.ed-stage .video__poster .img-missing { padding: 16px; }
+/* Report callouts can be dragged. */
+.ed-stage .layout-report .callout { pointer-events: auto; cursor: grab; touch-action: none; }
+.ed-stage .layout-report .callout.is-dragging { cursor: grabbing; }
+.ed-stage .layout-report .callout:hover .callout__label,
+.ed-stage .layout-report .callout.is-dragging .callout__label { outline: 4px solid var(--cobalt); outline-offset: 4px; }
+
+/* ---------- Picture popover (screen pixels) ---------- */
+.ed-pic {
+  position: absolute; z-index: 30; width: 296px; padding: 14px;
+  background: var(--ed-panel); border: 1px solid var(--ed-line); border-radius: 14px;
+  box-shadow: 0 1px 2px rgba(15, 26, 58, 0.08), 0 24px 48px -24px rgba(15, 26, 58, 0.45);
+  color: var(--ink); font: 500 13px/1.4 var(--font);
+}
+.ed-pic__head { display: flex; align-items: center; gap: 8px; margin: -2px -4px 10px 2px; }
+.ed-pic__title { flex: 1; min-width: 0; margin: 0; font-weight: 600; font-size: 14px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ed-pic__close {
+  flex: none; width: 28px; height: 28px; border: 0; border-radius: 50%;
+  background: transparent; color: var(--muted); font: 400 20px/1 var(--font); cursor: pointer;
+}
+.ed-pic__close:hover { background: var(--ed-bg); }
+.ed-pic__stage {
+  display: grid; place-items: center; padding: 10px; min-height: 120px;
+  background: var(--ed-bg); border-radius: 10px;
+}
+.ed-pic__pad { position: relative; cursor: crosshair; touch-action: none; user-select: none; }
+.ed-pic__thumb { display: block; max-width: 100%; max-height: 168px; border-radius: 6px; box-shadow: 0 0 0 1px var(--ed-line); }
+.ed-pic__dot {
+  position: absolute; width: 22px; height: 22px; padding: 0; transform: translate(-50%, -50%);
+  border: 3px solid var(--white); border-radius: 50%; background: var(--cobalt); cursor: grab;
+  box-shadow: 0 0 0 1px rgba(15, 26, 58, 0.25), 0 3px 8px rgba(15, 26, 58, 0.35);
+}
+.ed-pic__dot:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
+.ed-pic__hint { margin: 8px 2px 12px; color: var(--muted); font-size: 12px; }
+.ed-pic__row { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 2px 14px; }
+.ed-pic__label { color: var(--muted); font-weight: 600; }
+.ed-seg { display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; background: var(--ed-bg); }
+.ed-seg__btn {
+  height: 28px; padding: 0 16px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--muted); font: 600 13px/1 var(--font); cursor: pointer;
+}
+.ed-seg__btn[aria-pressed="true"] { background: var(--ed-panel); color: var(--ink); box-shadow: 0 1px 3px rgba(15, 26, 58, 0.18); }
+.ed-seg__btn:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 1px; }
+.ed-pic__foot { display: flex; align-items: center; gap: 12px; padding-top: 12px; border-top: 1px solid var(--ed-line); }
+.ed-pic__replace { flex: none; white-space: nowrap; }
+.ed-pic__meta { min-width: 0; color: var(--muted); font-size: 12px; line-height: 1.35; }

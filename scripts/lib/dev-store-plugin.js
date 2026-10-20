@@ -1,17 +1,44 @@
 // Dev-only Vite plugin behind src/store/local.js (Ruling R1). The draft is a file:
-// content/deck.json, or the file named by the DECK_FILE env variable (the e2e
-// specs point it at a temp copy).
+// content/deck.json, or the file named by the DECK_FILE env variable. Uploads go
+// to assets/uploads/, or to the UPLOAD_DIR env directory (served at the same
+// /assets/uploads/ URLs). The e2e specs point both at temp paths.
 //   GET  /__deck    -> { deck, locked: false, role: 'editor' }
 //   PUT  /__deck    { deck, expectedRev } -> { rev }  (409 when the file's rev differs)
 //   POST /__upload  raw bytes, content-type image/jpeg|png|webp or video/mp4
 //                   -> { src: 'assets/uploads/<content-hash>.<ext>' }
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, renameSync, writeFileSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { createReadStream, existsSync, mkdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs';
+import { dirname, join, resolve, sep } from 'node:path';
 import { validateDeck } from '../../src/model.js';
 
 const EXTENSIONS = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'video/mp4': 'mp4' };
 const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
+const UPLOAD_URL = '/assets/uploads/';
+
+/** The draft file and the upload directory, from the env overrides or the defaults. */
+export function storePaths(root, env = process.env) {
+  return {
+    deckFile: resolve(root, env.DECK_FILE || 'content/deck.json'),
+    uploadDir: resolve(root, env.UPLOAD_DIR || 'assets/uploads'),
+  };
+}
+
+/**
+ * The uploaded file a /assets/uploads/<name> URL path names in uploadDir:
+ * { file, type }, or null for other paths, missing files and paths that would
+ * leave uploadDir.
+ */
+export function uploadedFile(uploadDir, urlPath) {
+  if (!urlPath.startsWith(UPLOAD_URL)) return null;
+  let name;
+  try { name = decodeURIComponent(urlPath.slice(UPLOAD_URL.length)); } catch { return null; }
+  const dir = resolve(uploadDir);
+  const file = resolve(dir, name);
+  if (!name || !file.startsWith(dir + sep) || !existsSync(file) || !statSync(file).isFile()) return null;
+  const ext = file.slice(file.lastIndexOf('.') + 1).toLowerCase();
+  const type = Object.keys(EXTENSIONS).find((t) => EXTENSIONS[t] === ext) ?? 'application/octet-stream';
+  return { file, type };
+}
 
 /** The request handlers as plain functions: each returns { status, json }. */
 export function createDeckHandlers({ deckFile, uploadDir, uploadPrefix = 'assets/uploads/' }) {
@@ -78,9 +105,12 @@ export function devStorePlugin() {
     apply: 'serve',
     configureServer(server) {
       const root = server.config.root;
-      const deckFile = resolve(root, process.env.DECK_FILE || 'content/deck.json');
-      const api = createDeckHandlers({ deckFile, uploadDir: join(root, 'assets', 'uploads') });
+      const { deckFile, uploadDir } = storePaths(root);
+      // Vite serves assets/uploads/ itself; another upload dir is served here at the same URLs.
+      const ownUploadDir = uploadDir !== resolve(root, 'assets/uploads');
+      const api = createDeckHandlers({ deckFile, uploadDir });
       server.config.logger.info(`  deck draft: ${deckFile}`);
+      if (ownUploadDir) server.config.logger.info(`  uploads: ${uploadDir}`);
       if (!existsSync(dirname(deckFile))) mkdirSync(dirname(deckFile), { recursive: true });
 
       server.middlewares.use(async (req, res, next) => {
@@ -93,6 +123,12 @@ export function devStorePlugin() {
           }
           if (path === '/__upload' && req.method === 'POST') {
             return send(res, api.upload(await readBody(req, MAX_UPLOAD_BYTES), req.headers['content-type']));
+          }
+          const uploaded = ownUploadDir && req.method === 'GET' && uploadedFile(uploadDir, path);
+          if (uploaded) {
+            res.setHeader('content-type', uploaded.type);
+            res.setHeader('cache-control', 'no-store');
+            return createReadStream(uploaded.file).pipe(res);
           }
         } catch (err) {
           const status = err.status ?? (err instanceof SyntaxError ? 400 : 500);

@@ -48,7 +48,8 @@
     // The store adapter is chosen here: local (dev server, Phase 2) now, Firebase in Phase 3.
     import { startEditor } from '/src/editor/editor.js';
     import { createLocalStore } from '/src/store/local.js';
-    startEditor({ store: createLocalStore() });
+    import { imagesPlugin } from '/src/editor/images.js';
+    startEditor({ store: createLocalStore(), plugins: [imagesPlugin] });
   </script>
 </body>
 </html>

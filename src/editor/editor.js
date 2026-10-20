@@ -10,6 +10,8 @@
 //   api.onRender(fn)           fn(frames) after slides are (re)rendered; frame = .ed-frame,
 //                              its slide is frame.querySelector('.slide')
 //   api.frameOf(slideId)       the .ed-frame of a slide
+//   api.canvas                 the column of .ed-frame elements
+//   api.notify(title, lines)   shows a message (an error) above the slides
 //   api.store                  the store adapter (uploadImage, ...)
 //   api.sidebar, api.drawer    empty, hidden regions to fill (unhide them when used)
 import { renderSlide } from '../render.js';
@@ -279,6 +281,8 @@ export async function startEditor({ store, plugins = [], doc = document }) {
     apply,
     onRender(fn) { renderListeners.push(fn); },
     frameOf,
+    canvas,
+    notify: (title, lines = []) => showNotice(title, lines),
     store,
     sidebar: $('.ed-sidebar'),
     drawer: $('.ed-drawer'),

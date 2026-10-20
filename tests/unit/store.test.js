@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { mkdtempSync, readFileSync, writeFileSync, existsSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { createDeckHandlers } from '../../scripts/lib/dev-store-plugin.js';
+import { createDeckHandlers, storePaths, uploadedFile } from '../../scripts/lib/dev-store-plugin.js';
 import { createLocalStore, PHASE3_MESSAGE } from '../../src/store/local.js';
 import { ConflictError, CONFLICT_MESSAGE } from '../../src/store/errors.js';
 
@@ -69,6 +69,38 @@ describe('dev store handlers (file-backed draft, Ruling R1)', () => {
     const res = api.upload(Buffer.from('x'), 'image/gif');
     expect(res.status).toBe(415);
     expect(existsSync(uploadDir)).toBe(false);
+  });
+});
+
+describe('dev store paths (env overrides)', () => {
+  it('defaults to content/deck.json and assets/uploads under the root', () => {
+    expect(storePaths('/repo', {})).toEqual({ deckFile: join('/repo', 'content/deck.json'), uploadDir: join('/repo', 'assets/uploads') });
+  });
+
+  it('takes DECK_FILE and UPLOAD_DIR from the environment (the e2e specs use temp dirs)', () => {
+    expect(storePaths('/repo', { DECK_FILE: '.e2e/deck.json', UPLOAD_DIR: '/tmp/up' }))
+      .toEqual({ deckFile: join('/repo', '.e2e/deck.json'), uploadDir: '/tmp/up' });
+  });
+});
+
+describe('serving uploads from another directory', () => {
+  let dir;
+  beforeEach(() => {
+    dir = mkdtempSync(join(tmpdir(), 'deus-up-'));
+    writeFileSync(join(dir, 'abc.jpg'), 'x');
+  });
+  afterEach(() => rmSync(dir, { recursive: true, force: true }));
+
+  it('maps /assets/uploads/<name> to the file in the upload dir', () => {
+    expect(uploadedFile(dir, '/assets/uploads/abc.jpg')).toEqual({ file: join(dir, 'abc.jpg'), type: 'image/jpeg' });
+  });
+
+  it('ignores other paths, missing files and anything that leaves the upload dir', () => {
+    expect(uploadedFile(dir, '/assets/logo.png')).toBeNull();
+    expect(uploadedFile(dir, '/assets/uploads/nope.jpg')).toBeNull();
+    expect(uploadedFile(dir, '/assets/uploads/../../etc/passwd')).toBeNull();
+    expect(uploadedFile(dir, '/assets/uploads/%2e%2e/%2e%2e/etc/passwd')).toBeNull();
+    expect(uploadedFile(dir, '/assets/uploads/')).toBeNull();
   });
 });
 
