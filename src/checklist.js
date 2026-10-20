@@ -9,6 +9,15 @@ function textFields(value, path = '') {
   return Object.entries(value).flatMap(([k, v]) => textFields(v, path ? `${path}.${k}` : k));
 }
 
+/** A slide's title: headline, else title, else the first nested block title (package: changes.title), else ''. */
+function slideTitle(slide) {
+  const f = slide.fields ?? {};
+  for (const v of [f.headline, f.title, ...Object.values(f).map((x) => x?.title)]) {
+    if (typeof v === 'string' && v) return v;
+  }
+  return '';
+}
+
 /**
  * Visible slides that contain [placeholders], in deck order:
  * [{ label, slideId, headline, items: [{ text, field, context }] }].
@@ -30,7 +39,7 @@ export function placeholdersBySlide(deck) {
       groups.push({
         label: slideLabel(deck, slide.id),
         slideId: slide.id,
-        headline: typeof slide.fields?.headline === 'string' ? slide.fields.headline : '',
+        headline: slideTitle(slide),
         items,
       });
     }

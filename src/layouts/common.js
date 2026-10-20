@@ -143,9 +143,14 @@ export function arrow(cls = '') {
   return symbol('→', { decorative: true, cls: `arrow ${cls}`.trim() });
 }
 
+/** True for a src that is already a URL (upload or external link), not a repo-relative path. */
+export function isUrlSrc(src) {
+  return /^(data:|blob:|https?:|\/)/.test(src);
+}
+
 /** Resolves an image src against ctx.assetBase (uploads keep their own URL). */
 export function assetUrl(src, ctx) {
-  if (/^(data:|blob:|https?:|\/)/.test(src)) return src;
+  if (isUrlSrc(src)) return src;
   return `${ctx.assetBase ?? ''}${src}`;
 }
 

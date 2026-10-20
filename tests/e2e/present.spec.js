@@ -59,9 +59,75 @@ test('F requests fullscreen', async ({ page }) => {
   expect(await page.evaluate(() => window.__fs)).toBe(1);
 });
 
-test('placeholder highlight flag is a classic global set to true', async ({ page }) => {
-  expect(await page.evaluate(() => globalThis.SHOW_PLACEHOLDER_HIGHLIGHT)).toBe(true);
+test('placeholder highlight flag is the first script and a classic global', async ({ page }) => {
+  // Vite's dev server injects its own module client first; the flag is the first classic script.
+  const first = await page.evaluate(() => document.querySelector('script:not([type="module"])').textContent);
+  expect(first).toMatch(/const SHOW_PLACEHOLDER_HIGHLIGHT = (true|false);/);
+  expect(first).toContain('globalThis.SHOW_PLACEHOLDER_HIGHLIGHT = SHOW_PLACEHOLDER_HIGHLIGHT;');
+  expect(await page.evaluate(() => typeof globalThis.SHOW_PLACEHOLDER_HIGHLIGHT)).toBe('boolean');
+});
+
+test('placeholders are highlighted when the flag is true', async ({ page }) => {
   await expect(page.locator('mark.ph').first()).toBeAttached();
+});
+
+test('flag false: no placeholder is highlighted (variant served with the flag flipped)', async ({ page }) => {
+  await page.route(/\/present\.html(\?.*)?$/, async (route) => {
+    const res = await route.fetch();
+    const body = (await res.text()).replace(
+      /const SHOW_PLACEHOLDER_HIGHLIGHT = true;/,
+      'const SHOW_PLACEHOLDER_HIGHLIGHT = false;',
+    );
+    await route.fulfill({ response: res, body });
+  });
+  await page.goto('/present.html?print');
+  await expect(page.locator('.slide').first()).toBeAttached();
+  expect(await page.evaluate(() => globalThis.SHOW_PLACEHOLDER_HIGHLIGHT)).toBe(false);
+  await expect(page.locator('mark.ph')).toHaveCount(0);
+  // the placeholder text is still there, only unhighlighted
+  expect(await page.evaluate(() => document.body.textContent)).toContain('[Company]');
+});
+
+test('leaving a slide pauses media inside it', async ({ page }) => {
+  await page.evaluate(() => {
+    const v = document.createElement('video');
+    v.id = 'probe';
+    window.__paused = 0;
+    v.pause = () => { window.__paused += 1; };
+    document.querySelector('.slide.is-current').append(v);
+  });
+  await page.keyboard.press('ArrowRight');
+  expect(await page.evaluate(() => window.__paused)).toBe(1);
+});
+
+for (const tag of ['video', 'input', 'textarea', 'select']) {
+  test(`navigation keys are ignored while a <${tag}> has focus`, async ({ page }) => {
+    const first = await currentId(page);
+    await page.evaluate((t) => {
+      const el = document.createElement(t);
+      el.id = 'probe';
+      if (t === 'video') el.controls = true;
+      el.tabIndex = 0;
+      document.querySelector('.slide.is-current').append(el);
+      el.focus();
+    }, tag);
+    await page.keyboard.press('Space');
+    await page.keyboard.press('ArrowRight');
+    await page.keyboard.press('End');
+    expect(await currentId(page)).toBe(first);
+  });
+}
+
+test('navigation keys are ignored in a contenteditable element', async ({ page }) => {
+  const first = await currentId(page);
+  await page.evaluate(() => {
+    const el = document.createElement('div');
+    el.contentEditable = 'true';
+    document.querySelector('.slide.is-current').append(el);
+    el.focus();
+  });
+  await page.keyboard.press('ArrowRight');
+  expect(await currentId(page)).toBe(first);
 });
 
 for (const [w, h] of [[1280, 720], [1000, 900]]) {

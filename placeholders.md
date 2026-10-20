@@ -26,7 +26,7 @@ Slide numbers match the presenter and the PDF (hidden slides skipped). 24 placeh
 - [ ] `[X]` in "Matches [test name] (r = [X])" (field `bullets.2`)
 - [ ] `[names, M.Psi., Psikolog]` in "Designed by [names, M.Psi., Psikolog]" (field `bullets.3`)
 
-## Slide 9
+## Slide 9: What it changes
 
 - [ ] `[X weeks]` in "Shortlist in 1 day, not [X weeks]" (field `changes.bullets.2`)
 - [ ] `[Telkom: X% of MT hires still with the company after Y years]` (field `changes.bullets.3`)

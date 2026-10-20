@@ -70,7 +70,7 @@ test('deck.html is self-contained: no external scripts or stylesheets, flag scri
   expect(html).not.toMatch(/<link[^>]+rel=["']?stylesheet/);
   expect(html).toMatch(/data:font\/woff2;base64,/);
   const firstScript = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-  expect(firstScript).toContain('const SHOW_PLACEHOLDER_HIGHLIGHT = true;');
+  expect(firstScript).toMatch(/const SHOW_PLACEHOLDER_HIGHLIGHT = (true|false);/);
   expect(firstScript).toContain('globalThis.SHOW_PLACEHOLDER_HIGHLIGHT = SHOW_PLACEHOLDER_HIGHLIGHT;');
   expect(html.indexOf('SHOW_PLACEHOLDER_HIGHLIGHT')).toBeLessThan(html.indexOf('type="module"'));
 });

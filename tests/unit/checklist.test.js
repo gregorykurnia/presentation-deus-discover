@@ -40,7 +40,7 @@ describe('placeholdersBySlide', () => {
   it('records the headline when the slide has one', () => {
     const groups = placeholdersBySlide(deck);
     expect(groups.find((g) => g.slideId === 'a1').headline).toBe('One');
-    expect(groups.find((g) => g.slideId === 's3').headline).toBe('');
+    expect(groups.find((g) => g.slideId === 's3').headline).toBe('What'); // no headline: falls back to changes.title
   });
 });
 

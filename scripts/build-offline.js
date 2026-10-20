@@ -12,6 +12,7 @@ import { build } from 'vite';
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { nullMissingSrcs, startsWithFlagScript } from './lib/offline-transform.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const outDir = join(root, 'dist', 'offline');
@@ -37,7 +38,7 @@ function deckSrcs(deck) {
   return found;
 }
 
-/** Ruling R3: srcs whose file is not on disk become null in the built deck (content/deck.json is untouched). */
+/** Ruling R3: repo-relative srcs whose file is not on disk become null in the built deck (content/deck.json is untouched). */
 function nullMissingAssets() {
   return {
     name: 'deus-null-missing-assets',
@@ -45,12 +46,7 @@ function nullMissingAssets() {
     transform(code, id) {
       if (!id.split('?')[0].endsWith(`${join('content', 'deck.json')}`)) return null;
       const deck = JSON.parse(code);
-      const walk = (o) => {
-        if (!o || typeof o !== 'object') return;
-        if (typeof o.src === 'string' && !existsSync(join(root, o.src))) o.src = null;
-        Object.values(o).forEach(walk);
-      };
-      walk(deck);
+      nullMissingSrcs(deck, (p) => existsSync(join(root, p)));
       return { code: JSON.stringify(deck), map: null };
     },
   };
@@ -91,7 +87,7 @@ async function buildHtml() {
 
   const leftover = html.match(/<(script|link)\b[^>]*(src|href)="(?!data:|#)[^"]*"/);
   if (leftover) throw new Error(`deck.html still references an external file: ${leftover[0]}`);
-  if (!/^\s*<script>\s*const SHOW_PLACEHOLDER_HIGHLIGHT = true;/m.test(html.slice(html.indexOf('<head>')))) {
+  if (!startsWithFlagScript(html)) {
     throw new Error('first <script> must be the classic SHOW_PLACEHOLDER_HIGHLIGHT flag script (R1a)');
   }
   return html;

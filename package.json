@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "vitest run",
-    "dev": "vite",
+    "dev": "vite --open /present.html",
     "test:e2e": "playwright test",
     "export:offline": "node scripts/build-offline.js",
     "pdf": "node export-pdf.js",

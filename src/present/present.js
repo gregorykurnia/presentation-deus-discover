@@ -51,6 +51,8 @@ export function startPresenter(deckData, rootEl, options = {}) {
 
   function show(next, { updateHash = true } = {}) {
     const target = Math.min(Math.max(next, 0), slides.length - 1);
+    // A video/audio in the slide being left must not keep playing unseen.
+    slides[index].querySelectorAll('video, audio').forEach((m) => m.pause());
     slides[index].classList.remove('is-current');
     slides[index].style.transform = '';
     index = target;
@@ -69,7 +71,14 @@ export function startPresenter(deckData, rootEl, options = {}) {
     Promise.resolve(result).catch(() => {});
   }
 
+  // Keys that belong to a focused control (video controls, form fields, editable text).
+  function isTypingTarget(el) {
+    return Boolean(el?.closest?.('video, audio, input, textarea, select'))
+      || el?.isContentEditable === true;
+  }
+
   function onKey(event) {
+    if (isTypingTarget(event.target)) return;
     if (event.ctrlKey || event.metaKey || event.altKey) return;
     switch (event.key) {
       case 'ArrowRight': case 'ArrowDown': case 'PageDown': case ' ':
