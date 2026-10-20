@@ -192,6 +192,7 @@ describe('renderDeck', () => {
     expect(v.getAttribute('src')).toBe('./assets/demo.mp4');
     expect(v.getAttribute('poster')).toBe('./assets/demo-poster.jpg');
     expect(video.textContent).not.toContain('Watch the demo');
+    expect(video.querySelector('blockquote')).toBeNull();
     // A video that fails to load becomes the labeled box too.
     v.dispatchEvent(new Event('error'));
     expect(video.querySelector('[data-image="video"] .img-missing').textContent).toContain('Product demo video');

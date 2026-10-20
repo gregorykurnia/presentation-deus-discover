@@ -127,11 +127,12 @@
 .layout-fit .fit__footer { left: 140px; top: 920px; width: 1640px; height: 40px; }
 
 /* ---------- 5. Video ---------- */
-.layout-video .video__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
-.layout-video .video__media { left: 140px; top: 300px; width: 1120px; height: 630px; box-shadow: var(--shadow-glass); background: var(--ink); }
+/* The trailer is a 16:9 screen centred under the headline, from 300px down to the
+   bottom margin (960px). A clip of another shape is letterboxed, never cropped. */
+.layout-video .video__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; text-align: center; }
+.layout-video .video__media { left: 376px; top: 300px; width: 1168px; height: 657px; box-shadow: var(--shadow-glass); background: var(--ink); }
+.layout-video .video__media > video { object-fit: contain; }
 .layout-video .video__media.img-slot--missing { background: none; box-shadow: none; }
-.layout-video .video__side { left: 1330px; top: 300px; width: 450px; height: 630px; display: flex; flex-direction: column; justify-content: center; }
-.layout-video .video__quote { position: relative; height: 330px; }
 
 /* ---------- 6. Modules ---------- */
 .layout-modules .modules__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }

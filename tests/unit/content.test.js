@@ -36,7 +36,6 @@ describe('deck.json structure', () => {
 describe('deck.json content is verbatim from the brief', () => {
   it.each([
     'Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya.',
-    'Tidak terasa seperti psikotest. Sangat menyenangkan!',
     'Rp119,000 per candidate',
     '1,000 applicants ≈ Rp119 juta',
     'Profiles ready in 1 day.',
