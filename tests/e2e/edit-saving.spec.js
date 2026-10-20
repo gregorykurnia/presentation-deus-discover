@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { readDraft, resetDraft, writeDraft } from './helpers/draft.js';
 
 const CONFLICT = 'Someone else changed this deck. Reload to see their changes.';
-const HEADLINE = 'Fit the role, they perform. Fit your company, they stay.';
+const HEADLINE = 'DEUS Game-Based Assessment';
 
 const field = (page, slideId, path) => page.locator(`.slide[data-slide-id="${slideId}"] [data-field="${path}"]`);
 const status = (page) => page.locator('.ed-status');
