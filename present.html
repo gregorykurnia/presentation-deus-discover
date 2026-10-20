@@ -28,6 +28,13 @@
       white-space: pre-wrap;
     }
     .notes-panel[hidden] { display: none; }
+    .present-empty {
+      position: fixed; inset: 0; display: grid; place-content: center; gap: 10px; padding: 24px;
+      text-align: center; font-family: "DM Sans", system-ui, sans-serif; color: #f1f4ff;
+    }
+    .present-empty p { margin: 0; }
+    .present-empty__title { font-size: 28px; font-weight: 700; }
+    .present-empty__text { font-size: 18px; color: rgba(241, 244, 255, 0.7); }
     .load-error { padding: 40px; font: 500 20px/1.5 "DM Sans", system-ui, sans-serif; color: #0F1A3A; }
   </style>
 </head>

@@ -3,7 +3,7 @@
 // (images.report.callouts[] = { label, x, y }; the dot sits at x/y). The
 // percentages are of the screenshot as displayed (after fit and focus), not of
 // the frame, so the dots stay on their features whatever the aspect ratio: once
-// the image loads, its aspect ratio goes to CSS (.report__frame--sized).
+// the image has loaded, its aspect ratio goes to CSS (.report__frame--sized).
 import { h, text, imageSlot, slideFrame, setText } from './common.js';
 
 export const name = 'report';
@@ -37,16 +37,23 @@ export function render(slide, ctx) {
   return el;
 }
 
-/** Hands the displayed image's geometry to CSS: fit, focus now, aspect ratio on load. */
+/**
+ * Hands the displayed image's geometry to CSS: fit and focus now, the aspect ratio
+ * as soon as the image has loaded (right away when it already has, e.g. cached).
+ * The print path (scripts/lib/print-deck.js) waits for .report__frame--sized.
+ */
 function placeOnImage(frame, shot, image = {}) {
   const [fx, fy] = Array.isArray(image.focus) ? image.focus : [50, 50];
   frame.dataset.fit = image.fit ?? 'cover';
   frame.style.setProperty('--img-fx', String(fx / 100));
   frame.style.setProperty('--img-fy', String(fy / 100));
   const img = shot.querySelector('img');
-  img?.addEventListener('load', () => {
-    if (!img.naturalWidth || !img.naturalHeight) return;
+  if (!img) return;
+  const size = () => {
+    if (!img.naturalWidth || !img.naturalHeight) return false;
     frame.style.setProperty('--img-ar', String(img.naturalWidth / img.naturalHeight));
     frame.classList.add('report__frame--sized');
-  }, { once: true });
+    return true;
+  };
+  if (!(img.complete && size())) img.addEventListener('load', size, { once: true });
 }

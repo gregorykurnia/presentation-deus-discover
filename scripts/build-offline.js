@@ -13,9 +13,11 @@ import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statS
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { nullMissingSrcs, startsWithFlagScript } from './lib/offline-transform.js';
+import { paths } from './lib/print-deck.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const outDir = join(root, 'dist', 'offline');
+// dist/offline/ and deck.html, or under DECK_OUT_DIR (see scripts/lib/print-deck.js).
+const outDir = paths.offlineDir;
 
 /** Asset paths used by code rather than deck.json (kept in sync with src/layouts/common.js). */
 const CODE_ASSETS = ['assets/logo-mark-wordmark-dark.svg'];
@@ -38,14 +40,18 @@ function deckSrcs(deck) {
   return found;
 }
 
-/** Ruling R3: repo-relative srcs whose file is not on disk become null in the built deck (content/deck.json is untouched). */
+/**
+ * The deck bundled in place of content/deck.json: the DECK_FILE deck when set.
+ * Ruling R3: repo-relative srcs whose file is not on disk become null in the built
+ * deck (the deck file itself is untouched).
+ */
 function nullMissingAssets() {
   return {
     name: 'deus-null-missing-assets',
     enforce: 'pre', // run before Vite's JSON plugin turns the file into a JS module
     transform(code, id) {
       if (!id.split('?')[0].endsWith(`${join('content', 'deck.json')}`)) return null;
-      const deck = JSON.parse(code);
+      const deck = JSON.parse(readFileSync(paths.deckFile, 'utf8'));
       nullMissingSrcs(deck, (p) => existsSync(join(root, p)));
       return { code: JSON.stringify(deck), map: null };
     },
@@ -106,7 +112,7 @@ async function main() {
     process.exit(1);
   }
 
-  const deck = JSON.parse(readFileSync(join(root, 'content', 'deck.json'), 'utf8'));
+  const deck = JSON.parse(readFileSync(paths.deckFile, 'utf8'));
   const html = await buildHtml();
 
   const assets = [...new Set([...CODE_ASSETS, ...deckSrcs(deck)])].filter((p) => existsSync(join(root, p)));
@@ -118,11 +124,12 @@ async function main() {
     mkdirSync(dirname(join(outDir, p)), { recursive: true });
     cpSync(join(root, p), join(outDir, p));
   }
-  writeFileSync(join(root, 'deck.html'), html);
+  writeFileSync(paths.deckHtml, html);
 
   const kb = (n) => `${(n / 1024).toFixed(0)} KB`;
-  console.log(`deck.html: ${kb(statSync(join(root, 'deck.html')).size)} (repo root, committed)`);
-  console.log(`dist/offline/: deck.html + ${assets.length} assets`);
+  const where = (p) => (relative(root, p).startsWith('..') ? p : relative(root, p));
+  console.log(`${where(paths.deckHtml)}: ${kb(statSync(paths.deckHtml).size)}`);
+  console.log(`${where(outDir)}/: deck.html + ${assets.length} assets`);
   for (const p of assets) console.log(`  ${p}`);
 }
 

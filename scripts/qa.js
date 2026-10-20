@@ -17,7 +17,7 @@ import { pathToFileURL } from 'node:url';
 import { slideLabel } from '../src/model.js';
 import { exportPdf } from '../export-pdf.js';
 import {
-  ensureOfflineBuild, loadDeck, openPrintDeck, pdfIsStale, pdfPageCount, pdfPath, root, visibleCount,
+  ensureOfflineBuild, loadDeck, openPrintDeck, paths, pdfIsStale, pdfPageCount, pdfPath, visibleCount,
 } from './lib/print-deck.js';
 
 const MIN_FONT_PX = 26;
@@ -111,7 +111,7 @@ function message(deck, p) {
 
 /** pdftoppm -> qa/page-NN.png (old pages removed first). Returns the file names. */
 function rasterise() {
-  const dir = join(root, 'qa');
+  const dir = paths.qaDir;
   mkdirSync(dir, { recursive: true });
   for (const f of readdirSync(dir)) if (/^page-\d+\.png$/.test(f)) rmSync(join(dir, f));
   execFileSync('pdftoppm', ['-png', '-scale-to', '1920', pdfPath, join(dir, 'page')]);

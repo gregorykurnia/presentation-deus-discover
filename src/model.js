@@ -56,6 +56,15 @@ export function slideLabel(deck, slideId) {
   return '';
 }
 
+/** A slide's title: headline, else title, else the first nested block title (package: changes.title), else ''. */
+export function slideTitle(slide) {
+  const f = slide.fields ?? {};
+  for (const v of [f.headline, f.title, ...Object.values(f).map((x) => x?.title)]) {
+    if (typeof v === 'string' && v) return v;
+  }
+  return '';
+}
+
 // ---------- Edits ----------
 // Pure: each returns a new deck and never mutates its input. Unchanged slides
 // are shared with the input deck. An unknown slide id throws.

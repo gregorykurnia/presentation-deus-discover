@@ -232,6 +232,24 @@ describe('renderDeck', () => {
     expect(frame.style.getPropertyValue('--img-fy')).toBe('1');
   });
 
+  it('sizes the frame right away when the screenshot is already loaded (no wait for a load event, R5)', () => {
+    const proto = HTMLImageElement.prototype;
+    const saved = ['complete', 'naturalWidth', 'naturalHeight'].map((k) => [k, Object.getOwnPropertyDescriptor(proto, k)]);
+    Object.defineProperty(proto, 'complete', { configurable: true, get: () => true });
+    Object.defineProperty(proto, 'naturalWidth', { configurable: true, get: () => 1600 });
+    Object.defineProperty(proto, 'naturalHeight', { configurable: true, get: () => 1294 });
+    try {
+      const frame = byId(renderDeck(seed, ctx()), 's-report').querySelector('.report__frame');
+      expect(frame.classList.contains('report__frame--sized')).toBe(true);
+      expect(Number(frame.style.getPropertyValue('--img-ar'))).toBeCloseTo(1600 / 1294, 6);
+    } finally {
+      for (const [k, d] of saved) {
+        if (d) Object.defineProperty(proto, k, d);
+        else delete proto[k];
+      }
+    }
+  });
+
   it('adds a "poster" slot to the video slide in edit mode only', () => {
     const edit = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-video');
     expect(edit.querySelectorAll('[data-image="poster"]')).toHaveLength(1);

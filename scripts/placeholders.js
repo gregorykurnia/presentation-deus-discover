@@ -1,11 +1,16 @@
 // Writes placeholders.md: every [bracketed placeholder] left in the deck, by slide
 // number, plus the missing assets and other to-dos before the deck is final.
 //
-//   npm run placeholders
+//   npm run placeholders      (DECK_FILE / DECK_OUT_DIR: see scripts/lib/print-deck.js)
+//
+// The to-dos below name their slides by what is on them (layout, text, picture),
+// so they follow the slides when they move and drop out when a slide is hidden or deleted.
 import { existsSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
-import { checklistMarkdown } from '../src/checklist.js';
-import { loadDeck, root } from './lib/print-deck.js';
+import { join, relative } from 'node:path';
+import { checklistMarkdown, slideHasText } from '../src/checklist.js';
+import { loadDeck, paths, root } from './lib/print-deck.js';
+
+const REPORT_SHOT = 'assets/report-suitability.jpg';
 
 const deck = loadDeck();
 
@@ -19,20 +24,23 @@ const md = checklistMarkdown(deck, {
   },
   extraAssets: [
     {
-      slideId: 's-report',
+      // Only while the report slide still shows today's screenshot.
+      match: (s) => s.layout === 'report' && s.images?.report?.src === REPORT_SHOT,
       text: "Replace report screenshot with one showing all four sections (Role fit, Culture fit, Motivation drivers, Recommendation); today Culture fit points at 'Strength patterns' and Motivation drivers at 'Development risks'. File: `assets/report-suitability.jpg` (same name), then re-check the callout positions in `content/deck.json`.",
     },
   ],
   notes: [
     {
-      slideId: 'a1-profiles',
+      match: (s) => slideHasText(s, '[Example profiles: Finance vs Sales; example using company values]'),
       text: 'The bracket text "[Example profiles: Finance vs Sales; example using company values]" was written as a placeholder for this deck (the brief only says "placeholder"). Replace it with the real example profiles.',
     },
     {
-      text: 'Slides A2 to A5: "[Full measures list]" and the "Matching report section" boxes were written as placeholders for this deck (the brief says "as placeholders"). Replace each with the module\'s real measures list and report section.',
+      match: (s) => slideHasText(s, '[Full measures list]'),
+      text: '"[Full measures list]" and the "Matching report section" boxes were written as placeholders for this deck (the brief says "as placeholders"). Replace each with the module\'s real measures list and report section.',
     },
   ],
 });
 
-writeFileSync(join(root, 'placeholders.md'), md);
-console.log(`placeholders.md written (${md.split('\n').filter((l) => l.startsWith('- [ ]')).length} checklist items)`);
+writeFileSync(paths.placeholders, md);
+const shown = relative(root, paths.placeholders);
+console.log(`${shown.startsWith('..') ? paths.placeholders : shown} written (${md.split('\n').filter((l) => l.startsWith('- [ ]')).length} checklist items)`);

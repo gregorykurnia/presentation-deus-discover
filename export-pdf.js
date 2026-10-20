@@ -5,7 +5,8 @@
 //
 // Loads dist/offline/deck.html?print over file:// (rebuilding it first when it is
 // missing or older than its sources), waits for document.fonts.ready and every
-// image's decode(), prints, and checks the page count equals the visible slides.
+// image's decode() and the report callout sizing (R5), prints, and checks the page
+// count equals the visible slides.
 import { chromium } from '@playwright/test';
 import { pathToFileURL } from 'node:url';
 import {
@@ -22,6 +23,7 @@ function parseSource(argv) {
 export async function exportPdf() {
   ensureOfflineBuild();
   const expected = visibleCount(loadDeck());
+  if (!expected) throw new Error('every slide is hidden, so there is nothing to export');
   const browser = await chromium.launch();
   try {
     const { page, problems } = await openPrintDeck(browser);

@@ -14,6 +14,19 @@ function indexFromHash(hash, count) {
   return Math.min(Math.max(n, 1), count) - 1;
 }
 
+function emptyState(doc) {
+  const box = doc.createElement('div');
+  box.className = 'present-empty';
+  const title = doc.createElement('p');
+  title.className = 'present-empty__title';
+  title.textContent = 'No slides to show';
+  const line = doc.createElement('p');
+  line.className = 'present-empty__text';
+  line.textContent = 'Every slide in this deck is hidden. Show a slide in the editor to present it.';
+  box.append(title, line);
+  return box;
+}
+
 export function startPresenter(deckData, rootEl, options = {}) {
   const win = options.window ?? window;
   const doc = rootEl.ownerDocument;
@@ -31,6 +44,11 @@ export function startPresenter(deckData, rootEl, options = {}) {
   }
 
   doc.body.classList.add('present');
+  if (!slides.length) {
+    // Every slide is hidden: say so calmly instead of failing on slides[0].
+    rootEl.append(emptyState(doc));
+    return { slides, destroy() {} };
+  }
   rootEl.append(...slides);
 
   const counter = doc.createElement('div');

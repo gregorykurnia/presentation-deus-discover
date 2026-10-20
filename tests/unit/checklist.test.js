@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { placeholdersBySlide, missingAssets, checklistMarkdown } from '../../src/checklist.js';
+import { placeholdersBySlide, missingAssets, checklistMarkdown, slidesName, slideHasText } from '../../src/checklist.js';
 
 const deck = {
   id: 't',
@@ -70,5 +70,50 @@ describe('checklistMarkdown', () => {
     expect(section).toContain('- [ ] Slide 1: Client logo');
     expect(section).toContain('- [ ] Slide A1: Screenshot');
     expect(section).toContain('`assets/gone.jpg`');
+  });
+});
+
+describe('slidesName', () => {
+  it('names one slide, a run of slides, or a list', () => {
+    expect(slidesName(['A1'])).toBe('Slide A1');
+    expect(slidesName(['A'])).toBe('Appendix divider');
+    expect(slidesName(['A2', 'A3', 'A4', 'A5'])).toBe('Slides A2 to A5');
+    expect(slidesName(['3', '4'])).toBe('Slides 3 and 4');
+    expect(slidesName(['3', '5', 'A2'])).toBe('Slides 3, 5 and A2');
+  });
+});
+
+describe('checklist to-dos are tied to the slides they are about', () => {
+  const opts = {
+    extraAssets: [{ match: (s) => s.layout === 'package', text: 'Replace the package art.' }],
+    notes: [
+      { match: (s) => slideHasText(s, '[Example]'), text: 'Write the real example.' },
+      { match: (s) => slideHasText(s, '[Hidden]'), text: 'About a hidden slide.' },
+      { slideId: 'gone', text: 'About a deleted slide.' },
+      { slideId: 's2', text: 'About a hidden slide by id.' },
+      { text: 'For the whole deck.' },
+    ],
+  };
+
+  it('names the slide by its current number, wherever it moved', () => {
+    const md = checklistMarkdown(deck, opts);
+    expect(md).toContain('- [ ] Slide 2: Replace the package art.');
+    expect(md).toContain('- [ ] Slide A1: Write the real example.');
+    expect(md).toContain('- [ ] For the whole deck.');
+    const moved = { ...deck, slides: [deck.slides[2], ...deck.slides.filter((_, i) => i !== 2)] };
+    expect(checklistMarkdown(moved, opts)).toContain('- [ ] Slide 1: Replace the package art.');
+  });
+
+  it('skips to-dos about hidden or deleted slides', () => {
+    const md = checklistMarkdown(deck, opts);
+    expect(md).not.toContain('About a hidden slide');
+    expect(md).not.toContain('About a deleted slide');
+    const without = { ...deck, slides: deck.slides.filter((s) => s.id !== 'a1') };
+    expect(checklistMarkdown(without, opts)).not.toContain('Write the real example.');
+  });
+
+  it('lists several matching slides under one to-do', () => {
+    const md = checklistMarkdown(deck, { notes: [{ match: (s) => s.section === 'main', text: 'Check.' }] });
+    expect(md).toContain('- [ ] Slides 1 to 3: Check.');
   });
 });
