@@ -62,11 +62,12 @@ describe('deck.json content is verbatim from the brief', () => {
     for (const p of placeholders) expect(text, p).toContain(p);
   });
 
+  // The deck's slide order may differ from the brief's (the Telkom proof slide moved to 8).
   it('keeps speaker notes verbatim for the main slides', () => {
     const notes = [...brief.matchAll(/^Notes: (.+)$/gm)].map((m) => m[1]);
     expect(notes).toHaveLength(10);
     const main = deck.slides.filter((s) => s.section === 'main');
-    expect(main.map((s) => s.notes)).toEqual(notes);
+    expect(main.map((s) => s.notes).sort()).toEqual(notes.sort());
   });
 
   it('has no branding that must not appear', () => {

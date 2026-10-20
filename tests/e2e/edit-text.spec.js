@@ -72,7 +72,7 @@ test('300 extra characters in a stat label: red outline + "Text doesn\'t fit", s
   await expect(label).toHaveText('MT candidates');
   await expect(box).not.toHaveClass(/fits-error/);
   await expect(warning).toHaveCount(0);
-  await expect.poll(() => readDraft().slides[1].fields.stats[0].label).toBe('MT candidates');
+  await expect.poll(() => readDraft().slides.find((s) => s.id === 's-proof').fields.stats[0].label).toBe('MT candidates');
 
   await page.keyboard.press('Control+Shift+z');
   await expect(label).toHaveText(`MT candidates${' word'.repeat(60)}`);

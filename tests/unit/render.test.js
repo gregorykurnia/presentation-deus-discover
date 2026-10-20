@@ -8,6 +8,7 @@ const seed = JSON.parse(readFileSync(resolve(process.cwd(), 'content/deck.json')
 const clone = () => structuredClone(seed);
 const ctx = (over = {}) => ({ mode: 'present', highlight: true, assetBase: '', ...over });
 const byId = (els, id) => els.find((el) => el.dataset.slideId === id);
+const slideOf = (deck, id) => deck.slides.find((s) => s.id === id);
 
 // Walks a value by a dotted path ("stats.2.label", "table.rows.1.2").
 const at = (obj, path) => path.split('.').reduce((o, k) => (o == null ? o : o[k]), obj);
@@ -67,7 +68,7 @@ describe('renderDeck', () => {
           .toBe('./assets/logo-mark-wordmark-dark.svg');
       }
     }
-    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('02');
+    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('08');
     expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A9');
   });
 
@@ -154,7 +155,7 @@ describe('renderDeck', () => {
 
   it('prefixes image paths with ctx.assetBase but leaves data/blob/http URLs alone', () => {
     const deck = clone();
-    deck.slides[5].images.cognitive.src = 'data:image/png;base64,AAAA';
+    slideOf(deck, 's-modules').images.cognitive.src = 'data:image/png;base64,AAAA';
     const els = renderDeck(deck, ctx({ assetBase: '../' }));
     const proofImg = byId(els, 's-proof').querySelector('[data-image="photo"] img');
     expect(proofImg.getAttribute('src')).toBe('../assets/telkom-photo.jpg');
@@ -164,8 +165,8 @@ describe('renderDeck', () => {
 
   it('applies image fit and focus from deck.json', () => {
     const deck = clone();
-    deck.slides[1].images.photo.focus = [30, 70];
-    deck.slides[1].images.photo.fit = 'contain';
+    slideOf(deck, 's-proof').images.photo.focus = [30, 70];
+    slideOf(deck, 's-proof').images.photo.fit = 'contain';
     const slot = byId(renderDeck(deck, ctx()), 's-proof').querySelector('[data-image="photo"]');
     expect(slot.style.getPropertyValue('--img-fit')).toBe('contain');
     expect(slot.style.getPropertyValue('--img-focus')).toBe('30% 70%');
@@ -263,7 +264,7 @@ describe('renderDeck', () => {
 
     it('in a missing-image box', () => {
       const deck = clone();
-      deck.slides[1].images.photo = { src: null, label: EVIL };
+      slideOf(deck, 's-proof').images.photo = { src: null, label: EVIL };
       const slot = byId(renderDeck(deck, ctx()), 's-proof').querySelector('[data-image="photo"]');
       expect(slot.querySelector('.img-missing').textContent).toBe(EVIL);
       expect(slot.querySelectorAll('img, script')).toHaveLength(0);
@@ -272,7 +273,7 @@ describe('renderDeck', () => {
     it('in alt text and src attributes', () => {
       const deck = clone();
       const evilSrc = 'x.jpg" onerror="alert(1)"><script>alert(2)</script>';
-      deck.slides[1].images.photo = { src: evilSrc, label: EVIL };
+      slideOf(deck, 's-proof').images.photo = { src: evilSrc, label: EVIL };
       const slot = byId(renderDeck(deck, ctx()), 's-proof').querySelector('[data-image="photo"]');
       const imgs = slot.querySelectorAll('img');
       expect(imgs).toHaveLength(1);
@@ -346,7 +347,7 @@ describe('renderDeck', () => {
 
   it('applies the glyphs everywhere text is rendered, with highlighting on or off', () => {
     const deck = clone();
-    deck.slides[2].fields.bullets[0] = 'Score ≤ [X] ≈ fine';
+    slideOf(deck, 's-problem').fields.bullets[0] = 'Score ≤ [X] ≈ fine';
     for (const highlight of [true, false]) {
       const el = byId(renderDeck(deck, ctx({ highlight })), 's-problem');
       expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t))).toEqual([]);
@@ -359,7 +360,7 @@ describe('renderDeck', () => {
 
   it('draws a typed "→" in text as an unsquashed glyph: its box has the viewBox aspect', () => {
     const deck = clone();
-    deck.slides[2].fields.bullets[0] = 'Apply → Play ≤ Score ≈ Hire';
+    slideOf(deck, 's-problem').fields.bullets[0] = 'Apply → Play ≤ Score ≈ Hire';
     const item = byId(renderDeck(deck, ctx()), 's-problem').querySelector('[data-field="bullets.0"]');
     const glyphs = [...item.querySelectorAll('.glyph')];
     expect(glyphs.map((g) => g.getAttribute('aria-label'))).toEqual(['→', '≤', '≈']);
@@ -390,8 +391,8 @@ describe('renderDeck', () => {
 
   it('skips hidden slides in present and print modes, keeps them in edit mode', () => {
     const deck = clone();
-    deck.slides[2].hidden = true;
-    deck.slides[12].hidden = true;
+    slideOf(deck, 's-problem').hidden = true;
+    slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
       expect(ids).toHaveLength(20);
@@ -401,8 +402,8 @@ describe('renderDeck', () => {
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
     expect(edit).toHaveLength(22);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
-    // Numbering follows the visible slides: the fit slide is now number 3.
-    expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('03');
+    // Numbering follows the visible slides: the fit slide is now number 2.
+    expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');
   });
 
   it('renders an unknown layout as a labeled error slide instead of throwing', () => {

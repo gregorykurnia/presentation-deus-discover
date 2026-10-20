@@ -35,48 +35,6 @@
       "notes": "Open with: \"Most tests only check if someone can do the job. We also check if they belong in your company.\""
     },
     {
-      "id": "s-proof",
-      "layout": "proof",
-      "section": "main",
-      "hidden": false,
-      "fields": {
-        "headline": "Telkom Group trusts us with its MT selection. 2 years running.",
-        "stats": [
-          {
-            "value": "1,000+",
-            "label": "MT candidates"
-          },
-          {
-            "value": "7",
-            "label": "companies (Telkom + 6 subsidiaries)"
-          },
-          {
-            "value": "30+",
-            "label": "provinces, all at once"
-          },
-          {
-            "prefix": "Results in",
-            "value": "1 day"
-          }
-        ],
-        "quote": "Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya.",
-        "quoteBy": "Ibu Lina, Telkom Group Selection",
-        "caption": "Graha Merah Putih, Bandung"
-      },
-      "images": {
-        "photo": {
-          "src": "assets/telkom-photo.jpg",
-          "fit": "cover",
-          "focus": [
-            50,
-            50
-          ],
-          "label": "Telkom photo: Graha Merah Putih, Bandung"
-        }
-      },
-      "notes": "\"Before I explain anything, this is what it looks like at scale.\""
-    },
-    {
       "id": "s-problem",
       "layout": "problem",
       "section": "main",
@@ -291,6 +249,48 @@
       },
       "images": {},
       "notes": "\"Don't just trust us. Check it in a pilot.\""
+    },
+    {
+      "id": "s-proof",
+      "layout": "proof",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Telkom Group trusts us with its MT selection. 2 years running.",
+        "stats": [
+          {
+            "value": "1,000+",
+            "label": "MT candidates"
+          },
+          {
+            "value": "7",
+            "label": "companies (Telkom + 6 subsidiaries)"
+          },
+          {
+            "value": "30+",
+            "label": "provinces, all at once"
+          },
+          {
+            "prefix": "Results in",
+            "value": "1 day"
+          }
+        ],
+        "quote": "Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya.",
+        "quoteBy": "Ibu Lina, Telkom Group Selection",
+        "caption": "Graha Merah Putih, Bandung"
+      },
+      "images": {
+        "photo": {
+          "src": "assets/telkom-photo.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Telkom photo: Graha Merah Putih, Bandung"
+        }
+      },
+      "notes": "\"Before I explain anything, this is what it looks like at scale.\""
     },
     {
       "id": "s-package",

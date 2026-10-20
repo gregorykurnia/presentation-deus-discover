@@ -74,17 +74,17 @@ test('drag thumbnail 5 above thumbnail 3: the order, the numbers and Preview fol
   await dragThumb(page, 4, 2);
 
   await expect.poll(() => thumbIds(page)).toEqual(want);
-  await expect(thumbOf(page, 's-video').locator('.ed-thumb__num')).toHaveText('3');
-  await expect(thumbOf(page, 's-problem').locator('.ed-thumb__num')).toHaveText('4');
-  await expect(page.locator('.ed-frame[data-slide-id="s-video"] .ed-frame__label')).toHaveText('Slide 3');
+  await expect(thumbOf(page, 's-modules').locator('.ed-thumb__num')).toHaveText('3');
+  await expect(thumbOf(page, 's-fit').locator('.ed-thumb__num')).toHaveText('4');
+  await expect(page.locator('.ed-frame[data-slide-id="s-modules"] .ed-frame__label')).toHaveText('Slide 3');
   expect(await page.locator('.ed-frame').evaluateAll((els) => els.map((e) => e.dataset.slideId))).toEqual(want);
   await expect.poll(draftIds).toEqual(want);
   await expect(status(page)).toHaveText('Saved');
 
   const shown = await previewOf(context);
   expect(shown.map((s) => s.id)).toEqual(want);
-  expect(shown.find((s) => s.id === 's-video').num).toBe('03');
-  expect(shown.find((s) => s.id === 's-problem').num).toBe('04');
+  expect(shown.find((s) => s.id === 's-modules').num).toBe('03');
+  expect(shown.find((s) => s.id === 's-fit').num).toBe('04');
 
   await page.keyboard.press('Control+z');
   await expect.poll(() => thumbIds(page)).toEqual(SEED_IDS);
@@ -98,14 +98,14 @@ test('dropping a thumbnail where it already is changes nothing (no empty undo st
 });
 
 test('keyboard users move a slide with the up/down buttons; focus stays on the button', async ({ page }) => {
-  const down = tool(thumbOf(page, 's-proof'), 'Move down');
+  const down = tool(thumbOf(page, 's-problem'), 'Move down');
   await down.focus();
   await page.keyboard.press('Enter');
   await expect.poll(() => thumbIds(page)).toEqual(moved(SEED_IDS, 1, 2));
   await expect(down).toBeFocused();
   await page.keyboard.press('Enter');
   await expect.poll(() => thumbIds(page)).toEqual(moved(SEED_IDS, 1, 3));
-  await expect(thumbOf(page, 's-proof').locator('.ed-thumb__num')).toHaveText('4');
+  await expect(thumbOf(page, 's-problem').locator('.ed-thumb__num')).toHaveText('4');
 
   const up = tool(thumbOf(page, 's-title'), 'Move up');
   await expect(up).toBeDisabled();
@@ -115,7 +115,7 @@ test('keyboard users move a slide with the up/down buttons; focus stays on the b
 
 test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidden", the numbers close up', async ({ page, context }) => {
   const thumb = thumbs(page).nth(7);
-  await expect(thumb).toHaveAttribute('data-thumb-id', 's-trust');
+  await expect(thumb).toHaveAttribute('data-thumb-id', 's-proof');
   await tool(thumb, 'Hide slide').click();
 
   await expect(thumb).toHaveClass(/is-hidden/);
@@ -125,14 +125,14 @@ test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidde
   expect(opacity).toBeLessThan(0.7);
   await expect(thumb.locator('.ed-thumb__num')).toHaveText('');
   await expect(thumbOf(page, 's-package').locator('.ed-thumb__num')).toHaveText('8');
-  await expect(page.locator('.ed-frame[data-slide-id="s-trust"] .ed-frame__label')).toHaveText('Hidden');
+  await expect(page.locator('.ed-frame[data-slide-id="s-proof"] .ed-frame__label')).toHaveText('Hidden');
   await expect(tool(thumb, 'Show slide')).toBeVisible();
-  await expect.poll(() => readDraft().slides.find((s) => s.id === 's-trust').hidden).toBe(true);
+  await expect.poll(() => readDraft().slides.find((s) => s.id === 's-proof').hidden).toBe(true);
   await expect(status(page)).toHaveText('Saved');
 
   const shown = await previewOf(context);
   expect(shown).toHaveLength(21);
-  expect(shown.map((s) => s.id)).not.toContain('s-trust');
+  expect(shown.map((s) => s.id)).not.toContain('s-proof');
   expect(shown.find((s) => s.id === 's-package').num).toBe('08');
 
   await tool(thumb, 'Show slide').click();
@@ -142,10 +142,10 @@ test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidde
 
 test('Duplicate puts a copy right after the original', async ({ page }) => {
   await tool(thumbOf(page, 's-fit'), 'Duplicate slide').click();
-  const want = [...SEED_IDS.slice(0, 4), 's-fit-copy', ...SEED_IDS.slice(4)];
+  const want = [...SEED_IDS.slice(0, 3), 's-fit-copy', ...SEED_IDS.slice(3)];
   await expect.poll(() => thumbIds(page)).toEqual(want);
   await expect(page.locator('.ed-frame')).toHaveCount(23);
-  await expect(thumbOf(page, 's-fit-copy').locator('.ed-thumb__num')).toHaveText('5');
+  await expect(thumbOf(page, 's-fit-copy').locator('.ed-thumb__num')).toHaveText('4');
   await expect.poll(draftIds).toEqual(want);
   const draft = readDraft();
   const [a, b] = ['s-fit', 's-fit-copy'].map((id) => draft.slides.find((s) => s.id === id));
@@ -155,7 +155,7 @@ test('Duplicate puts a copy right after the original', async ({ page }) => {
 test('Delete asks inside the page (never a browser confirm()); Cancel keeps the slide, Delete removes it', async ({ page }) => {
   let nativeDialogs = 0;
   page.on('dialog', (d) => { nativeDialogs += 1; d.dismiss(); });
-  const confirm = page.getByRole('dialog', { name: 'Delete slide 3?' });
+  const confirm = page.getByRole('dialog', { name: 'Delete slide 2?' });
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await expect(confirm).toBeVisible();
@@ -188,7 +188,7 @@ test('the notes drawer edits the current slide notes: data-notes and the draft f
   await expect(box).toHaveValue(notesOf('s-title'));
 
   await thumbOf(page, 's-proof').locator('.ed-thumb__view').click();
-  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 2');
+  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 8');
   await expect(box).toHaveValue(notesOf('s-proof'));
   await expect(thumbOf(page, 's-proof')).toHaveClass(/is-current/);
 
@@ -204,7 +204,7 @@ test('the notes drawer edits the current slide notes: data-notes and the draft f
 
   // Scrolling the slides makes the one in view current.
   await page.locator('.ed-frame[data-slide-id="s-modules"]').evaluate((el) => el.scrollIntoView({ block: 'start' }));
-  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 6');
+  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 5');
   await expect(box).toHaveValue(notesOf('s-modules'));
 });
 
@@ -212,7 +212,7 @@ test('typing speaker notes updates data-notes without redrawing the slide or its
   const box = notesBox(page);
   const thumbSlide = thumbOf(page, 's-video').locator('.slide');
   await thumbOf(page, 's-video').locator('.ed-thumb__view').click();
-  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 5');
+  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 4');
   // Mark the drawn elements: a redraw would replace them (and restart the video).
   await canvasSlide(page, 's-video').evaluate((el) => { el.__drawn = 'once'; });
   await thumbSlide.evaluate((el) => { el.__drawn = 'once'; });
@@ -234,13 +234,13 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
   const realFiles = ['content/deck.json', 'placeholders.md', 'deck.html', 'DEUS-Pitch.pdf'];
   const before = realFiles.map((f) => (existsSync(f) ? statSync(f).mtimeMs : null));
 
-  await tool(thumbOf(page, 's-trust'), 'Hide slide').click(); // slide 8
-  await tool(thumbOf(page, 's-video'), 'Move up').click(); // slide 5 -> 4
+  await tool(thumbOf(page, 's-trust'), 'Hide slide').click(); // slide 7
+  await tool(thumbOf(page, 's-video'), 'Move up').click(); // slide 4 -> 3
   await tool(thumbOf(page, 's-pilot'), 'Delete slide').click(); // slide 10
   await page.getByRole('dialog').getByRole('button', { name: 'Delete slide' }).click();
   await expect(status(page)).toHaveText('Saved');
   const draft = readDraft();
-  expect(draft.slides.map((s) => s.id).slice(0, 5)).toEqual(['s-title', 's-proof', 's-problem', 's-video', 's-fit']);
+  expect(draft.slides.map((s) => s.id).slice(0, 5)).toEqual(['s-title', 's-problem', 's-video', 's-fit', 's-modules']);
 
   const out = mkdtempSync(join(tmpdir(), 'deus-sorter-'));
   try {
@@ -248,20 +248,20 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    expect(md).toContain('## Slide 4: From game to fit score in 60 seconds.');
-    expect(md).toContain('## Slide 5: Two kinds of fit. One score.');
+    expect(md).toContain('## Slide 3: From game to fit score in 60 seconds.');
+    expect(md).toContain('## Slide 4: We score each candidate on job fit and culture fit');
     expect(md).toContain('## Slide 8: What it changes');
     expect(md).not.toContain('Built for Indonesians'); // hidden
     expect(md).not.toContain("See if we pick who you'd pick"); // deleted
-    expect(headings.slice(0, 6)).toEqual(['## Slide 1', '## Slide 4', '## Slide 5', '## Slide 6', '## Slide 8', '## Slide A1']);
+    expect(headings.slice(0, 5)).toEqual(['## Slide 3', '## Slide 4', '## Slide 5', '## Slide 8', '## Slide A1']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
     const pdf = join(out, 'DEUS-Pitch.pdf');
     const visible = draft.slides.filter((s) => !s.hidden);
     expect(visible).toHaveLength(20);
     expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+20$/m);
-    const page4 = execFileSync('pdftotext', ['-f', '4', '-l', '4', pdf, '-'], { encoding: 'utf8' });
-    expect(page4).toContain('From game to fit score');
+    const page3 = execFileSync('pdftotext', ['-f', '3', '-l', '3', pdf, '-'], { encoding: 'utf8' });
+    expect(page3).toContain('From game to fit score');
     const all = execFileSync('pdftotext', [pdf, '-'], { encoding: 'utf8' });
     expect(all).not.toContain('Built for Indonesians');
   } finally {

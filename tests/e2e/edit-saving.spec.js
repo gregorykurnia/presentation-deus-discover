@@ -141,7 +141,7 @@ test('Upload JSON with a slide that cannot be drawn lists it and changes nothing
   bad.slides[0].fields.headline = 'From the bad file';
   await uploadInput(page).setInputFiles({ name: 'hand-made.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(bad)) });
   await expect(notice(page)).toContainText("hand-made.json has slides that can't be shown, so nothing was changed");
-  await expect(notice(page)).toContainText('Slide 2 (s-proof)');
+  await expect(notice(page)).toContainText('Slide 8 (s-proof)');
   await expect(field(page, 's-title', 'headline')).toHaveText(HEADLINE);
   await expect(button(page, 'Undo')).toBeDisabled();
 
