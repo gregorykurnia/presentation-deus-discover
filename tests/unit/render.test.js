@@ -139,12 +139,26 @@ describe('renderDeck', () => {
     expect(trust.querySelector('mark.ph')).toBeNull();
   });
 
+  it('renders the package slide as one card per tier and an "includes" strip', () => {
+    const pkg = byId(renderDeck(seed, ctx()), 's-package');
+    expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Personality Assessment Packages');
+    expect(pkg.querySelectorAll('.package__tier')).toHaveLength(4);
+    expect(pkg.querySelector('.package__tiers').style.getPropertyValue('--tiers')).toBe('4');
+    expect(pkg.querySelector('[data-field="tiers.3.price"]').textContent).toBe('Rp15,999,000');
+    expect(pkg.querySelectorAll('.package__includes-list .list__item')).toHaveLength(5);
+    expect(pkg.querySelector('mark.ph')).toBeNull();
+
+    const deck = clone();
+    slideOf(deck, 's-package').fields.tiers.pop();
+    expect(byId(renderDeck(deck, ctx()), 's-package').querySelectorAll('.package__tier')).toHaveLength(3);
+  });
+
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 's-package');
-    expect(on.querySelector('[data-field="changes.bullets.2"] mark.ph').textContent).toBe('[X weeks]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-package');
+    const on = byId(renderDeck(seed, ctx()), 's-pilot');
+    expect(on.querySelector('[data-field="bullets.0"] mark.ph').textContent).toBe('[30–50]');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-pilot');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="changes.bullets.2"]').textContent).toBe('Shortlist in 1 day, not [X weeks]');
+    expect(off.querySelector('[data-field="bullets.0"]').textContent).toBe('[30–50] candidates, [free]');
   });
 
   it('escapes HTML in deck text', () => {
@@ -369,7 +383,7 @@ describe('renderDeck', () => {
     for (const el of [pkg, table]) {
       expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t)), el.dataset.slideId).toEqual([]);
     }
-    const approx = pkg.querySelector('[data-field="recommended.priceNote"] .glyph');
+    const approx = pkg.querySelector('[data-field="tiers.0.perCandidate"] .glyph');
     expect(approx.getAttribute('role')).toBe('img');
     expect(approx.getAttribute('aria-label')).toBe('≈');
     expect(approx.querySelector('svg[aria-hidden="true"] path')).not.toBeNull();
@@ -377,7 +391,7 @@ describe('renderDeck', () => {
     const le = table.querySelector('[data-field="table.columns.1"] .glyph');
     expect(le.getAttribute('aria-label')).toBe('≤');
     // The field's text is unchanged (editor + copy/paste read it back verbatim).
-    expect(pkg.querySelector('[data-field="recommended.priceNote"]').textContent).toBe('1,000 applicants ≈ Rp119 juta');
+    expect(pkg.querySelector('[data-field="tiers.0.perCandidate"]').textContent).toBe('≈ Rp199,800 per candidate');
     expect(table.querySelector('[data-field="table.columns.1"]').textContent).toBe('Starter (≤250 candidates)');
   });
 

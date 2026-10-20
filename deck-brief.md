@@ -113,20 +113,16 @@ Purpose: answer the skeptical psikolog in the room.
   - Established local norms: "Benchmarked on thousands of Indonesian candidates. 100% local data."
 Notes: "Don't just trust us. Check it in a pilot."
 
-### Slide 9: Your package
-Purpose: make the decision easy: show the value and the price together.
-- "What it changes":
-  - Hires who fit the role and your culture
-  - See what drives each person before you hire
-  - Shortlist in 1 day, not [X weeks]
-  - [Telkom: X% of MT hires still with the company after Y years]
-- "Recommended for your [MT program]":
-  - All applicants: Cognitive + Drive & Risk
-  - Finalists: + Job Simulation
-  - Rp119,000 per candidate
-  - 1,000 applicants ≈ Rp119 juta
-- Small print: "Role setup [included]. Minimum order Rp10 juta."
-Notes: Swap the package for each client. Campus: Personality + Cognitive. Leadership: Personality + Drive & Risk.
+### Slide 9: Personality Assessment packages
+Purpose: make the decision easy: show the packages and their prices together.
+- Headline: "Personality Assessment Packages"
+- Four package cards (name, candidates, price, price per candidate, validity):
+  - Pilot: 5 candidates, Rp999,000, ≈ Rp199,800 per candidate, valid 1 month
+  - Business: 28 candidates, Rp4,999,000, ≈ Rp178,500 per candidate, valid 3 months
+  - Growth: 60 candidates, Rp9,999,000, ≈ Rp166,700 per candidate, valid 4 months
+  - Enterprise: 100 candidates, Rp15,999,000, ≈ Rp160,000 per candidate, valid 6 months
+- "Every package includes": Personality profile, Competency profile, Suitability recommendation, 50–60 minute test, Report in 1 working day
+Notes: Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer.
 
 ### Slide 10: Pilot
 Purpose: the ask. They should leave knowing exactly what the next step is.

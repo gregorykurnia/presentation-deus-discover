@@ -213,18 +213,20 @@
 .layout-trust .trust__disc { left: -180px; top: 700px; width: 640px; height: 640px; opacity: 0.55; }
 
 /* ---------- 9. Package ---------- */
-.layout-package .package__col { top: 170px; height: 720px; }
-.layout-package .package__changes { left: 140px; width: 760px; padding-top: 56px; }
-.layout-package .package__recommended { left: 980px; width: 800px; padding: 56px 60px; }
-.layout-package .package__title { margin-bottom: 44px; }
-.layout-package .package__changes .list--check { gap: 30px; }
-.layout-package .package__modules { margin-bottom: 40px; }
-.layout-package .package__price { padding-top: 36px; border-top: 2px solid var(--soft-line); }
-.layout-package .price { color: var(--ink); }
-.layout-package .price .lead-part { display: block; font: 700 var(--fs-number)/1 var(--font); letter-spacing: -0.03em; color: var(--cobalt); }
-.layout-package .price .rest-part { display: block; margin-top: 8px; font: 600 34px/1.2 var(--font); }
-.layout-package .price__note { margin-top: 14px; font: 500 30px/1.3 var(--font); color: var(--muted); }
-.layout-package .package__small { left: 140px; top: 930px; width: 1640px; height: 36px; }
+.layout-package .package__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
+.layout-package .package__tiers { left: 140px; top: 290px; width: 1640px; display: grid; grid-template-columns: repeat(var(--tiers), 1fr); column-gap: 32px; }
+.layout-package .package__tier { height: 520px; padding: 40px 36px 36px; display: flex; flex-direction: column; overflow: hidden; }
+.layout-package .package__name { font: 700 36px/1.15 var(--font); letter-spacing: -0.015em; }
+.layout-package .package__amount { margin-top: 14px; }
+.layout-package .package__number { display: block; font: 700 var(--fs-number)/1 var(--font); letter-spacing: -0.03em; color: var(--cobalt); }
+.layout-package .package__unit { display: block; margin-top: 4px; font: 600 30px/1.2 var(--font); color: var(--muted); }
+.layout-package .package__price { margin-top: 24px; padding-top: 24px; border-top: 2px solid var(--soft-line); font: 700 42px/1.15 var(--font); letter-spacing: -0.01em; white-space: nowrap; }
+.layout-package .package__each { margin-top: 6px; font: 500 var(--fs-small)/1.3 var(--font); color: var(--muted); text-wrap: balance; }
+.layout-package .package__validity { margin-top: auto; align-self: flex-start; padding: 12px 22px; background: var(--sky); font-size: 28px; }
+.layout-package .package__includes { left: 140px; top: 846px; width: 1640px; height: 100px; display: grid; grid-template-columns: 250px 1fr; column-gap: 40px; align-items: start; }
+.layout-package .package__includes-title { font: 700 30px/1.2 var(--font); }
+.layout-package .package__includes-list { display: grid; grid-template-columns: repeat(3, max-content); gap: 18px 56px; }
+.layout-package .package__includes-list .list__item { font-size: 30px; }
 
 /* ---------- 10. Pilot ---------- */
 .layout-pilot .pilot__headline { left: 140px; top: 170px; width: 1640px; height: 220px; }

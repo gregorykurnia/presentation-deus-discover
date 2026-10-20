@@ -248,11 +248,11 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    // Slides 1 to 7 have no text placeholders left; the first heading carries the new number.
-    expect(md).toContain('## Slide 8: What it changes');
+    // The main slides before the pilot have no text placeholders left, and the pilot is deleted,
+    // so the list starts at the appendix.
     expect(md).not.toContain('The science behind the games'); // hidden
     expect(md).not.toContain("See if we pick who you'd pick"); // deleted
-    expect(headings.slice(0, 2)).toEqual(['## Slide 8', '## Slide A1']);
+    expect(headings.slice(0, 2)).toEqual(['## Slide A1', '## Slide A2']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
     const pdf = join(out, 'DEUS-Pitch.pdf');

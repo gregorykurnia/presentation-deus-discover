@@ -297,28 +297,52 @@
       "section": "main",
       "hidden": false,
       "fields": {
-        "changes": {
-          "title": "What it changes",
-          "bullets": [
-            "Hires who fit the role and your culture",
-            "See what drives each person before you hire",
-            "Shortlist in 1 day, not [X weeks]",
-            "[Telkom: X% of MT hires still with the company after Y years]"
-          ]
-        },
-        "recommended": {
-          "title": "Recommended for your [MT program]",
-          "bullets": [
-            "All applicants: Cognitive + Drive & Risk",
-            "Finalists: + Job Simulation"
-          ],
-          "price": "Rp119,000 per candidate",
-          "priceNote": "1,000 applicants ≈ Rp119 juta"
-        },
-        "smallPrint": "Role setup [included]. Minimum order Rp10 juta."
+        "headline": "Personality Assessment Packages",
+        "tiers": [
+          {
+            "name": "Pilot",
+            "amount": "5",
+            "unit": "candidates",
+            "price": "Rp999,000",
+            "perCandidate": "≈ Rp199,800 per candidate",
+            "validity": "Valid 1 month"
+          },
+          {
+            "name": "Business",
+            "amount": "28",
+            "unit": "candidates",
+            "price": "Rp4,999,000",
+            "perCandidate": "≈ Rp178,500 per candidate",
+            "validity": "Valid 3 months"
+          },
+          {
+            "name": "Growth",
+            "amount": "60",
+            "unit": "candidates",
+            "price": "Rp9,999,000",
+            "perCandidate": "≈ Rp166,700 per candidate",
+            "validity": "Valid 4 months"
+          },
+          {
+            "name": "Enterprise",
+            "amount": "100",
+            "unit": "candidates",
+            "price": "Rp15,999,000",
+            "perCandidate": "≈ Rp160,000 per candidate",
+            "validity": "Valid 6 months"
+          }
+        ],
+        "includesTitle": "Every package includes",
+        "includes": [
+          "Personality profile",
+          "Competency profile",
+          "Suitability recommendation",
+          "50–60 minute test",
+          "Report in 1 working day"
+        ]
       },
       "images": {},
-      "notes": "Swap the package for each client. Campus: Personality + Cognitive. Leadership: Personality + Drive & Risk."
+      "notes": "Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer."
     },
     {
       "id": "s-pilot",

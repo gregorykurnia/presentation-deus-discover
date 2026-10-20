@@ -35,8 +35,9 @@ describe('deck.json structure', () => {
 
 describe('deck.json content is verbatim from the brief', () => {
   it.each([
-    'Rp119,000 per candidate',
-    '1,000 applicants ≈ Rp119 juta',
+    'Personality Assessment Packages',
+    'Rp15,999,000',
+    '≈ Rp199,800 per candidate',
     'Profiles ready in 1 day.',
   ])('contains %s', (s) => {
     expect(all).toContain(s);
@@ -56,7 +57,7 @@ describe('deck.json content is verbatim from the brief', () => {
   it('keeps every [bracketed placeholder] from the slides section of the brief, unless filled', () => {
     const slidesPart = brief.slice(brief.indexOf('## Slides'), brief.indexOf('## Step 2'));
     const placeholders = [...new Set(slidesPart.match(/\[[^\]]+\]/g))].filter((p) => !FILLED.includes(p));
-    expect(placeholders.length).toBeGreaterThan(10);
+    expect(placeholders.length).toBeGreaterThan(5);
     for (const p of placeholders) expect(text, p).toContain(p);
   });
 
