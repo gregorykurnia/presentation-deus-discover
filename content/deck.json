@@ -1,0 +1,606 @@
+{
+  "id": "deus-pitch",
+  "rev": 1,
+  "slides": [
+    {
+      "id": "s-title",
+      "layout": "title",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Fit the role, they perform. Fit your company, they stay.",
+        "subtitle": "DEUS Game-Based Assessment · Built around your roles and your culture",
+        "preparedFor": "Prepared for [Company]"
+      },
+      "images": {
+        "logo": {
+          "src": "assets/logo-lockup-dark.svg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "DEUS logo"
+        },
+        "clientLogo": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Client logo"
+        }
+      },
+      "notes": "Open with: \"Most tests only check if someone can do the job. We also check if they belong in your company.\""
+    },
+    {
+      "id": "s-proof",
+      "layout": "proof",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Telkom Group trusts us with its MT selection. 2 years running.",
+        "stats": [
+          {
+            "value": "1,000+",
+            "label": "MT candidates"
+          },
+          {
+            "value": "7",
+            "label": "companies (Telkom + 6 subsidiaries)"
+          },
+          {
+            "value": "30+",
+            "label": "provinces, all at once"
+          },
+          {
+            "prefix": "Results in",
+            "value": "1 day"
+          }
+        ],
+        "quote": "Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya.",
+        "quoteBy": "Ibu Lina, Telkom Group Selection",
+        "caption": "Graha Merah Putih, Bandung"
+      },
+      "images": {
+        "photo": {
+          "src": "assets/telkom-photo.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Telkom photo: Graha Merah Putih, Bandung"
+        }
+      },
+      "notes": "\"Before I explain anything, this is what it looks like at scale.\""
+    },
+    {
+      "id": "s-problem",
+      "layout": "problem",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Today's psikotes checks if they can do the job. Not if they'll fit, or stay.",
+        "bullets": [
+          "Candidates memorize the answers",
+          "Results aren't tied to your roles or your culture",
+          "Wrong fits leave after you've invested in them"
+        ]
+      },
+      "images": {},
+      "notes": "Ask: \"How many of your last MT batch are still with you?\" Then listen."
+    },
+    {
+      "id": "s-fit",
+      "layout": "fit",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Two kinds of fit. One score.",
+        "roleFit": {
+          "title": "Role fit",
+          "text": "Can they succeed in this job?"
+        },
+        "cultureFit": {
+          "title": "Culture fit",
+          "text": "Do they share your values and way of working?"
+        },
+        "steps": [
+          "Your roles + your values",
+          "Success profile",
+          "Candidates play",
+          "Suitability score"
+        ],
+        "footer": "Profiles ready in [X] days."
+      },
+      "images": {},
+      "notes": "\"Same games, different definition of success. Culture fit means your values written down, not 'people like us.'\""
+    },
+    {
+      "id": "s-video",
+      "layout": "video",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "From game to fit score in 60 seconds.",
+        "linkLine": "Watch the demo: [link]",
+        "quote": "Tidak terasa seperti psikotest. Sangat menyenangkan!",
+        "quoteBy": "Telkom MT candidate"
+      },
+      "images": {
+        "video": {
+          "src": "assets/demo.mp4",
+          "label": "Product demo video"
+        },
+        "poster": {
+          "src": "assets/demo-poster.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Demo video poster"
+        },
+        "qr": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "QR code to the demo"
+        }
+      },
+      "notes": "\"While she played the balloon game, it measured how she takes risks and learns from mistakes. That feeds directly into her fit.\""
+    },
+    {
+      "id": "s-modules",
+      "layout": "modules",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Four modules feed the suitability score.",
+        "modules": [
+          {
+            "key": "personality",
+            "name": "Personality",
+            "measures": "work style, values, teamwork",
+            "feeds": "culture fit"
+          },
+          {
+            "key": "cognitive",
+            "name": "Cognitive",
+            "measures": "memory, logic, numbers, speed",
+            "feeds": "role fit"
+          },
+          {
+            "key": "drive",
+            "name": "Drive & Risk",
+            "measures": "motivation, risk-taking, reading people",
+            "feeds": "what drives them"
+          },
+          {
+            "key": "simulation",
+            "name": "Job Simulation",
+            "measures": "your real business case",
+            "feeds": "role fit"
+          }
+        ],
+        "footer": "Bahasa Indonesia · Any phone · [X] minutes · Anti-cheat built in"
+      },
+      "images": {
+        "personality": {
+          "src": "assets/module-personality.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Personality module screenshot"
+        },
+        "cognitive": {
+          "src": "assets/module-cognitive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Cognitive module screenshot"
+        },
+        "drive": {
+          "src": "assets/module-drive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Drive & Risk module screenshot"
+        },
+        "simulation": {
+          "src": "assets/module-simulation.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Job Simulation module screenshot"
+        }
+      },
+      "notes": "\"You don't need all four. I'll show you what we'd recommend for you.\""
+    },
+    {
+      "id": "s-report",
+      "layout": "report",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Can they do the job? Will they fit in? What drives them?",
+        "footer": "Ready the next day."
+      },
+      "images": {
+        "report": {
+          "src": "assets/report-suitability.jpg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Suitability report screenshot",
+          "callouts": [
+            {
+              "label": "Role fit",
+              "x": 18,
+              "y": 22
+            },
+            {
+              "label": "Culture fit",
+              "x": 18,
+              "y": 42
+            },
+            {
+              "label": "Motivation drivers",
+              "x": 18,
+              "y": 62
+            },
+            {
+              "label": "Recommendation",
+              "x": 18,
+              "y": 82
+            }
+          ]
+        }
+      },
+      "notes": "\"This is what your team opens the next morning.\""
+    },
+    {
+      "id": "s-trust",
+      "layout": "trust",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Built for Indonesians. Built by psikolog.",
+        "bullets": [
+          "Big Five + established cognitive science",
+          "Benchmarked on [X,000] Indonesian candidates",
+          "Matches [test name] (r = [X])",
+          "Designed by [names, M.Psi., Psikolog]"
+        ]
+      },
+      "images": {},
+      "notes": "\"Don't just trust us. Check it in a pilot.\""
+    },
+    {
+      "id": "s-package",
+      "layout": "package",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "changes": {
+          "title": "What it changes",
+          "bullets": [
+            "Hires who fit the role and your culture",
+            "See what drives each person before you hire",
+            "Shortlist in 1 day, not [X weeks]",
+            "[Telkom: X% of MT hires still with the company after Y years]"
+          ]
+        },
+        "recommended": {
+          "title": "Recommended for your [MT program]",
+          "bullets": [
+            "All applicants: Cognitive + Drive & Risk",
+            "Finalists: + Job Simulation"
+          ],
+          "price": "Rp119,000 per candidate",
+          "priceNote": "1,000 applicants ≈ Rp119 juta"
+        },
+        "smallPrint": "Role setup [included]. Minimum order Rp10 juta."
+      },
+      "images": {},
+      "notes": "Swap the package for each client. Campus: Personality + Cognitive. Leadership: Personality + Drive & Risk."
+    },
+    {
+      "id": "s-pilot",
+      "layout": "pilot",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Start with one role. See if we pick who you'd pick.",
+        "bullets": [
+          "[30–50] candidates, [free]",
+          "Your best long-serving people play too, so we can check our profile matches them",
+          "We follow up on pilot hires after [6–12] months",
+          "No contract"
+        ],
+        "contact": "[Name] · [WhatsApp] · admin@deushcs.com · www.deushcs.com"
+      },
+      "images": {},
+      "notes": "\"Which role is hardest for you to hire right now? Let's start there.\""
+    },
+    {
+      "id": "s-appendix",
+      "layout": "divider",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Appendix"
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a1-profiles",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Example role & culture profiles",
+        "placeholder": "[Example profiles: Finance vs Sales; example using company values]"
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a2-personality",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Personality",
+        "measures": "[Full measures list]"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/module-personality.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Personality module screenshot"
+        },
+        "reportSection": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a3-cognitive",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Cognitive",
+        "measures": "[Full measures list]"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/module-cognitive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Cognitive module screenshot"
+        },
+        "reportSection": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a4-drive",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Drive & Risk",
+        "measures": "[Full measures list]"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/module-drive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Drive & Risk module screenshot"
+        },
+        "reportSection": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a5-simulation",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Job Simulation",
+        "measures": "[Full measures list]"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/module-simulation.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Job Simulation module screenshot"
+        },
+        "reportSection": {
+          "src": null,
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a6-reports",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Report types",
+        "bullets": [
+          "Individual report",
+          "Batch ranking by role / MT track",
+          "Interactive dashboard"
+        ]
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a7-platform",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Platform features",
+        "bullets": [
+          "Bulk upload",
+          "Automatic reminders",
+          "Live progress tracking",
+          "Cut-off flagging",
+          "Role-based access"
+        ]
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a8-method",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "How we built it",
+        "steps": [
+          "Theory",
+          "Item development",
+          "Validation",
+          "Norming"
+        ]
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a9-pricing",
+      "layout": "table",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Full pricing table",
+        "subtitle": "Price per candidate, IDR",
+        "table": {
+          "columns": [
+            "Modules",
+            "Starter (≤250 candidates)",
+            "Growth (251–10,000 candidates)"
+          ],
+          "rows": [
+            [
+              "1",
+              "99,000",
+              "69,000"
+            ],
+            [
+              "2",
+              "169,000",
+              "119,000"
+            ],
+            [
+              "3",
+              "229,000",
+              "159,000"
+            ],
+            [
+              "4 (full suite)",
+              "279,000",
+              "199,000"
+            ]
+          ]
+        },
+        "footer": "Minimum order Rp10 juta."
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a10-pdp",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Candidate data handling under UU PDP",
+        "placeholder": "[confirm details with team]"
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a11-research",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Research: fit and retention",
+        "placeholder": "[summary + source]"
+      },
+      "images": {},
+      "notes": ""
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "deus-deck",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
+  }
+}
