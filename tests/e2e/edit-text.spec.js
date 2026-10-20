@@ -4,7 +4,7 @@ import { readDraft, resetDraft, writeDraft } from './helpers/draft.js';
 
 const PHASE3 = 'Available after sign-in is set up (Phase 3)';
 const CONFLICT = 'Someone else changed this deck. Reload to see their changes.';
-const HEADLINE = 'Fit the role, they perform. Fit your company, they stay.';
+const HEADLINE = 'DEUS Game-Based Assessment';
 
 const field = (page, slideId, path) => page.locator(`.slide[data-slide-id="${slideId}"] [data-field="${path}"]`);
 const frame = (page, slideId) => page.locator(`.ed-frame:has(> .ed-stage > .slide[data-slide-id="${slideId}"])`);
@@ -28,13 +28,13 @@ test('click the slide-1 headline, type, blur: the draft file updates within 1.5s
   const headline = field(page, 's-title', 'headline');
   await expect(headline).toHaveAttribute('contenteditable', 'plaintext-only');
   await editEnd(page, headline);
-  await page.keyboard.type(' Today.');
+  await page.keyboard.type('. Today.');
   await headline.blur();
-  await expect.poll(() => readDraft().slides[0].fields.headline, { timeout: 1500 }).toBe(`${HEADLINE} Today.`);
+  await expect.poll(() => readDraft().slides[0].fields.headline, { timeout: 1500 }).toBe(`${HEADLINE}. Today.`);
   await expect(status(page)).toHaveText('Saved');
   expect(readDraft().rev).toBeGreaterThan(1);
   // After blur the field is redrawn with its sentence lines again.
-  await expect(headline.locator('.line')).toHaveCount(3);
+  await expect(headline.locator('.line')).toHaveCount(2);
 });
 
 test('pasting rich text inserts plain text only', async ({ page }) => {
