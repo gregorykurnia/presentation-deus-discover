@@ -10,3 +10,4 @@ DEUS-Pitch.pdf
 .e2e/
 .vercel
 .env*
+!.env.example
