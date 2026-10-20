@@ -37,9 +37,9 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 22 seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 23 seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
-    expect(els).toHaveLength(22);
+    expect(els).toHaveLength(23);
     els.forEach((el, i) => {
       const slide = seed.slides[i];
       expect(el.tagName).toBe('SECTION');
@@ -151,6 +151,19 @@ describe('renderDeck', () => {
     const deck = clone();
     slideOf(deck, 's-package').fields.tiers.pop();
     expect(byId(renderDeck(deck, ctx()), 's-package').querySelectorAll('.package__tier')).toHaveLength(3);
+  });
+
+  it('renders the cognitive packages as two wide cards with the optional per-test and tests lines', () => {
+    const cog = byId(renderDeck(seed, ctx()), 's-package-cognitive');
+    expect(cog.querySelector('[data-field="headline"]').textContent).toBe('Cognitive Assessment Packages');
+    expect(cog.querySelectorAll('.package__tier')).toHaveLength(2);
+    expect(cog.querySelector('.package__tiers').classList.contains('package__tiers--wide')).toBe(true);
+    expect(cog.querySelector('[data-field="tiers.1.perTest"]').textContent).toBe('≈ Rp83,300 per test');
+    expect(cog.querySelector('[data-field="tiers.0.perTest"]')).toBeNull();
+    expect(cog.querySelector('[data-field="tiers.0.validity"]')).toBeNull();
+    expect(cog.querySelector('[data-field="tiers.0.tests"]').textContent).toBe('1 test · 30 minutes');
+    const pkg = byId(renderDeck(seed, ctx()), 's-package');
+    expect(pkg.querySelector('.package__tiers--wide')).toBeNull();
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
@@ -445,12 +458,12 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(20);
+      expect(ids).toHaveLength(21);
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(22);
+    expect(edit).toHaveLength(23);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
     // Numbering follows the visible slides: the fit slide is now number 2.
     expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');

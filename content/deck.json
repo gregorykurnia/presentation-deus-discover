@@ -345,6 +345,41 @@
       "notes": "Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer."
     },
     {
+      "id": "s-package-cognitive",
+      "layout": "package",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Cognitive Assessment Packages",
+        "tiers": [
+          {
+            "name": "Cognitive",
+            "amount": "100",
+            "unit": "candidates",
+            "price": "Rp9,900,000",
+            "perCandidate": "Rp99,000 per candidate",
+            "tests": "1 test · 30 minutes"
+          },
+          {
+            "name": "Cognitive + Drive & Risk",
+            "amount": "60",
+            "unit": "candidates",
+            "price": "Rp9,999,000",
+            "perCandidate": "≈ Rp166,700 per candidate",
+            "perTest": "≈ Rp83,300 per test",
+            "tests": "2 tests · 1 hour"
+          }
+        ],
+        "includesTitle": "Both packages include",
+        "includes": [
+          "Valid 3 months",
+          "Report in 1 working day"
+        ]
+      },
+      "images": {},
+      "notes": "Cognitive alone is Rp99,000 per candidate. Adding Drive & Risk brings each test down to about Rp83,300."
+    },
+    {
       "id": "s-pilot",
       "layout": "pilot",
       "section": "main",

@@ -124,7 +124,16 @@ Purpose: make the decision easy: show the packages and their prices together.
 - "Every package includes": Personality profile, Competency profile, Suitability recommendation, 50–60 minute test, Report in 1 working day
 Notes: Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer.
 
-### Slide 10: Pilot
+### Slide 10: Cognitive Assessment packages
+Purpose: the same decision for Cognitive, and show that adding Drive & Risk makes each test cheaper.
+- Headline: "Cognitive Assessment Packages"
+- Two package cards (name, candidates, price, price per candidate, tests and duration):
+  - Cognitive: 100 candidates, Rp9,900,000, Rp99,000 per candidate, 1 test · 30 minutes
+  - Cognitive + Drive & Risk: 60 candidates, Rp9,999,000, ≈ Rp166,700 per candidate, highlighted "≈ Rp83,300 per test", 2 tests · 1 hour
+- "Both packages include": Valid 3 months, Report in 1 working day
+Notes: Cognitive alone is Rp99,000 per candidate. Adding Drive & Risk brings each test down to about Rp83,300.
+
+### Slide 11: Pilot
 Purpose: the ask. They should leave knowing exactly what the next step is: a free trial, then a profile built for their roles.
 - Headline: "Try it free. We'll tailor it to your roles."
 - Free trial: see a real report before you buy

@@ -22,8 +22,8 @@ describe('deck.json structure', () => {
     expect(typeof deck.rev).toBe('number');
   });
 
-  it('has 10 main slides and 12 appendix slides (divider + A1-A11)', () => {
-    expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(10);
+  it('has 11 main slides and 12 appendix slides (divider + A1-A11)', () => {
+    expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(11);
     expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(12);
     expect(deck.slides.filter((s) => s.layout === 'divider')).toHaveLength(1);
   });
@@ -36,6 +36,8 @@ describe('deck.json structure', () => {
 describe('deck.json content is verbatim from the brief', () => {
   it.each([
     'Personality Assessment Packages',
+    'Cognitive Assessment Packages',
+    '≈ Rp83,300 per test',
     'Rp15,999,000',
     '≈ Rp199,800 per candidate',
     'Profiles ready in 1 day.',
@@ -64,7 +66,7 @@ describe('deck.json content is verbatim from the brief', () => {
   // The deck's slide order may differ from the brief's (the Telkom proof slide moved to 8).
   it('keeps speaker notes verbatim for the main slides', () => {
     const notes = [...brief.matchAll(/^Notes: (.+)$/gm)].map((m) => m[1]);
-    expect(notes).toHaveLength(10);
+    expect(notes).toHaveLength(11);
     const main = deck.slides.filter((s) => s.section === 'main');
     expect(main.map((s) => s.notes).sort()).toEqual(notes.sort());
   });
