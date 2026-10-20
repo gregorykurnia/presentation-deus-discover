@@ -18,10 +18,11 @@ export function render(slide, ctx) {
     const clip = imageSlot(slide, 'video', ctx, { class: 'report__shot', tag: 'video', autoplay: true });
     el.append(
       text('h2', slide, 'headline', ctx, { class: 't-headline-sm report__headline', fit: true, lines: true, group: 'main' }),
-      h('div', { class: 'report__frame report__frame--video', 'data-no-overlap': 'main' }, clip),
+      h('div', { class: 'report__frame', 'data-no-overlap': 'main' }, clip),
       text('p', slide, 'footer', ctx, { class: 'pill pill--accent report__footer', fit: true, group: 'main' }),
     );
-    fitToVideo(clip);
+    el.classList.add('report--video');
+    fitToVideo(el, clip);
     return el;
   }
   const callouts = slide.images?.report?.callouts ?? [];
@@ -77,14 +78,13 @@ function placeOnImage(frame, shot, image = {}) {
   if (!(img.complete && size())) img.addEventListener('load', size, { once: true });
 }
 
-/** Sizes the clip's box to the video's own aspect ratio once known, so it has no letterbox bars. */
-function fitToVideo(slot) {
+/** Hands the video's aspect ratio to CSS once known: the card's height and the footer follow it. */
+function fitToVideo(el, slot) {
   const video = slot.querySelector('video');
   if (!video) return;
   const size = () => {
     if (!video.videoWidth || !video.videoHeight) return;
-    slot.style.aspectRatio = `${video.videoWidth} / ${video.videoHeight}`;
-    slot.classList.add('report__shot--sized');
+    el.style.setProperty('--clip-ar', String(video.videoWidth / video.videoHeight));
   };
   if (video.readyState >= 1) size();
   else video.addEventListener('loadedmetadata', size, { once: true });

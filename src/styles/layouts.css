@@ -155,9 +155,13 @@
   background: var(--white); box-shadow: var(--shadow-glass);
 }
 .layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
-/* The presenter's clip: centred in the frame at the video's own aspect ratio (report.js). */
-.layout-report .report__frame--video { display: flex; align-items: center; }
-.layout-report .report__shot--sized { height: auto; }
+/* The presenter's clip: a whole card inside the right margin (1780), top on the headline's,
+   as tall as the video's aspect ratio (--clip-ar, set by report.js; 1.75 until it loads),
+   with the footer's bottom on the card's bottom. */
+.layout-report.report--video { --clip-h: min(740px, 1040px / var(--clip-ar, 1.75)); }
+.layout-report.report--video .report__frame { width: 1040px; height: var(--clip-h); }
+.layout-report.report--video .report__shot { border-radius: var(--radius); }
+.layout-report.report--video .report__footer { top: calc(200px + var(--clip-h) - 70px); }
 /* Once the screenshot has loaded (report.js sets --img-ar, --img-fx, --img-fy and
    data-fit), the callout layer is the image as displayed: object-fit + object-position
    math in container units of the frame. Callout x/y are percents of this box. */
