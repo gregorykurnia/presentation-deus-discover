@@ -142,6 +142,8 @@ sessions    (token_hash text primary key, email text, expires_at timestamptz)
   (Blob store), `OWNER_EMAIL`, `AUTH_SECRET`, `RESEND_API_KEY`, `MAIL_FROM`, `DECK_SITE`. All are listed in `.env.example`.
 - **What the user sets up** (README gives exact clicks):
   - a Vercel project linked to the GitHub repo, with Neon and Blob added from the Marketplace;
+  - Deployment Protection set to *Standard* (Settings → Deployment Protection), so the production
+    `*.vercel.app` address is public and only previews need a Vercel login. The default protects it too.
   - a Resend account and its DNS records on deushcs.com. Until the domain is verified, Resend only
     delivers to the account owner's own address.
 - **Project `CLAUDE.md`:** short. It points to the global staging/lanes/release rules, with checks adjusted for this stack.
