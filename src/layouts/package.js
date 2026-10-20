@@ -1,5 +1,5 @@
-// Slides 9-10: packages. One card per tier (name, candidates, price, price per
-// candidate, then the optional price per test, tests and validity) in a row; what
+// Slides 9-10: packages. One card per tier (name, candidates, price, then the
+// optional price per test, price per candidate, tests and validity) in a row; what
 // every tier includes in a strip below. On two cards or fewer the pills sit top right. The card count follows the content, so
 // each product's packages reuse it.
 import { h, text, slideFrame, fieldAt } from './common.js';
@@ -21,8 +21,8 @@ export function render(slide, ctx) {
           text('span', slide, `tiers.${i}.unit`, ctx, { class: 'package__unit' }))),
       h('div', { class: 'package__body' },
         text('p', slide, `tiers.${i}.price`, ctx, { class: 'package__price' }),
-        text('p', slide, `tiers.${i}.perCandidate`, ctx, { class: 'package__each' }),
         optional(slide, `tiers.${i}.perTest`, ctx, 'p', 'package__per-test'),
+        optional(slide, `tiers.${i}.perCandidate`, ctx, 'p', 'package__each'),
         h('div', { class: 'package__pills' },
           optional(slide, `tiers.${i}.tests`, ctx, 'span', 'pill package__tests'),
           optional(slide, `tiers.${i}.validity`, ctx, 'span', 'pill package__validity'))))));

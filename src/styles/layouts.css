@@ -225,7 +225,7 @@
 .layout-package .package__body { flex: 1; display: flex; flex-direction: column; }
 .layout-package .package__tiers--wide .package__tier { position: relative; }
 .layout-package .package__tiers--wide .package__pills { position: absolute; top: 40px; right: 36px; margin-top: 0; }
-.layout-package .package__per-test { margin-top: 18px; align-self: flex-start; font: 700 32px/1.2 var(--font); color: var(--coral); }
+.layout-package .package__per-test { margin-top: 8px; align-self: flex-start; font: 700 34px/1.2 var(--font); color: var(--coral); }
 .layout-package .package__pills { margin-top: auto; display: flex; flex-wrap: wrap; gap: 12px; }
 .layout-package .package__validity,
 .layout-package .package__tests { padding: 12px 22px; background: var(--sky); font-size: 28px; }

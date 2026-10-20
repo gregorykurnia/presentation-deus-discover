@@ -127,11 +127,11 @@ Notes: Every package has the same test and report. Bigger packages cost less per
 ### Slide 10: Cognitive Assessment packages
 Purpose: the same decision for Cognitive, and show that adding Drive & Risk makes each test cheaper.
 - Headline: "Cognitive Assessment Packages"
-- Two package cards (name, candidates, price, price per candidate, tests and duration):
-  - Cognitive: 100 candidates, Rp9,900,000, Rp99,000 per candidate, 1 test · 30 minutes
-  - Cognitive + Drive & Risk: 60 candidates, Rp9,999,000, ≈ Rp166,700 per candidate, highlighted "≈ Rp83,300 per test", 2 tests · 1 hour
-- "Both packages include": Valid 3 months, Report in 1 working day
-Notes: Cognitive alone is Rp99,000 per candidate. Adding Drive & Risk brings each test down to about Rp83,300.
+- Two package cards (name, candidates, price, price per test, tests and duration); price per test is the highlighted line on both, so they compare directly:
+  - Cognitive: 100 candidates, Rp9,900,000, Rp99,000 per test, 1 test · 30 minutes
+  - Cognitive + Drive & Risk: 60 candidates, Rp9,999,000, ≈ Rp83,300 per test, then a smaller "≈ Rp166,700 per candidate", 2 tests · 1 hour
+- "Both packages include": Summarized batch report, Report in 1 working day, 3-month validity
+Notes: Cognitive alone is Rp99,000 per test. Adding Drive & Risk brings each test down to about Rp83,300.
 
 ### Slide 11: Pilot
 Purpose: the ask. They should leave knowing exactly what the next step is: a free trial, then a profile built for their roles.

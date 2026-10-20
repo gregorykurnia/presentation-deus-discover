@@ -153,13 +153,15 @@ describe('renderDeck', () => {
     expect(byId(renderDeck(deck, ctx()), 's-package').querySelectorAll('.package__tier')).toHaveLength(3);
   });
 
-  it('renders the cognitive packages as two wide cards with the optional per-test and tests lines', () => {
+  it('renders the cognitive packages as two wide cards, price per test first', () => {
     const cog = byId(renderDeck(seed, ctx()), 's-package-cognitive');
     expect(cog.querySelector('[data-field="headline"]').textContent).toBe('Cognitive Assessment Packages');
     expect(cog.querySelectorAll('.package__tier')).toHaveLength(2);
     expect(cog.querySelector('.package__tiers').classList.contains('package__tiers--wide')).toBe(true);
     expect(cog.querySelector('[data-field="tiers.1.perTest"]').textContent).toBe('≈ Rp83,300 per test');
-    expect(cog.querySelector('[data-field="tiers.0.perTest"]')).toBeNull();
+    // Price per test leads; the per-candidate line follows it, and is left out where a tier has none.
+    expect(cog.querySelector('[data-field="tiers.1.perTest"] + [data-field="tiers.1.perCandidate"]')).not.toBeNull();
+    expect(cog.querySelector('[data-field="tiers.0.perCandidate"]')).toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.validity"]')).toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.tests"]').textContent).toBe('1 test · 30 minutes');
     const pkg = byId(renderDeck(seed, ctx()), 's-package');
