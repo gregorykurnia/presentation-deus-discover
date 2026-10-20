@@ -169,11 +169,19 @@ describe('renderDeck', () => {
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 's-pilot');
-    expect(on.querySelector('[data-field="contact"] mark.ph').textContent).toBe('[Name]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-pilot');
+    const on = byId(renderDeck(seed, ctx()), 'a2-personality');
+    expect(on.querySelector('[data-field="measures"] mark.ph').textContent).toBe('[Full measures list]');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a2-personality');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="contact"]').textContent).toBe('[Name] · [WhatsApp] · admin@deushcs.com · www.deushcs.com');
+    expect(off.querySelector('[data-field="measures"]').textContent).toBe('[Full measures list]');
+  });
+
+  it('spreads the pilot contact bar: email, website, phone in that order', () => {
+    const pilot = byId(renderDeck(seed, ctx()), 's-pilot');
+    const items = [...pilot.querySelectorAll('.pilot__contact [data-field]')];
+    expect(items.map((el) => el.dataset.field)).toEqual(['email', 'website', 'phone']);
+    expect(items.map((el) => el.textContent)).toEqual(['admin@deushcs.com', 'www.deushcs.com', '+62 823-1212-1660']);
+    expect(pilot.querySelectorAll('.pilot__contact-text[data-fit]')).toHaveLength(3);
   });
 
   it('escapes HTML in deck text', () => {
@@ -445,7 +453,7 @@ describe('renderDeck', () => {
     expect(table.hasAttribute('data-fit')).toBe(false);
     expect(table.parentElement.matches('.price-table-box[data-fit]')).toBe(true);
     expect(byId(els, 's-title').querySelector('.title__prepared[data-fit]')).not.toBeNull();
-    expect(byId(els, 's-pilot').querySelector('.pilot__contact-text[data-fit]')).not.toBeNull();
+    expect(byId(els, 's-pilot').querySelector('.pilot__contact-phone[data-fit]')).not.toBeNull();
   });
 
   it('marks fixed-size text boxes with data-fit', () => {

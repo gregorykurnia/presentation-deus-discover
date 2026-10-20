@@ -135,12 +135,12 @@ Notes: Cognitive alone is Rp99,000 per test. Adding Drive & Risk brings each tes
 
 ### Slide 11: Pilot
 Purpose: the ask. They should leave knowing exactly what the next step is: a free trial, then a profile built for their roles.
-- Headline: "Try it free. We'll tailor it to your roles."
+- Headline: "Try it for free. We'll tailor it to your roles."
 - Free trial: see a real report before you buy
 - Free sampling: a few of your best people play the games
 - From them, we build a suitability profile for each role
 - No long-term contract. Buy a package when you need it.
-- Contact: [Name] · [WhatsApp] · admin@deushcs.com · www.deushcs.com
+- Contact bar, spread across: admin@deushcs.com (left) · www.deushcs.com (centre) · +62 823-1212-1660 (right)
 Notes: Offer one free candidate for the trial. "Which role is hardest for you to hire right now? Let's start there."
 
 ### Appendix

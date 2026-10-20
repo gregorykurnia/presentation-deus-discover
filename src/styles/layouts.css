@@ -237,8 +237,13 @@
 /* ---------- 10. Pilot ---------- */
 .layout-pilot .pilot__headline { left: 140px; top: 170px; width: 1640px; height: 220px; }
 .layout-pilot .pilot__list { left: 140px; top: 450px; width: 1180px; height: 340px; }
-.layout-pilot .pilot__contact { left: 140px; top: 850px; height: 104px; padding: 0 44px; display: flex; align-items: center; }
-.layout-pilot .pilot__contact-text { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; max-width: 1200px; }
+.layout-pilot .pilot__contact {
+  left: 140px; top: 850px; width: 1180px; height: 104px; padding: 0 44px;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; align-items: center;
+}
+.layout-pilot .pilot__contact-text { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; }
+.layout-pilot .pilot__contact-website { text-align: center; }
+.layout-pilot .pilot__contact-phone { text-align: right; }
 .layout-pilot .pilot__disc-one { left: 1440px; top: 470px; width: 520px; height: 520px; }
 .layout-pilot .pilot__disc-two { left: 1620px; top: 700px; width: 520px; height: 520px; }
 
