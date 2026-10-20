@@ -88,6 +88,45 @@ describe('renderDeck', () => {
     });
   });
 
+  it.each([
+    'Grow to 1.5x faster. Now',
+    'Built on v2.0 by Acme Co., Ltd. Really.',
+    'Rp1.5 juta. That is it!',
+    '?Leading marks! Then text',
+    'Ends with no punctuation',
+    'Two  spaces.  Then more?  Yes!',
+    'Can they do the job? Will they fit in? What drives them?',
+    '[X] days. [Y] weeks.',
+    '',
+  ])('one-sentence-per-line headlines keep every character: %j', (value) => {
+    const deck = clone();
+    deck.slides[0].fields.headline = value;
+    for (const highlight of [true, false]) {
+      const h1 = renderDeck(deck, ctx({ highlight }))[0].querySelector('[data-field="headline"]');
+      const spans = [...h1.querySelectorAll(':scope > .line')];
+      expect(spans.map((s) => s.textContent).join('')).toBe(value);
+      expect(h1.textContent).toBe(value);
+    }
+  });
+
+  it('splits headlines only at sentence ends (punctuation + space)', () => {
+    const deck = clone();
+    deck.slides[0].fields.headline = 'Grow to 1.5x faster. Now with v2.0? Yes!';
+    const h1 = renderDeck(deck, ctx())[0].querySelector('[data-field="headline"]');
+    expect([...h1.querySelectorAll('.line')].map((s) => s.textContent))
+      .toEqual(['Grow to 1.5x faster. ', 'Now with v2.0? ', 'Yes!']);
+  });
+
+  it('renders the fit slide "One score" pill from deck.json as an editable field (R10)', () => {
+    const fit = byId(renderDeck(seed, ctx()), 's-fit');
+    const pill = fit.querySelector('[data-field="pill"]');
+    expect(pill.textContent).toBe('One score');
+    expect(pill.classList.contains('fit__one-score')).toBe(true);
+    const deck = clone();
+    deck.slides.find((s) => s.id === 's-fit').fields.pill = 'Satu skor';
+    expect(byId(renderDeck(deck, ctx()), 's-fit').querySelector('[data-field="pill"]').textContent).toBe('Satu skor');
+  });
+
   it('highlights placeholders only when ctx.highlight is on', () => {
     const on = byId(renderDeck(seed, ctx()), 's-fit');
     expect(on.querySelector('[data-field="footer"] mark.ph').textContent).toBe('[X]');

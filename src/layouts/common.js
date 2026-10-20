@@ -47,9 +47,11 @@ export function text(tag, slide, path, ctx, opts = {}) {
     'data-no-overlap': opts.group,
   });
   if (opts.lines) {
-    // Split after ". " / "? " / "! " so each sentence starts a line. The space
-    // stays inside the span, so textContent equals the original text.
-    const parts = value.match(/[^.?!]+[.?!]+(\s+|$)|[^.?!]+$/g) ?? [value];
+    // Split only where sentence punctuation is followed by whitespace and then
+    // more text ("1.5x", "v2.0", "Co.," stay whole). split() with a lookaround
+    // never drops characters: the spaces stay at the end of each span, so the
+    // spans joined (and textContent) equal the original text.
+    const parts = value.split(/(?<=[.?!]\s+)(?=\S)/);
     el.innerHTML = parts.map((p) => `<span class="line">${highlightPlaceholders(p, ctx.highlight)}</span>`).join('');
   } else if (opts.split) {
     const m = value.match(opts.split);
