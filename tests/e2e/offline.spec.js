@@ -25,7 +25,11 @@ async function openOffline(page, url) {
   });
   page.on('console', (msg) => { if (msg.type() === 'error') problems.push(`console: ${msg.text()}`); });
   page.on('pageerror', (err) => problems.push(`pageerror: ${err.message}`));
-  page.on('requestfailed', (req) => problems.push(`requestfailed: ${req.url()}`));
+  page.on('requestfailed', (req) => {
+    // A preload="metadata" video reads its header, then the browser cancels the rest of the download.
+    if (req.resourceType() === 'media' && req.failure()?.errorText === 'net::ERR_ABORTED') return;
+    problems.push(`requestfailed: ${req.url()}`);
+  });
   await page.goto(url);
   return { problems, externalRequests };
 }
@@ -45,8 +49,11 @@ test('dist/offline/deck.html runs from file:// with the network blocked', async 
     .filter((img) => !(img.complete && img.naturalWidth > 0))
     .map((img) => img.getAttribute('src')));
   expect(broken, 'images that did not load').toEqual([]);
+  // Every video reached at least HAVE_METADATA (a missing file never does).
+  await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('video')]
+    .filter((v) => v.readyState < 1).map((v) => v.getAttribute('src')))).toEqual([]);
 
-  // Missing files (demo video, poster, client logo, QR) show the clean labeled box.
+  // Missing files (appendix report sections, QR) show the clean labeled box.
   expect(await page.locator('.img-missing').count()).toBeGreaterThan(0);
 
   expect(externalRequests).toEqual([]);
@@ -87,5 +94,4 @@ test('dist/offline/assets holds only referenced images that exist', () => {
   walk(deck);
   const expected = [...referenced].filter((f) => existsSync(join(root, 'assets', f))).sort();
   expect(have).toEqual(expected);
-  expect(have).not.toContain('demo.mp4');
 });

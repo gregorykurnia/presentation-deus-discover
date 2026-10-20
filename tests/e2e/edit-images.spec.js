@@ -152,9 +152,12 @@ test('Replace picture… in the popover uploads the chosen file', async ({ page 
 });
 
 test('the video slide has a poster slot in edit mode; clicking an empty slot opens the file picker', async ({ page }) => {
+  // The poster file exists now; a failed load shows the same empty box, so fail it to keep this path covered.
+  await page.route('**/assets/demo-poster.jpg', (route) => route.fulfill({ status: 404 }));
+  await openEditor(page);
   const poster = slot(page, 's-video', 'poster');
   await expect(poster).toHaveCount(1);
-  await expect(poster).toHaveClass(/img-slot--missing/); // assets/demo-poster.jpg isn't there yet
+  await expect(poster).toHaveClass(/img-slot--missing/);
   await poster.scrollIntoViewIfNeeded();
   const chooser = page.waitForEvent('filechooser');
   await poster.click();

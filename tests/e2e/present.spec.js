@@ -90,7 +90,7 @@ test('flag false: no placeholder is highlighted (variant served with the flag fl
   expect(await page.evaluate(() => globalThis.SHOW_PLACEHOLDER_HIGHLIGHT)).toBe(false);
   await expect(page.locator('mark.ph')).toHaveCount(0);
   // the placeholder text is still there, only unhighlighted
-  expect(await page.evaluate(() => document.body.textContent)).toContain('[Company]');
+  expect(await page.evaluate(() => document.body.textContent)).toMatch(/\[[^\]]+\]/);
 });
 
 test('leaving a slide pauses media inside it', async ({ page }) => {

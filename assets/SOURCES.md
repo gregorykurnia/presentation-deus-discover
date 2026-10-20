@@ -22,5 +22,8 @@ available (same filenames).
 | `client-pizza-hut.png` | Supplied directly (Pizza Hut logo file) | 488×409 | White background made transparent (soft edges kept); untouched copy in `client-pizza-hut-original.png` |
 | `fonts/dm-sans-latin-opsz-normal.woff2` | `@fontsource-variable/dm-sans` 5.3.0 (npm) | — | Variable (wght 100–1000, opsz), latin, normal; SIL OFL 1.1, see `fonts/LICENSE-OFL.txt` |
 
-Missing (not in either PDF): `demo.mp4`, `demo-poster.jpg`, QR code.
+| `demo.mp4` | Supplied directly (Next Chapter Game-Based Assessment Trailer) | 1920×1080, 44 s | Cut at 43.95 s, before the Level Up / Agaté end card; H.264 30 fps, short audio fade-out |
+| `demo-poster.jpg` | Frame at 12 s of `demo.mp4` | 1920×1080 | Cognitive & Neuro Assessment game |
+
+Missing (not in either PDF): QR code.
 Rule: no Agaté / Level Up branding anywhere in the deck.
