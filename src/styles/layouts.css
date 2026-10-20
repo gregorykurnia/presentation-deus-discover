@@ -19,6 +19,15 @@
 .slide--hidden { opacity: 0.45; }
 
 .arrow { display: inline-block; width: 40px; height: 24px; flex: none; color: var(--muted); }
+/* Text symbols missing from DM Sans (R9): the SVG is painted; the real
+   character sits on top of it, transparent and the same width, so selection
+   and copy/paste still produce it. Stroke follows the surrounding weight. */
+.glyph { white-space: nowrap; }
+.glyph__svg, .glyph__text { display: inline-block; width: 0.625em; height: 1em; vertical-align: -0.2em; }
+.glyph__svg { stroke-width: 2.4; }
+.glyph__text { margin-left: -0.625em; overflow: hidden; line-height: 1em; color: transparent; -webkit-text-fill-color: transparent; }
+:is(h1, h2, h3, th, b, strong, .pill, .lead-part) .glyph__svg,
+.price-table tbody tr:last-child .glyph__svg { stroke-width: 3.2; }
 
 /* Lists: one item per line, generous rhythm, no cards. */
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }

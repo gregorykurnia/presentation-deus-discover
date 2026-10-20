@@ -1,8 +1,7 @@
 // Slide 7: the output HR uses. The report screenshot is the focal point, as
 // large as the slide allows, with callout labels at percent coordinates
 // (images.report.callouts[] = { label, x, y }; the dot sits at x/y).
-import { h, text, imageSlot, slideFrame } from './common.js';
-import { highlightPlaceholders } from '../placeholders.js';
+import { h, text, imageSlot, slideFrame, setText } from './common.js';
 
 export const name = 'report';
 
@@ -10,8 +9,7 @@ export function render(slide, ctx) {
   const el = slideFrame(slide, ctx);
   const callouts = slide.images?.report?.callouts ?? [];
   const marks = callouts.map((c, i) => {
-    const label = h('span', { class: 'callout__label' });
-    label.innerHTML = highlightPlaceholders(c.label, ctx.highlight);
+    const label = setText(h('span', { class: 'callout__label' }), c.label, ctx);
     const mark = h('div', {
       // Labels sit right of the dot; near the right edge they flip to the left.
       class: `callout${c.x > 75 ? ' callout--left' : ''}`,

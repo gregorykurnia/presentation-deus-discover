@@ -178,10 +178,56 @@ describe('renderDeck', () => {
 
   it('draws arrows as inline SVG, never the "→" glyph', () => {
     for (const el of renderDeck(seed, ctx())) {
-      expect(el.textContent, el.dataset.slideId).not.toContain('→');
+      expect(visibleTextNodes(el).join(''), el.dataset.slideId).not.toContain('→');
     }
     const fit = byId(renderDeck(seed, ctx()), 's-fit');
     expect(fit.querySelectorAll('svg.arrow')).toHaveLength(3);
+  });
+
+  // Ruling R9: symbols missing from the bundled DM Sans render as inline SVG glyphs.
+  // Painted text never holds them: the only copies of the character are inside
+  // the glyph's SVG or its transparent .glyph__text overlay (kept for copy/paste),
+  // and the glyph carries role="img" + aria-label for screen readers.
+  const SYMBOL_CHARS = /[≤≈→]/;
+  function visibleTextNodes(root) {
+    const out = [];
+    const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+      if (!n.parentElement.closest('svg, .glyph__text')) out.push(n.textContent);
+    }
+    return out;
+  }
+
+  it('renders ≤ and ≈ as accessible inline SVG glyphs, never as raw text', () => {
+    const els = renderDeck(seed, ctx());
+    const pkg = byId(els, 's-package');
+    const table = byId(els, 'a9-pricing');
+    for (const el of [pkg, table]) {
+      expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t)), el.dataset.slideId).toEqual([]);
+    }
+    const approx = pkg.querySelector('[data-field="recommended.priceNote"] .glyph');
+    expect(approx.getAttribute('role')).toBe('img');
+    expect(approx.getAttribute('aria-label')).toBe('≈');
+    expect(approx.querySelector('svg[aria-hidden="true"] path')).not.toBeNull();
+    expect(approx.querySelector('.glyph__text').textContent).toBe('≈');
+    const le = table.querySelector('[data-field="table.columns.1"] .glyph');
+    expect(le.getAttribute('aria-label')).toBe('≤');
+    // The field's text is unchanged (editor + copy/paste read it back verbatim).
+    expect(pkg.querySelector('[data-field="recommended.priceNote"]').textContent).toBe('1,000 applicants ≈ Rp119 juta');
+    expect(table.querySelector('[data-field="table.columns.1"]').textContent).toBe('Starter (≤250 candidates)');
+  });
+
+  it('applies the glyphs everywhere text is rendered, with highlighting on or off', () => {
+    const deck = clone();
+    deck.slides[2].fields.bullets[0] = 'Score ≤ [X] ≈ fine';
+    for (const highlight of [true, false]) {
+      const el = byId(renderDeck(deck, ctx({ highlight })), 's-problem');
+      expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t))).toEqual([]);
+      const item = el.querySelector('[data-field="bullets.0"]');
+      expect(item.querySelectorAll('.glyph')).toHaveLength(2);
+      expect(item.textContent).toBe('Score ≤ [X] ≈ fine');
+      expect(!!item.querySelector('mark.ph')).toBe(highlight);
+    }
   });
 
   it('marks fixed-size text boxes with data-fit', () => {

@@ -65,25 +65,80 @@ export function text(tag, slide, path, ctx, opts = {}) {
   } else {
     el.innerHTML = highlightPlaceholders(value, ctx.highlight);
   }
-  return el;
+  return replaceSymbols(el);
 }
 
-/** A right-pointing arrow (Ruling R8: DM Sans has no "→"). Decorative. */
-export function arrow(cls = '') {
+/**
+ * Symbols the bundled DM Sans subset lacks (Rulings R8, R9), drawn as inline
+ * SVG in currentColor so they match the text around them. Glyph boxes are
+ * 1em tall (top at 0.8em above the baseline, see .glyph in layouts.css),
+ * 32 units = 1em, math axis at y = 15.
+ */
+const SYMBOLS = {
+  '→': { viewBox: '0 0 40 24', d: 'M2 12h34M26 3l10 9-10 9' },
+  '≤': { viewBox: '0 0 20 32', d: 'M16 6L4 12.5 16 19M4 24.5h12' },
+  '≈': { viewBox: '0 0 20 32', d: 'M3.5 12.5q3.25-3.5 6.5 0t6.5 0M3.5 19.5q3.25-3.5 6.5 0t6.5 0' },
+};
+const SYMBOL_RE = new RegExp(`[${Object.keys(SYMBOLS).join('')}]`, 'g');
+
+/**
+ * A symbol drawn as inline SVG in currentColor.
+ * Decorative (arrows between items): a bare aria-hidden <svg>.
+ * In text: <span class="glyph" role="img" aria-label="≈"> holding the <svg> and
+ * a transparent, same-width copy of the character (.glyph__text) laid over it,
+ * so screen readers, copy/paste, innerText and the field's textContent all keep
+ * the deck text, while nothing is painted in a fallback font.
+ */
+export function symbol(ch, { decorative = false, cls = '' } = {}) {
+  const spec = SYMBOLS[ch];
   const svg = document.createElementNS(SVG_NS, 'svg');
-  svg.setAttribute('class', `arrow ${cls}`.trim());
-  svg.setAttribute('viewBox', '0 0 40 24');
+  svg.setAttribute('class', (decorative ? cls : `glyph__svg ${cls}`).trim());
+  svg.setAttribute('viewBox', spec.viewBox);
   svg.setAttribute('aria-hidden', 'true');
   svg.setAttribute('focusable', 'false');
   const path = document.createElementNS(SVG_NS, 'path');
-  path.setAttribute('d', 'M2 12h34M26 3l10 9-10 9');
+  path.setAttribute('d', spec.d);
   path.setAttribute('fill', 'none');
   path.setAttribute('stroke', 'currentColor');
-  path.setAttribute('stroke-width', '3');
   path.setAttribute('stroke-linecap', 'round');
   path.setAttribute('stroke-linejoin', 'round');
+  if (decorative) path.setAttribute('stroke-width', '3');
   svg.append(path);
-  return svg;
+  if (decorative) return svg;
+  return h('span', { class: 'glyph', role: 'img', 'aria-label': ch },
+    svg, h('span', { class: 'glyph__text', 'aria-hidden': 'true' }, ch));
+}
+
+/** Replaces every symbol character in el's text with its SVG glyph (in place). */
+export function replaceSymbols(el) {
+  const walk = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  const hits = [];
+  for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+    SYMBOL_RE.lastIndex = 0;
+    if (SYMBOL_RE.test(n.data) && !n.parentElement.closest('svg, .glyph')) hits.push(n);
+  }
+  for (const node of hits) {
+    const parts = node.data.split(SYMBOL_RE);
+    const chars = node.data.match(SYMBOL_RE);
+    const frag = document.createDocumentFragment();
+    parts.forEach((part, i) => {
+      if (part) frag.append(part);
+      if (i < chars.length) frag.append(symbol(chars[i]));
+    });
+    node.replaceWith(frag);
+  }
+  return el;
+}
+
+/** Escaped, placeholder-highlighted HTML set on el, with symbols as SVG glyphs. */
+export function setText(el, value, ctx) {
+  el.innerHTML = highlightPlaceholders(value, ctx.highlight);
+  return replaceSymbols(el);
+}
+
+/** A right-pointing arrow between items (Ruling R8). Decorative. */
+export function arrow(cls = '') {
+  return symbol('→', { decorative: true, cls: `arrow ${cls}`.trim() });
 }
 
 /** Resolves an image src against ctx.assetBase (uploads keep their own URL). */
@@ -94,9 +149,7 @@ export function assetUrl(src, ctx) {
 
 /** The clean labeled box shown when an image is missing (Ruling R3). */
 export function missingBox(label, ctx) {
-  const box = h('div', { class: 'img-missing' });
-  box.innerHTML = `<span>${highlightPlaceholders(label ?? 'Image', ctx.highlight)}</span>`;
-  return box;
+  return h('div', { class: 'img-missing' }, setText(h('span'), label ?? 'Image', ctx));
 }
 
 /**
