@@ -65,7 +65,7 @@ Notes: "Before I explain anything, this is what it looks like at scale."
 
 ### Slide 3: Problem
 Purpose: make them recognize their own pain.
-- Headline: "Today's psikotes checks if they can do the job. Not if they'll fit, or stay."
+- Headline: "Today's assessment checks if they can do the job. Not if they'll fit, or stay."
 - Candidates memorize the answers
 - Results aren't tied to your roles or your culture
 - Wrong fits leave after you've invested in them

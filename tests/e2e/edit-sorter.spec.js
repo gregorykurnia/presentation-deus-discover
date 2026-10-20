@@ -159,7 +159,7 @@ test('Delete asks inside the page (never a browser confirm()); Cancel keeps the 
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await expect(confirm).toBeVisible();
-  await expect(confirm).toContainText("Today's psikotes checks if they can do the job.");
+  await expect(confirm).toContainText("Today's assessment checks if they can do the job.");
   await confirm.getByRole('button', { name: 'Cancel' }).click();
   await expect(confirm).toBeHidden();
   await expect(thumbs(page)).toHaveCount(22);
