@@ -6,7 +6,8 @@
   "scripts": {
     "test": "vitest run",
     "dev": "vite",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "export:offline": "node scripts/build-offline.js"
   },
   "devDependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
