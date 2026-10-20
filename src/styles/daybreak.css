@@ -8,43 +8,25 @@
    so its path resolves against the HTML file, not this stylesheet):
      <section class="slide slide--content">
        <header class="slide-header">
-         <img class="slide-header__logo" src="assets/logo-lockup-dark.svg" alt="DEUS">
+         <img class="slide-header__logo" src="assets/logo-mark-wordmark-dark.svg" alt="DEUS">
          <span class="slide-header__num">02</span>
        </header>
        ...
      </section>
    ===================================================================== */
 
-/* ---------- Fonts: DM Sans, bundled (latin subset, from @fontsource/dm-sans 5.3.0) ----------
-   "block": fonts are local, so the wait is milliseconds and text never reflows
-   after a fallback font has been measured. */
+/* ---------- Font: DM Sans variable, bundled ----------
+   Latin subset with weight (100-1000) and optical-size axes, from
+   @fontsource-variable/dm-sans 5.3.0. Optical sizing is automatic, so large
+   headlines get the tighter display cut the mockup used.
+   "block": the font is local, so the wait is milliseconds and text never
+   reflows after a fallback font has been measured. */
 @font-face {
   font-family: "DM Sans";
   font-style: normal;
-  font-weight: 400;
+  font-weight: 100 1000;
   font-display: block;
-  src: url("../../assets/fonts/dm-sans-latin-400-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "DM Sans";
-  font-style: normal;
-  font-weight: 500;
-  font-display: block;
-  src: url("../../assets/fonts/dm-sans-latin-500-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "DM Sans";
-  font-style: normal;
-  font-weight: 600;
-  font-display: block;
-  src: url("../../assets/fonts/dm-sans-latin-600-normal.woff2") format("woff2");
-}
-@font-face {
-  font-family: "DM Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-display: block;
-  src: url("../../assets/fonts/dm-sans-latin-700-normal.woff2") format("woff2");
+  src: url("../../assets/fonts/dm-sans-latin-opsz-normal.woff2") format("woff2");
 }
 
 /* ---------- Tokens ---------- */
