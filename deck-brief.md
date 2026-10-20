@@ -90,12 +90,11 @@ Notes: "While she played the balloon game, it measured how she takes risks and l
 ### Slide 6: What it measures
 Purpose: answer "what exactly do you measure?" without overwhelming them.
 - Headline: "Four modules feed the suitability score."
-- Personality: work style, values, teamwork → culture fit
-- Cognitive: memory, logic, numbers, speed → role fit
-- Drive & Risk: motivation, risk-taking, reading people → what drives them
-- Job Simulation: your real business case → role fit
+- Personality: Work style, values, teamwork → Culture fit
+- Cognitive: Memory, logic, numbers, speed → Role fit
+- Drive & Risk: Motivation, risk-taking, reading people → What drives them
+- Job Simulation: Your real business case → Role fit
 - Screenshots: assets/module-personality.jpg, module-cognitive.jpg, module-drive.jpg, module-simulation.jpg
-- Footer: "Bahasa Indonesia · Any phone · [X] minutes · Anti-cheat built in"
 Notes: "You don't need all four. I'll show you what we'd recommend for you."
 
 ### Slide 7: What you get

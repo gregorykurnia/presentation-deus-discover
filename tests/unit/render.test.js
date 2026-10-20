@@ -124,12 +124,19 @@ describe('renderDeck', () => {
     expect(fit.querySelector('[data-field="footer"]').textContent).toBe('Profiles ready in 1 day.');
   });
 
+  it('renders the modules slide without a footer, labels starting upper case', () => {
+    const mods = byId(renderDeck(seed, ctx()), 's-modules');
+    expect(mods.querySelector('[data-field="footer"]')).toBeNull();
+    expect(mods.querySelector('[data-field="modules.0.measures"]').textContent).toBe('Work style, values, teamwork');
+    expect(mods.querySelector('[data-field="modules.0.feeds"]').textContent).toBe('Culture fit');
+  });
+
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 's-modules');
-    expect(on.querySelector('[data-field="footer"] mark.ph').textContent).toBe('[X]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-modules');
+    const on = byId(renderDeck(seed, ctx()), 's-trust');
+    expect(on.querySelector('[data-field="bullets.1"] mark.ph').textContent).toBe('[X,000]');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-trust');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="footer"]').textContent).toBe('Bahasa Indonesia · Any phone · [X] minutes · Anti-cheat built in');
+    expect(off.querySelector('[data-field="bullets.1"]').textContent).toBe('Benchmarked on [X,000] Indonesian candidates');
   });
 
   it('escapes HTML in deck text', () => {

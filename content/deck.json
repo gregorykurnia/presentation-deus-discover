@@ -124,29 +124,28 @@
           {
             "key": "personality",
             "name": "Personality",
-            "measures": "work style, values, teamwork",
-            "feeds": "culture fit"
+            "measures": "Work style, values, teamwork",
+            "feeds": "Culture fit"
           },
           {
             "key": "cognitive",
             "name": "Cognitive",
-            "measures": "memory, logic, numbers, speed",
-            "feeds": "role fit"
+            "measures": "Memory, logic, numbers, speed",
+            "feeds": "Role fit"
           },
           {
             "key": "drive",
             "name": "Drive & Risk",
-            "measures": "motivation, risk-taking, reading people",
-            "feeds": "what drives them"
+            "measures": "Motivation, risk-taking, reading people",
+            "feeds": "What drives them"
           },
           {
             "key": "simulation",
             "name": "Job Simulation",
-            "measures": "your real business case",
-            "feeds": "role fit"
+            "measures": "Your real business case",
+            "feeds": "Role fit"
           }
-        ],
-        "footer": "Bahasa Indonesia · Any phone · [X] minutes · Anti-cheat built in"
+        ]
       },
       "images": {
         "personality": {

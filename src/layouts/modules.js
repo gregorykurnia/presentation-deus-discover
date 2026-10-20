@@ -1,5 +1,5 @@
-// Slide 6: what we measure. Four large screenshots in one row, each with the
-// module name, what it measures and which fit it feeds; the footer below.
+// Slide 5: what we measure. Four large screenshots in one row, each with the
+// module name, what it measures and which fit it feeds.
 import { h, text, imageSlot, slideFrame, arrow, fieldAt } from './common.js';
 
 export const name = 'modules';
@@ -17,7 +17,6 @@ export function render(slide, ctx) {
           text('p', slide, `modules.${i}.measures`, ctx, { class: 'module__measures' }),
           h('p', { class: 'module__feeds' }, arrow('module__arrow'),
             text('span', slide, `modules.${i}.feeds`, ctx)))))),
-    text('p', slide, 'footer', ctx, { class: 'footer-line modules__footer', fit: true, group: 'main' }),
   );
   return el;
 }
