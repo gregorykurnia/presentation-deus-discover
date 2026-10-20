@@ -118,22 +118,18 @@ describe('renderDeck', () => {
       .toEqual(['Grow to 1.5x faster. ', 'Now with v2.0? ', 'Yes!']);
   });
 
-  it('renders the fit slide "One score" pill from deck.json as an editable field (R10)', () => {
+  it('renders the fit slide without a "One score" pill', () => {
     const fit = byId(renderDeck(seed, ctx()), 's-fit');
-    const pill = fit.querySelector('[data-field="pill"]');
-    expect(pill.textContent).toBe('One score');
-    expect(pill.classList.contains('fit__one-score')).toBe(true);
-    const deck = clone();
-    deck.slides.find((s) => s.id === 's-fit').fields.pill = 'Satu skor';
-    expect(byId(renderDeck(deck, ctx()), 's-fit').querySelector('[data-field="pill"]').textContent).toBe('Satu skor');
+    expect(fit.querySelector('.fit__one-score, [data-field="pill"]')).toBeNull();
+    expect(fit.querySelector('[data-field="footer"]').textContent).toBe('Profiles ready in 1 day.');
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 's-fit');
+    const on = byId(renderDeck(seed, ctx()), 's-modules');
     expect(on.querySelector('[data-field="footer"] mark.ph').textContent).toBe('[X]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-fit');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-modules');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="footer"]').textContent).toBe('Profiles ready in [X] days.');
+    expect(off.querySelector('[data-field="footer"]').textContent).toBe('Bahasa Indonesia · Any phone · [X] minutes · Anti-cheat built in');
   });
 
   it('escapes HTML in deck text', () => {

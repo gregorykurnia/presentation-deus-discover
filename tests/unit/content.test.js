@@ -39,7 +39,7 @@ describe('deck.json content is verbatim from the brief', () => {
     'Tidak terasa seperti psikotest. Sangat menyenangkan!',
     'Rp119,000 per candidate',
     '1,000 applicants ≈ Rp119 juta',
-    'Profiles ready in [X] days.',
+    'Profiles ready in 1 day.',
   ])('contains %s', (s) => {
     expect(all).toContain(s);
   });

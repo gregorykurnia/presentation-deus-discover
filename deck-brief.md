@@ -77,7 +77,7 @@ Purpose: this is the core idea and our main differentiator. It should be the mos
 - Role fit: "Can they succeed in this job?"
 - Culture fit: "Do they share your values and way of working?"
 - Process: Your roles + your values → Success profile → Candidates play → Suitability score
-- Footer: "Profiles ready in [X] days."
+- Footer: "Profiles ready in 1 day."
 Notes: "Same games, different definition of success. Culture fit means your values written down, not 'people like us.'"
 
 ### Slide 5: Video
