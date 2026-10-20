@@ -125,8 +125,9 @@
 
 /* ---------- Pictures (src/editor/images.js; sizes in slide pixels) ---------- */
 .ed-stage [data-image] { cursor: pointer; }
-/* Only the innermost slot under the pointer (the video's poster sits inside the video). */
-.ed-stage [data-image]:hover:not(:has([data-image]:hover)) { outline: 4px dashed rgba(45, 91, 255, 0.45); outline-offset: -4px; }
+/* Only the innermost slot under the pointer (the video's poster sits inside the video),
+   and not while over a text field inside it (the proof caption). */
+.ed-stage [data-image]:hover:not(:has([data-image]:hover, [data-field]:hover)) { outline: 4px dashed rgba(45, 91, 255, 0.45); outline-offset: -4px; }
 .ed-stage [data-image].ed-pic-active,
 .ed-stage [data-image].ed-drop-target { outline: 5px solid var(--cobalt); outline-offset: -5px; }
 .ed-stage [data-image].ed-drop-target::after {

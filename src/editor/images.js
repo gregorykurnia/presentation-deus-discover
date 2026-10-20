@@ -86,7 +86,8 @@ export function imagesPlugin(api) {
   const { canvas } = api;
   const doc = canvas.ownerDocument;
   const win = doc.defaultView;
-  const slotAt = (node) => node?.closest?.('.ed-stage [data-image]') ?? null;
+  // Text fields can sit inside a slot (the proof caption): clicks there edit text, never the picture.
+  const slotAt = (node) => (node?.closest?.('[data-field]') ? null : node?.closest?.('.ed-stage [data-image]') ?? null);
   const where = (slot) => ({ slideId: slot.closest('.ed-frame').dataset.slideId, key: slot.dataset.image });
   const slotOf = ({ slideId, key }) => api.frameOf(slideId)?.querySelector(`.slide [data-image="${CSS.escape(key)}"]`) ?? null;
   const imageOf = ({ slideId, key }) => api.deck.slides.find((s) => s.id === slideId)?.images?.[key] ?? {};
