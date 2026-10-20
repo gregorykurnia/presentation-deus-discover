@@ -125,14 +125,14 @@ Purpose: make the decision easy: show the packages and their prices together.
 Notes: Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer.
 
 ### Slide 10: Pilot
-Purpose: the ask. They should leave knowing exactly what the next step is.
-- Headline: "Start with one role. See if we pick who you'd pick."
-- [30–50] candidates, [free]
-- Your best long-serving people play too, so we can check our profile matches them
-- We follow up on pilot hires after [6–12] months
-- No contract
+Purpose: the ask. They should leave knowing exactly what the next step is: a free trial, then a profile built for their roles.
+- Headline: "Try it free. We'll tailor it to your roles."
+- Free trial: see a real report before you buy
+- Free sampling: a few of your best people play the games
+- From them, we build a suitability profile for each role
+- No long-term contract. Buy a package when you need it.
 - Contact: [Name] · [WhatsApp] · admin@deushcs.com · www.deushcs.com
-Notes: "Which role is hardest for you to hire right now? Let's start there."
+Notes: Offer one free candidate for the trial. "Which role is hardest for you to hire right now? Let's start there."
 
 ### Appendix
 Purpose: reference slides, opened only when someone asks. Design them simpler than the main deck but in the same visual system. Start with an "Appendix" divider slide.

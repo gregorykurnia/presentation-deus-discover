@@ -57,7 +57,7 @@ describe('deck.json content is verbatim from the brief', () => {
   it('keeps every [bracketed placeholder] from the slides section of the brief, unless filled', () => {
     const slidesPart = brief.slice(brief.indexOf('## Slides'), brief.indexOf('## Step 2'));
     const placeholders = [...new Set(slidesPart.match(/\[[^\]]+\]/g))].filter((p) => !FILLED.includes(p));
-    expect(placeholders.length).toBeGreaterThan(5);
+    expect(placeholders.length).toBeGreaterThan(3);
     for (const p of placeholders) expect(text, p).toContain(p);
   });
 

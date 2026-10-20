@@ -155,10 +155,10 @@ describe('renderDeck', () => {
 
   it('highlights placeholders only when ctx.highlight is on', () => {
     const on = byId(renderDeck(seed, ctx()), 's-pilot');
-    expect(on.querySelector('[data-field="bullets.0"] mark.ph').textContent).toBe('[30–50]');
+    expect(on.querySelector('[data-field="contact"] mark.ph').textContent).toBe('[Name]');
     const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-pilot');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="bullets.0"]').textContent).toBe('[30–50] candidates, [free]');
+    expect(off.querySelector('[data-field="contact"]').textContent).toBe('[Name] · [WhatsApp] · admin@deushcs.com · www.deushcs.com');
   });
 
   it('escapes HTML in deck text', () => {

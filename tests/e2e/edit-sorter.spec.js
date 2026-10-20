@@ -251,7 +251,7 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     // The main slides before the pilot have no text placeholders left, and the pilot is deleted,
     // so the list starts at the appendix.
     expect(md).not.toContain('The science behind the games'); // hidden
-    expect(md).not.toContain("See if we pick who you'd pick"); // deleted
+    expect(md).not.toContain("We'll tailor it to your roles"); // deleted
     expect(headings.slice(0, 2)).toEqual(['## Slide A1', '## Slide A2']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
