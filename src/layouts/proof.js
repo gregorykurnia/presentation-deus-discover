@@ -8,11 +8,7 @@ export function render(slide, ctx) {
   const el = slideFrame(slide, ctx);
   const stats = fieldAt(slide, 'stats') ?? [];
   el.append(
-    imageSlot(slide, 'photo', ctx, {
-      class: 'proof__photo',
-      group: 'main',
-      overlay: [text('p', slide, 'caption', ctx, { class: 'pill pill--sm proof__caption', fit: true })],
-    }),
+    imageSlot(slide, 'photo', ctx, { class: 'proof__photo', group: 'main' }),
     text('h2', slide, 'headline', ctx, { class: 't-headline-sm proof__headline', fit: true, lines: true, group: 'main' }),
     h('div', { class: 'proof__stats', 'data-fit': true, 'data-no-overlap': 'main' },
       stats.map((s, i) => h('div', { class: 'stat' },

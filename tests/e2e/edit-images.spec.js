@@ -108,38 +108,6 @@ test('clicking a picture opens the popover; Fit and the focus point change the s
   await expect(popover(page)).toBeHidden();
 });
 
-test('a text field inside a picture slot (the proof caption) edits as text: no popover, no picker', async ({ page }) => {
-  const photo = slot(page, 's-proof', 'photo');
-  const caption = page.locator('.slide[data-slide-id="s-proof"] [data-field="caption"]');
-  await expect(photo.locator('[data-field="caption"]')).toHaveCount(1); // it really is inside the slot
-  // Open the popover from the photo area first: clicking the caption closes it.
-  await photo.scrollIntoViewIfNeeded();
-  await photo.click({ position: { x: 40, y: 200 } });
-  await expect(popover(page)).toBeVisible();
-
-  let chooserOpened = false;
-  page.on('filechooser', () => { chooserOpened = true; });
-  await caption.click();
-  await expect(popover(page)).toBeHidden();
-  await expect(caption).toBeFocused();
-  await page.keyboard.press('Control+End');
-  await page.keyboard.type(' Indonesia');
-  await caption.blur();
-  await expect.poll(() => readDraft().slides.find((s) => s.id === 's-proof').fields.caption).toBe('Graha Merah Putih, Bandung Indonesia');
-  await expect(popover(page)).toBeHidden();
-
-  // With the photo empty, clicking the caption still doesn't open the file picker.
-  const deck = readDraft();
-  imageOf(deck, 's-proof', 'photo').src = null;
-  writeDraft(deck);
-  await openEditor(page);
-  await caption.scrollIntoViewIfNeeded();
-  await caption.click();
-  await expect(caption).toBeFocused();
-  await page.waitForTimeout(300);
-  expect(chooserOpened).toBe(false);
-});
-
 test('Replace picture… in the popover uploads the chosen file', async ({ page }) => {
   const target = slot(page, 's-proof', 'photo');
   await target.scrollIntoViewIfNeeded();
