@@ -246,3 +246,17 @@
 
 /* ---------- Unknown layout ---------- */
 .slide-error { left: 140px; top: 300px; width: 1640px; height: 500px; }
+
+/* ---------- Print: no blurred shadows ---------- */
+/* Chrome writes blurred box-shadows and backdrop blur into the PDF as soft-masked images,
+   which macOS Preview draws as solid grey rectangles. Print flat edges instead. */
+@media print {
+  .slide * { box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  .slide .glass,
+  .slide .flow__step:not(.pill--accent),
+  .layout-modules .module__shot,
+  .layout-report .report__shot,
+  .layout-appendix .appendix__shot:not(.img-slot--missing),
+  .layout-video .video__media:not(.img-slot--missing) { outline: 1px solid rgba(15, 26, 58, 0.12); outline-offset: -1px; }
+  .layout-report .callout__dot { outline: 3px solid var(--coral); }
+}
