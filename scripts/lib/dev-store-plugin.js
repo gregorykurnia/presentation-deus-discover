@@ -17,7 +17,7 @@ import { dirname, join, resolve, sep } from 'node:path';
 import { validateDeck } from '../../src/model.js';
 
 const EXTENSIONS = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp', 'video/mp4': 'mp4' };
-const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
+export const MAX_UPLOAD_BYTES = 200 * 1024 * 1024;
 const UPLOAD_URL = '/assets/uploads/';
 
 /** The draft file and the upload directory, from the env overrides or the defaults. */
@@ -90,7 +90,8 @@ export function createDeckHandlers({ deckFile, uploadDir, uploadPrefix = 'assets
   };
 }
 
-function readBody(req, limit) {
+/** The request body as a Buffer; rejects with status 413 past limit bytes. */
+export function readBody(req, limit) {
   return new Promise((ok, fail) => {
     const chunks = [];
     let size = 0;

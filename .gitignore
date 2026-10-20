@@ -8,6 +8,7 @@ playwright-report/
 .env.local
 DEUS-Pitch.pdf
 .e2e/
+.data/
 .vercel
 .env*
 !.env.example

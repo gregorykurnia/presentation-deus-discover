@@ -11,10 +11,13 @@ export function createNeonDb(url) {
 }
 
 /** Tests: an in-memory PGlite with the schema applied. */
-export async function createMemoryDb() {
+export const createMemoryDb = () => createPgliteDb();
+
+/** PGlite with the schema applied: in memory, or kept in dataDir (npm run dev:server). */
+export async function createPgliteDb(dataDir) {
   const { PGlite } = await import('@electric-sql/pglite');
-  const pg = new PGlite();
-  const db = { query: async (text, params = []) => (await pg.query(text, params)).rows };
+  const pg = new PGlite(dataDir);
+  const db = { query: async (text, params = []) => (await pg.query(text, params)).rows, close: () => pg.close() };
   await migrate(db);
   return db;
 }
