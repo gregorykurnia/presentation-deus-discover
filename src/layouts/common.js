@@ -166,7 +166,7 @@ export function missingBox(label, ctx) {
 /**
  * An image slot for slide.images[key]. src null -> missing box; a load error
  * swaps the <img> for the same box. opts: class, group, tag ('img' | 'video'),
- * video attrs via opts.poster.
+ * video attrs via opts.poster; opts.autoplay makes a muted, looping video without controls.
  */
 export function imageSlot(slide, key, ctx, opts = {}) {
   const img = slide.images?.[key] ?? { src: null, label: key };
@@ -187,7 +187,11 @@ export function imageSlot(slide, key, ctx, opts = {}) {
     return slot;
   }
   let media;
-  if (opts.tag === 'video') {
+  if (opts.tag === 'video' && opts.autoplay) {
+    // A silent loop that plays like a moving picture: no controls, muted so browsers allow autoplay.
+    media = h('video', { autoplay: true, muted: true, loop: true, playsinline: true, preload: 'auto' });
+    media.muted = true; // the attribute alone does not mute a script-created element
+  } else if (opts.tag === 'video') {
     media = h('video', { controls: true, preload: 'metadata', playsinline: true });
     const poster = slide.images?.[opts.poster];
     if (poster?.src) media.setAttribute('poster', assetUrl(poster.src, ctx));

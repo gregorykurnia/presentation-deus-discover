@@ -155,6 +155,9 @@
   background: var(--white); box-shadow: var(--shadow-glass);
 }
 .layout-report .report__callouts { position: absolute; inset: 0; pointer-events: none; }
+/* The presenter's clip: centred in the frame at the video's own aspect ratio (report.js). */
+.layout-report .report__frame--video { display: flex; align-items: center; }
+.layout-report .report__shot--sized { height: auto; }
 /* Once the screenshot has loaded (report.js sets --img-ar, --img-fx, --img-fy and
    data-fit), the callout layer is the image as displayed: object-fit + object-position
    math in container units of the frame. Callout x/y are percents of this box. */

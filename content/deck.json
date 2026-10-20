@@ -227,6 +227,10 @@
               "y": 2.4
             }
           ]
+        },
+        "video": {
+          "src": "assets/report-demo.mp4",
+          "label": "Report demo video"
         }
       },
       "notes": "\"This is what your team opens the next morning.\""

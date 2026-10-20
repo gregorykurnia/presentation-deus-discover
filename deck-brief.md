@@ -101,6 +101,7 @@ Notes: "You don't need all four. I'll show you what we'd recommend for you."
 Purpose: show the output HR actually uses. The screenshot must be readable.
 - Headline: "Can they do the job? Will they fit in? What drives them?"
 - Screenshot: assets/report-suitability.jpg, with these four labels pointing to the relevant parts: Role fit · Culture fit · Motivation drivers · Recommendation
+- Video (presenting only): assets/report-demo.mp4 plays muted and looping in place of the screenshot, without the labels. The PDF keeps the screenshot and labels.
 - Footer: "Ready the next day."
 Notes: "This is what your team opens the next morning."
 

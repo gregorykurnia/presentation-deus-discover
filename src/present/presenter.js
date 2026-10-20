@@ -75,6 +75,11 @@ export function startPresenter(deckData, rootEl, options = {}) {
     slides[index].style.transform = '';
     index = target;
     slides[index].classList.add('is-current');
+    // Autoplaying clips start from the beginning each time their slide is shown.
+    slides[index].querySelectorAll('video[autoplay]').forEach((m) => {
+      m.currentTime = 0;
+      Promise.resolve(m.play?.()).catch(() => {});
+    });
     fit();
     counter.textContent = `${index + 1} / ${slides.length}`;
     notes.textContent = slides[index].dataset.notes ?? '';

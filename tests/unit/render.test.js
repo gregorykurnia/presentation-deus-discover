@@ -207,8 +207,28 @@ describe('renderDeck', () => {
     expect(qr.querySelector('.img-missing').textContent).toContain('QR code to the demo');
   });
 
+  it('plays the report video muted and looping in place of the screenshot and callouts in present mode', () => {
+    const report = byId(renderDeck(seed, ctx({ assetBase: './' })), 's-report');
+    const v = report.querySelector('.report__frame [data-image="video"] video');
+    expect(v.getAttribute('src')).toBe('./assets/report-demo.mp4');
+    expect(v.muted).toBe(true);
+    expect(v.hasAttribute('autoplay') && v.hasAttribute('loop')).toBe(true);
+    expect(v.hasAttribute('controls')).toBe(false);
+    expect(report.querySelector('[data-image="report"]')).toBeNull();
+    expect(report.querySelectorAll('[data-callout]')).toHaveLength(0);
+  });
+
+  it('keeps the report screenshot in print mode and adds the video as a corner slot in edit mode', () => {
+    const print = byId(renderDeck(seed, ctx({ mode: 'print' })), 's-report');
+    expect(print.querySelector('video')).toBeNull();
+    expect(print.querySelector('[data-image="report"] img')).not.toBeNull();
+    const edit = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-report');
+    expect(edit.querySelector('[data-image="report"] .video__poster[data-image="video"] video')).not.toBeNull();
+    expect(edit.querySelectorAll('[data-callout]').length).toBeGreaterThan(0);
+  });
+
   it('positions the report callouts by percent coordinates', () => {
-    const report = byId(renderDeck(seed, ctx()), 's-report');
+    const report = byId(renderDeck(seed, ctx({ mode: 'print' })), 's-report');
     const callouts = [...report.querySelectorAll('.report__frame [data-callout]')];
     const spec = seed.slides.find((s) => s.id === 's-report').images.report.callouts;
     expect(callouts).toHaveLength(spec.length);
@@ -224,7 +244,7 @@ describe('renderDeck', () => {
   it('places the callouts on the displayed screenshot: its aspect ratio, fit and focus go to CSS on load', () => {
     const deck = clone();
     deck.slides.find((s) => s.id === 's-report').images.report.focus = [0, 100];
-    const report = byId(renderDeck(deck, ctx()), 's-report');
+    const report = byId(renderDeck(deck, ctx({ mode: 'print' })), 's-report');
     const frame = report.querySelector('.report__frame');
     const img = frame.querySelector('[data-image="report"] img');
     // Until the screenshot loads, the callouts use the whole frame.
@@ -245,7 +265,7 @@ describe('renderDeck', () => {
     Object.defineProperty(proto, 'naturalWidth', { configurable: true, get: () => 1600 });
     Object.defineProperty(proto, 'naturalHeight', { configurable: true, get: () => 1294 });
     try {
-      const frame = byId(renderDeck(seed, ctx()), 's-report').querySelector('.report__frame');
+      const frame = byId(renderDeck(seed, ctx({ mode: 'print' })), 's-report').querySelector('.report__frame');
       expect(frame.classList.contains('report__frame--sized')).toBe(true);
       expect(Number(frame.style.getPropertyValue('--img-ar'))).toBeCloseTo(1600 / 1294, 6);
     } finally {
@@ -303,7 +323,7 @@ describe('renderDeck', () => {
     it('in report callout labels', () => {
       const deck = clone();
       deck.slides.find((s) => s.id === 's-report').images.report.callouts[0].label = EVIL;
-      const report = byId(renderDeck(deck, ctx()), 's-report');
+      const report = byId(renderDeck(deck, ctx({ mode: 'print' })), 's-report');
       expect(report.querySelector('[data-callout="0"] .callout__label').textContent).toBe(EVIL);
       expect(report.querySelectorAll('.report__callouts img, .report__callouts script')).toHaveLength(0);
     });
