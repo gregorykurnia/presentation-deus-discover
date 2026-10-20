@@ -204,8 +204,11 @@
 
 /* ---------- 8. Trust ---------- */
 .layout-trust .trust__headline { left: 140px; top: 200px; width: 760px; height: 440px; }
-.layout-trust .trust__list { left: 980px; top: 210px; width: 800px; height: 640px; justify-content: center; }
-.layout-trust .trust__list .list__item { font-size: 36px; }
+.layout-trust .trust__list { left: 980px; top: 190px; width: 800px; height: 700px; justify-content: center; }
+.layout-trust .trust__pillar { padding-top: 26px; padding-bottom: 26px; }
+.layout-trust .trust__pillar::before { top: calc(26px + 0.65em - 3px); }
+.layout-trust .trust__title { margin: 0; font: 700 36px/1.3 var(--font); letter-spacing: -0.01em; }
+.layout-trust .trust__text { margin: 8px 0 0; font: 500 28px/1.35 var(--font); color: var(--muted); text-wrap: balance; }
 .layout-trust .trust__disc { left: -180px; top: 700px; width: 640px; height: 640px; opacity: 0.55; }
 
 /* ---------- 9. Package ---------- */

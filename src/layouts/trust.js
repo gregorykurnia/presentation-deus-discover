@@ -1,16 +1,19 @@
-// Slide 8: answer the sceptical psikolog. The headline on the left, the four
-// evidence lines on the right as one calm list.
-import { text, bulletList, slideFrame, disc } from './common.js';
+// Slide 7: answer the sceptical psikolog. The headline on the left, the four
+// credibility pillars on the right as one calm list: a title and a proof line each.
+import { h, text, slideFrame, disc, fieldAt } from './common.js';
 
 export const name = 'trust';
 
 export function render(slide, ctx) {
   const el = slideFrame(slide, ctx);
+  const pillars = fieldAt(slide, 'pillars') ?? [];
   el.append(
     disc('one', 'trust__disc'),
     text('h2', slide, 'headline', ctx, { class: 't-headline-xl trust__headline', fit: true, lines: true, group: 'main' }),
-    bulletList(slide, 'bullets', ctx, { class: 'list--rule trust__list', group: 'main' }),
+    h('ul', { class: 'list list--rule trust__list', 'data-fit': true, 'data-no-overlap': 'main' },
+      pillars.map((_, i) => h('li', { class: 'list__item trust__pillar' },
+        text('h3', slide, `pillars.${i}.title`, ctx, { class: 'trust__title' }),
+        text('p', slide, `pillars.${i}.text`, ctx, { class: 'trust__text' })))),
   );
-  el.querySelector('.trust__list').setAttribute('data-fit', '');
   return el;
 }

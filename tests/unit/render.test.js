@@ -131,12 +131,20 @@ describe('renderDeck', () => {
     expect(mods.querySelector('[data-field="modules.0.feeds"]').textContent).toBe('Culture fit');
   });
 
+  it('renders the trust slide as four pillars, a title and a proof line each', () => {
+    const trust = byId(renderDeck(seed, ctx()), 's-trust');
+    expect(trust.querySelector('[data-field="headline"]').textContent).toBe('The science behind the games.');
+    expect(trust.querySelectorAll('.trust__pillar')).toHaveLength(4);
+    expect(trust.querySelector('[data-field="pillars.2.title"]').textContent).toBe('Measured against traditional tests');
+    expect(trust.querySelector('mark.ph')).toBeNull();
+  });
+
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 's-trust');
-    expect(on.querySelector('[data-field="bullets.1"] mark.ph').textContent).toBe('[X,000]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-trust');
+    const on = byId(renderDeck(seed, ctx()), 's-package');
+    expect(on.querySelector('[data-field="changes.bullets.2"] mark.ph').textContent).toBe('[X weeks]');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 's-package');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="bullets.1"]').textContent).toBe('Benchmarked on [X,000] Indonesian candidates');
+    expect(off.querySelector('[data-field="changes.bullets.2"]').textContent).toBe('Shortlist in 1 day, not [X weeks]');
   });
 
   it('escapes HTML in deck text', () => {

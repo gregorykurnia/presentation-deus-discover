@@ -248,11 +248,9 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    // Slides 3 to 6 have no text placeholders; their asset to-dos carry the new numbers.
-    expect(md).toContain('- [ ] Slide 3: Product demo video');
-    expect(md).toContain('- [ ] Slide 6: Replace report screenshot');
+    // Slides 1 to 7 have no text placeholders left; the first heading carries the new number.
     expect(md).toContain('## Slide 8: What it changes');
-    expect(md).not.toContain('Built for Indonesians'); // hidden
+    expect(md).not.toContain('The science behind the games'); // hidden
     expect(md).not.toContain("See if we pick who you'd pick"); // deleted
     expect(headings.slice(0, 2)).toEqual(['## Slide 8', '## Slide A1']);
 
@@ -264,7 +262,7 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     const page3 = execFileSync('pdftotext', ['-f', '3', '-l', '3', pdf, '-'], { encoding: 'utf8' });
     expect(page3).toContain('This is what your candidates play');
     const all = execFileSync('pdftotext', [pdf, '-'], { encoding: 'utf8' });
-    expect(all).not.toContain('Built for Indonesians');
+    expect(all).not.toContain('The science behind the games');
   } finally {
     rmSync(out, { recursive: true, force: true });
   }

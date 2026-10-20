@@ -229,12 +229,24 @@
       "section": "main",
       "hidden": false,
       "fields": {
-        "headline": "Built for Indonesians. Built by psikolog.",
-        "bullets": [
-          "Big Five + established cognitive science",
-          "Benchmarked on [X,000] Indonesian candidates",
-          "Matches [test name] (r = [X])",
-          "Designed by [names, M.Psi., Psikolog]"
+        "headline": "The science behind the games.",
+        "pillars": [
+          {
+            "title": "Proven science",
+            "text": "Built on the Big Five and established cognitive science."
+          },
+          {
+            "title": "Built by psychologists",
+            "text": "A rigorous four-step process: theory, items, validation, norming."
+          },
+          {
+            "title": "Measured against traditional tests",
+            "text": "Game validity lines up with established psychological tests."
+          },
+          {
+            "title": "Established local norms",
+            "text": "Benchmarked on thousands of Indonesian candidates. 100% local data."
+          }
         ]
       },
       "images": {},

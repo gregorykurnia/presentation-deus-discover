@@ -106,11 +106,12 @@ Notes: "This is what your team opens the next morning."
 
 ### Slide 8: Why trust it
 Purpose: answer the skeptical psikolog in the room.
-- Headline: "Built for Indonesians. Built by psikolog."
-- Big Five + established cognitive science
-- Benchmarked on [X,000] Indonesian candidates
-- Matches [test name] (r = [X])
-- Designed by [names, M.Psi., Psikolog]
+- Headline: "The science behind the games."
+- Four pillars, each a title and one proof line:
+  - Proven science: "Built on the Big Five and established cognitive science."
+  - Built by psychologists: "A rigorous four-step process: theory, items, validation, norming."
+  - Measured against traditional tests: "Game validity lines up with established psychological tests."
+  - Established local norms: "Benchmarked on thousands of Indonesian candidates. 100% local data."
 Notes: "Don't just trust us. Check it in a pilot."
 
 ### Slide 9: Your package
