@@ -105,6 +105,21 @@ test('leaving a slide pauses media inside it', async ({ page }) => {
   expect(await page.evaluate(() => window.__paused)).toBe(1);
 });
 
+test('the trailer plays with sound when its slide is shown, forward or back, from the start', async ({ page }) => {
+  const at = visible.findIndex((s) => s.id === 's-video');
+  const video = page.locator('.slide[data-slide-id="s-video"] video');
+  const state = () => video.evaluate((v) => ({ paused: v.paused, muted: v.muted, t: v.currentTime }));
+  for (let i = 0; i < at; i += 1) await page.keyboard.press('ArrowRight');
+  await expect.poll(async () => (await state()).t).toBeGreaterThan(0.5);
+  expect(await state()).toMatchObject({ paused: false, muted: false });
+  await page.keyboard.press('ArrowRight');
+  expect((await state()).paused).toBe(true);
+  await page.keyboard.press('ArrowLeft');
+  const back = await state();
+  expect(back.paused).toBe(false);
+  expect(back.t).toBeLessThan(0.5);
+});
+
 for (const tag of ['video', 'input', 'textarea', 'select']) {
   test(`navigation keys are ignored while a <${tag}> has focus`, async ({ page }) => {
     const first = await currentId(page);

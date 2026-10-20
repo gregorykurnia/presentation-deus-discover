@@ -80,6 +80,16 @@ export function startPresenter(deckData, rootEl, options = {}) {
       m.currentTime = 0;
       Promise.resolve(m.play?.()).catch(() => {});
     });
+    // The trailer does too, with sound. Browsers allow sound only after a key press or click
+    // on the page (arriving by arrow key or clicker counts); before that it plays muted.
+    slides[index].querySelectorAll('video[data-play-on-show]').forEach((m) => {
+      m.currentTime = 0;
+      m.muted = false;
+      Promise.resolve(m.play?.()).catch(() => {
+        m.muted = true;
+        Promise.resolve(m.play?.()).catch(() => {});
+      });
+    });
     fit();
     counter.textContent = `${index + 1} / ${slides.length}`;
     notes.textContent = slides[index].dataset.notes ?? '';

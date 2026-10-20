@@ -1,5 +1,6 @@
 // Slide 4: the game trailer, centred under the headline and as large as the
-// margins allow. Present/edit: <video controls>. Print: the poster image. Edit
+// margins allow. Present/edit: <video controls>, which starts from the beginning
+// whenever the slide is shown while presenting. Print: the poster image. Edit
 // mode adds the poster as a small slot over the video's corner, so it can be
 // replaced too.
 import { text, imageSlot, slideFrame } from './common.js';
@@ -12,7 +13,7 @@ export function render(slide, ctx) {
   const media = print
     ? imageSlot(slide, 'poster', ctx, { class: 'video__media', group: 'main' })
     : imageSlot(slide, 'video', ctx, {
-      class: 'video__media', group: 'main', tag: 'video', poster: 'poster',
+      class: 'video__media', group: 'main', tag: 'video', poster: 'poster', playOnShow: ctx.mode === 'present',
       overlay: ctx.mode === 'edit' ? [imageSlot(slide, 'poster', ctx, { class: 'video__poster' })] : undefined,
     });
   el.append(

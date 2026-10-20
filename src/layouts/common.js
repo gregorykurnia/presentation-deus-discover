@@ -166,7 +166,8 @@ export function missingBox(label, ctx) {
 /**
  * An image slot for slide.images[key]. src null -> missing box; a load error
  * swaps the <img> for the same box. opts: class, group, tag ('img' | 'video'),
- * video attrs via opts.poster; opts.autoplay makes a muted, looping video without controls.
+ * video attrs via opts.poster; opts.autoplay makes a muted, looping video without controls;
+ * opts.playOnShow marks a controls video for the presenter to start, with sound, when its slide is shown.
  */
 export function imageSlot(slide, key, ctx, opts = {}) {
   const img = slide.images?.[key] ?? { src: null, label: key };
@@ -195,6 +196,7 @@ export function imageSlot(slide, key, ctx, opts = {}) {
     media = h('video', { controls: true, preload: 'metadata', playsinline: true });
     const poster = slide.images?.[opts.poster];
     if (poster?.src) media.setAttribute('poster', assetUrl(poster.src, ctx));
+    if (opts.playOnShow) media.setAttribute('data-play-on-show', '');
   } else {
     media = h('img', { alt: img.label ?? '', decoding: 'async', draggable: 'false' });
   }

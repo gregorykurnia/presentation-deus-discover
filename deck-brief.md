@@ -83,7 +83,7 @@ Notes: "Same games, different definition of success. Culture fit means your valu
 ### Slide 5: Video
 Purpose: a trailer of the games, showing what candidates actually play.
 - Headline: "This is what your candidates play."
-- Video: assets/demo.mp4, the game trailer (with controls), centred and as large as the margins allow. No quote, link or QR code. In the PDF, show the poster image assets/demo-poster.jpg.
+- Video: assets/demo.mp4, the game trailer (with controls), centred and as large as the margins allow. When presenting it plays from the start, with sound, each time the slide is shown (forward or back), and pauses when you leave. No quote, link or QR code. In the PDF, show the poster image assets/demo-poster.jpg.
 Notes: "While she played the balloon game, it measured how she takes risks and learns from mistakes. That feeds directly into her fit."
 
 ### Slide 6: What it measures

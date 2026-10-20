@@ -191,6 +191,8 @@ describe('renderDeck', () => {
     expect(v.hasAttribute('controls')).toBe(true);
     expect(v.getAttribute('src')).toBe('./assets/demo.mp4');
     expect(v.getAttribute('poster')).toBe('./assets/demo-poster.jpg');
+    expect(v.hasAttribute('data-play-on-show')).toBe(true);
+    expect(v.hasAttribute('autoplay') || v.hasAttribute('loop') || v.muted).toBe(false);
     expect(video.textContent).not.toContain('Watch the demo');
     expect(video.querySelector('blockquote')).toBeNull();
     // A video that fails to load becomes the labeled box too.
@@ -278,6 +280,7 @@ describe('renderDeck', () => {
 
   it('adds a "poster" slot to the video slide in edit mode only', () => {
     const edit = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-video');
+    expect(edit.querySelector('[data-image="video"] video').hasAttribute('data-play-on-show')).toBe(false);
     expect(edit.querySelectorAll('[data-image="poster"]')).toHaveLength(1);
     expect(edit.querySelectorAll('[data-image="video"]')).toHaveLength(1);
     const present = byId(renderDeck(seed, ctx()), 's-video');
