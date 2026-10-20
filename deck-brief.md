@@ -89,7 +89,7 @@ Notes: "While she played the balloon game, it measured how she takes risks and l
 
 ### Slide 6: What it measures
 Purpose: answer "what exactly do you measure?" without overwhelming them.
-- Headline: "Four modules feed the suitability score."
+- Headline: "Four games, each measuring something different."
 - Personality: Work style, values, teamwork → Culture fit
 - Cognitive: Memory, logic, numbers, speed → Role fit
 - Drive & Risk: Motivation, risk-taking, reading people → What drives them
