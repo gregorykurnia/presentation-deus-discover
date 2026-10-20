@@ -1,0 +1,411 @@
+<title>DEUS Deck Directions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Unbounded:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=Geist:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: a review page. Each direction gets a short spec, then its three sample slides stacked at full width. */
+:root {
+  --page: #EEF0F4;
+  --paper: #FFFFFF;
+  --text: #16181F;
+  --soft: #5A6070;
+  --line: #D9DCE4;
+  --mark: #FFE45C;
+  --ui: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--page); color: var(--text); font-family: var(--ui); font-size: 16px; line-height: 1.55; }
+
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 48px 96px; }
+.intro h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 12px; text-wrap: balance; }
+.intro p { max-width: 64ch; color: var(--soft); margin: 0; }
+
+.jump { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; gap: 8px; flex-wrap: wrap; padding-block: 12px; margin-block: 24px 8px; background: var(--page); }
+.jump a { text-decoration: none; color: var(--text); background: var(--paper); border: 1px solid var(--line); padding: 8px 14px; border-radius: 999px; font-weight: 500; font-size: 15px; }
+.jump a:hover, .jump a:focus-visible { border-color: var(--text); outline: none; }
+
+.dir { padding-block: 40px 24px; border-top: 1px solid var(--line); margin-top: 32px; scroll-margin-top: 64px; }
+.dir header { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; margin-bottom: 28px; }
+.dir h2 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.1; margin: 0 0 8px; letter-spacing: -0.02em; }
+.dir .concept { font-size: 18px; color: var(--soft); margin: 0 0 18px; max-width: 46ch; }
+.swatches { display: flex; flex-wrap: wrap; gap: 10px; }
+.sw { display: grid; gap: 6px; font-size: 12.5px; color: var(--soft); font-variant-numeric: tabular-nums; }
+.sw i { display: block; width: 64px; height: 44px; border-radius: 10px; border: 1px solid rgba(0,0,0,.08); }
+.spec { display: grid; gap: 14px; margin: 0; }
+.spec div { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 12px; }
+.spec dt { font-weight: 600; font-size: 15px; }
+.spec dd { margin: 0; color: var(--soft); font-size: 15px; }
+
+.slides { display: grid; gap: 22px; }
+.frame { position: relative; width: 100%; aspect-ratio: 16 / 9; max-width: 100%; overflow: hidden; border-radius: 14px; box-shadow: 0 1px 2px rgba(20,24,40,.06), 0 12px 40px -12px rgba(20,24,40,.22); background: #fff; }
+.frame figcaption { position: absolute; }
+.cap { font-size: 14px; color: var(--soft); margin: 8px 2px 0; }
+
+.note { margin-top: 56px; padding: 20px 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; color: var(--soft); font-size: 15px; }
+.note strong { color: var(--text); }
+
+@media (max-width: 760px) {
+  .dir header { grid-template-columns: 1fr; gap: 20px; }
+  .spec div { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* ---------- Shared slide canvas (1920 x 1080, scaled to fit) ---------- */
+.slide { position: absolute; top: 0; left: 0; width: 1920px; height: 1080px; transform-origin: 0 0; transform: scale(var(--s, 0.6)); overflow: hidden; }
+.slide * { margin: 0; }
+.slide .abs { position: absolute; }
+.ph { background: var(--mark); color: #1a1a1a; padding: 0 .18em; border-radius: .18em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.stat { display: grid; grid-template-rows: 44px auto auto; align-content: start; }
+.stat .pre { align-self: end; }
+
+/* =========================================================
+   A. DAYBREAK
+   ========================================================= */
+.dA {
+  --ink: #0F1A3A; --muted: #4B5677; --cobalt: #2D5BFF; --coral: #FF6F4E;
+  --sky: #D3E2FF; --peach: #FFDCCB; --lilac: #ECE4FF;
+  --disp: "Bricolage Grotesque", "Figtree", sans-serif;
+  --body: "Figtree", system-ui, sans-serif;
+  font-family: var(--body); color: var(--ink);
+  background:
+    radial-gradient(1200px 900px at -5% -10%, var(--sky) 0%, transparent 62%),
+    radial-gradient(1100px 850px at 105% 110%, var(--peach) 0%, transparent 60%),
+    radial-gradient(900px 700px at 88% 0%, var(--lilac) 0%, transparent 62%),
+    #F7F8FC;
+}
+.dA .wm { left: 140px; top: 100px; font: 800 46px/1 var(--disp); letter-spacing: -0.03em; }
+.dA .disc { border-radius: 50%; mix-blend-mode: multiply; }
+.dA .disc.one { background: radial-gradient(circle at 35% 35%, #A9C2FF, #7C9DFF); opacity: .55; }
+.dA .disc.two { background: radial-gradient(circle at 60% 40%, #FFC2AE, #FF9D80); opacity: .6; }
+
+.dA.t h1 { left: 140px; top: 300px; width: 1660px; font: 800 106px/1.02 var(--disp); letter-spacing: -0.035em; text-wrap: balance; }
+.dA.t .sub { left: 140px; top: 560px; width: 1180px; text-wrap: balance; font: 500 36px/1.35 var(--body); color: var(--muted); }
+.dA.t .prep { left: 140px; bottom: 100px; display: flex; align-items: center; gap: 28px; font: 600 30px var(--body); }
+.dA .logobox { width: 230px; height: 92px; border: 2px dashed rgba(15,26,58,.25); border-radius: 18px; display: grid; place-items: center; font: 500 20px var(--body); color: var(--muted); background: rgba(255,255,255,.5); }
+
+.dA.p h2 { left: 140px; top: 104px; width: 1040px; font: 800 66px/1.06 var(--disp); letter-spacing: -0.03em; text-wrap: balance; }
+.dA.p .stats { left: 140px; top: 300px; width: 920px; display: grid; grid-template-columns: 1fr 1fr; gap: 44px 56px; }
+.dA.p .stat b { font: 800 116px/1 var(--disp); letter-spacing: -0.04em; color: var(--cobalt); }
+.dA.p .stat span { font: 500 28px/1.3 var(--body); color: var(--muted); margin-top: 10px; }
+.dA.p .stat .pre { margin: 0 0 4px; }
+.dA.p .photo { left: 1220px; top: 104px; width: 560px; height: 740px; border-radius: 40px; overflow: hidden; background: linear-gradient(160deg, #C9D8FF, #FFD4C2); display: grid; place-items: center; text-align: center; color: rgba(15,26,58,.55); font: 500 22px/1.4 var(--body); padding: 40px; }
+.dA.p .chip { left: 1250px; top: 134px; background: rgba(255,255,255,.85); padding: 10px 18px; border-radius: 999px; font: 600 22px var(--body); }
+.dA.p .quote { left: 1030px; top: 600px; width: 600px; padding: 40px 44px; border-radius: 32px; background: rgba(255,255,255,.78); backdrop-filter: blur(18px); box-shadow: 0 30px 60px -30px rgba(15,26,58,.35); }
+.dA.p .quote p { font: 500 30px/1.38 var(--body); }
+.dA.p .quote cite { display: block; margin-top: 18px; font: 600 22px/1.3 var(--body); font-style: normal; color: var(--muted); }
+
+.dA.f h2 { left: 140px; top: 120px; width: 620px; font: 800 104px/0.98 var(--disp); letter-spacing: -0.04em; }
+.dA.f .circle { width: 580px; height: 580px; top: 130px; mix-blend-mode: normal; display: flex; flex-direction: column; justify-content: center; }
+.dA.f .circle.one { left: 780px; padding: 0 200px 0 70px; }
+.dA.f .circle.two { left: 1200px; padding: 0 60px 0 220px; }
+.dA.f .circle h3 { font: 800 56px/1 var(--disp); letter-spacing: -0.03em; margin-bottom: 18px; position: relative; }
+.dA.f .circle p { font: 500 30px/1.3 var(--body); position: relative; }
+.dA.f .one-score { left: 1280px; top: 560px; transform: translateX(-50%); background: var(--ink); color: #fff; font: 700 26px var(--body); padding: 14px 24px; border-radius: 999px; white-space: nowrap; }
+.dA.f .flow { left: 140px; top: 800px; width: 1640px; display: flex; align-items: center; gap: 18px; }
+.dA.f .flow span { font: 600 30px var(--body); padding: 18px 28px; border-radius: 999px; background: rgba(255,255,255,.75); white-space: nowrap; }
+.dA.f .flow span.end { background: var(--cobalt); color: #fff; }
+.dA.f .flow i { font-style: normal; font: 500 34px var(--body); color: var(--muted); }
+.dA.f .foot { left: 140px; top: 940px; font: 500 28px var(--body); color: var(--muted); }
+
+/* =========================================================
+   B. GAME PIECES
+   ========================================================= */
+.dB {
+  --ink: #1B1442; --muted: #5A5378; --violet: #6B4BFF; --mint: #1FD1A5; --sun: #FFC940; --pink: #FF86C8;
+  --disp: "Unbounded", "Plus Jakarta Sans", sans-serif;
+  --body: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-family: var(--body); color: var(--ink);
+  background:
+    radial-gradient(820px 700px at 100% 0%, rgba(255,201,64,.42), transparent 70%),
+    radial-gradient(1000px 800px at 0% 105%, rgba(31,209,165,.28), transparent 70%),
+    linear-gradient(160deg, #F2EEFF 0%, #FCFBFF 60%, #F7F4FF 100%);
+}
+.dB .wm { left: 130px; top: 100px; font: 700 40px/1 var(--disp); letter-spacing: -0.01em; }
+.dB.t h1 { left: 130px; top: 220px; width: 1160px; font: 700 100px/1.04 var(--disp); letter-spacing: -0.03em; }
+.dB.t .sub { left: 130px; top: 690px; width: 1180px; font: 500 34px/1.4 var(--body); color: var(--muted); }
+.dB.t .prep { left: 130px; bottom: 96px; display: flex; align-items: center; gap: 28px; font: 600 30px var(--body); }
+.dB .logobox { width: 230px; height: 92px; border: 3px dashed rgba(27,20,66,.22); border-radius: 22px; display: grid; place-items: center; font: 600 20px var(--body); color: var(--muted); background: rgba(255,255,255,.6); }
+.dB .tok { position: absolute; }
+.dB .tok.c { left: 1370px; top: 170px; width: 330px; height: 330px; border-radius: 50%; background: var(--violet); }
+.dB .tok.s { left: 1560px; top: 470px; width: 260px; height: 260px; border-radius: 56px; background: var(--mint); transform: rotate(14deg); }
+.dB .tok.tri { left: 1290px; top: 520px; width: 300px; height: 270px; background: var(--sun); clip-path: polygon(50% 0, 100% 100%, 0 100%); transform: rotate(-10deg); }
+.dB .tok.pill { left: 1440px; top: 800px; width: 360px; height: 130px; border-radius: 999px; background: var(--pink); transform: rotate(-16deg); }
+.dB .tok.dot { left: 1740px; top: 120px; width: 70px; height: 70px; border-radius: 50%; border: 14px solid var(--ink); }
+
+.dB.p .panel { left: 0; top: 0; width: 780px; height: 1080px; background: var(--violet); color: #fff; }
+.dB.p .panel h2 { position: absolute; left: 110px; top: 110px; width: 580px; font: 700 56px/1.14 var(--disp); letter-spacing: -0.02em; }
+.dB.p .panel .q { position: absolute; left: 110px; bottom: 110px; width: 580px; }
+.dB.p .panel .q::before { content: "\201C"; display: block; font: 700 120px/0.6 var(--disp); color: var(--sun); margin-bottom: 18px; }
+.dB.p .panel .q p { font: 500 30px/1.4 var(--body); }
+.dB.p .panel .q cite { display: block; margin-top: 20px; font: 600 22px/1.3 var(--body); font-style: normal; opacity: .82; }
+.dB.p .stats { left: 880px; top: 104px; width: 920px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px 50px; }
+.dB.p .stat b { font: 700 92px/1 var(--disp); letter-spacing: -0.04em; display: flex; align-items: center; gap: 18px; }
+.dB.p .stat b::before { content: ""; width: 26px; height: 26px; border-radius: 50%; background: var(--c); flex: none; }
+.dB.p .stat span { font: 500 28px/1.3 var(--body); color: var(--muted); margin-top: 12px; padding-left: 44px; }
+.dB.p .stat .pre { padding-left: 44px; margin-bottom: 4px; }
+.dB.p .photo { left: 880px; top: 640px; width: 920px; height: 340px; border-radius: 36px; background: repeating-linear-gradient(135deg, #E9E3FF 0 22px, #F3EFFF 22px 44px); border: 3px dashed rgba(107,75,255,.35); display: grid; place-items: center; text-align: center; color: var(--muted); font: 600 22px/1.4 var(--body); }
+.dB.p .chip { left: 912px; top: 672px; background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font: 600 22px var(--body); }
+
+.dB.f h2 { left: 130px; top: 96px; width: 1660px; font: 700 76px/1.05 var(--disp); letter-spacing: -0.03em; }
+.dB.f .half { top: 260px; height: 460px; width: 830px; border-radius: 52px; display: flex; flex-direction: column; justify-content: center; }
+.dB.f .half.role { left: 130px; border-radius: 52px 0 0 52px; background: var(--mint); padding: 0 260px 0 72px; }
+.dB.f .half.cult { left: 960px; border-radius: 0 52px 52px 0; background: var(--sun); padding: 0 72px 0 230px; }
+.dB.f .half h3 { font: 700 58px/1.05 var(--disp); letter-spacing: -0.03em; margin-bottom: 20px; }
+.dB.f .half p { font: 600 32px/1.3 var(--body); }
+.dB.f .score { left: 960px; top: 490px; width: 300px; height: 300px; transform: translate(-50%, -50%); border-radius: 50%; background: #fff; border: 16px solid var(--violet); display: grid; place-items: center; text-align: center; font: 700 34px/1.1 var(--disp); color: var(--violet); box-shadow: 0 24px 50px -20px rgba(27,20,66,.45); }
+.dB.f .flow { left: 130px; top: 800px; width: 1660px; display: flex; align-items: center; }
+.dB.f .flow span { font: 700 29px var(--body); padding: 18px 28px; border-radius: 22px; background: #fff; border: 3px solid var(--ink); white-space: nowrap; }
+.dB.f .flow span.end { background: var(--violet); border-color: var(--violet); color: #fff; }
+.dB.f .flow i { flex: 1; height: 4px; background: var(--ink); min-width: 40px; }
+.dB.f .foot { left: 130px; top: 950px; font: 600 28px var(--body); color: var(--muted); }
+
+/* =========================================================
+   C. CLEAR SIGNAL
+   ========================================================= */
+.dC {
+  --ink: #062A30; --muted: #4E6A72; --emerald: #00B386; --sky: #2E9BFF; --lime: #D4F66A;
+  --disp: "Instrument Serif", Georgia, serif;
+  --body: "Geist", system-ui, sans-serif;
+  font-family: var(--body); color: var(--ink);
+  background:
+    linear-gradient(rgba(6,42,48,.045) 1px, transparent 1px) 0 0 / 60px 60px,
+    linear-gradient(90deg, rgba(6,42,48,.045) 1px, transparent 1px) 0 0 / 60px 60px,
+    radial-gradient(1100px 820px at 100% -5%, #CBE6FF 0%, transparent 65%),
+    radial-gradient(1100px 820px at -5% 105%, #C6F3E1 0%, transparent 65%),
+    #F5FAF9;
+}
+.dC .wm { left: 140px; top: 104px; font: 700 40px/1 var(--body); letter-spacing: 0.04em; }
+.dC .ring { border-radius: 50%; background: conic-gradient(var(--emerald) 0 50%, var(--sky) 50% 100%); -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - var(--w)), #000 calc(100% - var(--w) + 1px)); mask: radial-gradient(farthest-side, transparent calc(100% - var(--w)), #000 calc(100% - var(--w) + 1px)); }
+
+.dC.t .ring { left: 1440px; top: 100px; width: 340px; height: 340px; --w: 34px; transform: rotate(-30deg); }
+.dC.t h1 { left: 140px; top: 400px; width: 1680px; font: 400 128px/1.0 var(--disp); letter-spacing: -0.02em; }
+.dC.t .sub { left: 140px; top: 690px; width: 1200px; font: 400 34px/1.4 var(--body); color: var(--muted); }
+.dC.t .prep { left: 140px; bottom: 100px; display: flex; align-items: center; gap: 28px; font: 500 30px var(--body); }
+.dC .logobox { width: 230px; height: 92px; border: 2px dashed rgba(6,42,48,.25); border-radius: 14px; display: grid; place-items: center; font: 500 20px var(--body); color: var(--muted); background: rgba(255,255,255,.6); }
+
+.dC.p h2 { left: 140px; top: 96px; width: 1640px; font: 400 80px/1.04 var(--disp); letter-spacing: -0.015em; }
+.dC.p .stats { left: 140px; top: 330px; width: 1640px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.dC.p .stat { padding: 0 34px; border-left: 3px solid var(--emerald); }
+.dC.p .stat b { font: 400 140px/1 var(--disp); letter-spacing: -0.02em; }
+.dC.p .stat span { font: 400 28px/1.3 var(--body); color: var(--muted); margin-top: 10px; }
+.dC.p .stat .pre { margin-bottom: 2px; }
+.dC.p .quote { left: 140px; top: 700px; width: 900px; }
+.dC.p .quote p { font: italic 400 46px/1.18 var(--disp); }
+.dC.p .quote cite { display: block; margin-top: 20px; font: 500 24px var(--body); font-style: normal; color: var(--muted); }
+.dC.p .photo { left: 1140px; top: 680px; width: 640px; height: 300px; border-radius: 22px; background: linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,255,255,.35)); border: 2px dashed rgba(6,42,48,.22); display: grid; place-items: center; text-align: center; color: var(--muted); font: 500 22px/1.4 var(--body); }
+.dC.p .chip { left: 1164px; top: 704px; background: var(--lime); padding: 8px 16px; border-radius: 8px; font: 600 22px var(--body); }
+
+.dC.f h2 { left: 140px; top: 100px; width: 1640px; font: 400 92px/1 var(--disp); letter-spacing: -0.02em; }
+.dC.f .eq { left: 140px; top: 330px; width: 1640px; display: grid; grid-template-columns: 1fr 90px 1fr 90px 340px; align-items: start; }
+.dC.f .term h3 { font: 400 112px/1 var(--disp); letter-spacing: -0.02em; }
+.dC.f .term .bar { height: 12px; width: 120px; border-radius: 6px; margin: 22px 0 22px; }
+.dC.f .term p { font: 400 32px/1.3 var(--body); color: var(--muted); max-width: 440px; }
+.dC.f .op { font: 400 120px/1 var(--disp); color: var(--muted); text-align: center; margin-top: -4px; }
+.dC.f .eq .ring { width: 320px; height: 320px; --w: 40px; margin-top: -40px; }
+.dC.f .track { left: 140px; top: 768px; width: 1640px; height: 3px; background: rgba(6,42,48,.18); }
+.dC.f .steps { left: 140px; top: 750px; width: 1640px; display: grid; grid-template-columns: repeat(4, 1fr); }
+.dC.f .steps div { display: grid; gap: 18px; }
+.dC.f .steps i { width: 40px; height: 40px; border-radius: 50%; background: #fff; border: 3px solid var(--ink); display: grid; place-items: center; font: 600 18px var(--body); font-style: normal; }
+.dC.f .steps div:last-child i { background: var(--emerald); border-color: var(--emerald); color: #fff; }
+.dC.f .steps span { font: 500 30px/1.25 var(--body); }
+.dC.f .foot { left: 140px; top: 960px; font: 500 26px var(--body); color: var(--muted); }
+</style>
+
+<div class="wrap">
+  <section class="intro">
+    <h1>DEUS pitch deck: three directions</h1>
+    <p>Each direction is shown on three real slides from the brief: the title, the Telkom proof slide, and the "two kinds of fit" core idea. The text is the final copy. Yellow highlights mark [placeholders]. The logo and Telkom photo aren't in the repo yet, so they appear as labeled boxes.</p>
+  </section>
+
+  <nav class="jump" aria-label="Directions">
+    <a href="#daybreak">A · Daybreak</a>
+    <a href="#gamepieces">B · Game Pieces</a>
+    <a href="#clearsignal">C · Clear Signal</a>
+  </nav>
+
+  <!-- ================= A ================= -->
+  <section class="dir" id="daybreak">
+    <header>
+      <div>
+        <h2>A. Daybreak</h2>
+        <p class="concept">Soft morning-light gradients, a confident grotesque, and two overlapping colour discs that stand for role fit and culture fit.</p>
+        <div class="swatches">
+          <span class="sw"><i style="background:#0F1A3A"></i>#0F1A3A</span>
+          <span class="sw"><i style="background:#2D5BFF"></i>#2D5BFF</span>
+          <span class="sw"><i style="background:#FF6F4E"></i>#FF6F4E</span>
+          <span class="sw"><i style="background:#D3E2FF"></i>#D3E2FF</span>
+          <span class="sw"><i style="background:#FFDCCB"></i>#FFDCCB</span>
+        </div>
+      </div>
+      <dl class="spec">
+        <div><dt>Fonts</dt><dd>Bricolage Grotesque (headlines, numbers) and Figtree (body). Modern, slightly characterful, very legible at a distance.</dd></div>
+        <div><dt>Layout</dt><dd>Left-aligned headline, one big visual on the right. Numbers are huge and in cobalt. Pale glass panels hold only quotes and steps.</dd></div>
+        <div><dt>Why</dt><dd>Feels fresh and premium but calm, which suits HR directors. The two-disc motif makes "role + culture = one score" the visual idea of the whole deck.</dd></div>
+      </dl>
+    </header>
+
+    <div class="slides">
+      <figure class="frame" style="margin:0"><div class="slide dA t">
+        <div class="abs disc one" style="left:1300px;top:140px;width:600px;height:600px"></div>
+        <div class="abs disc two" style="left:1560px;top:400px;width:600px;height:600px"></div>
+        <div class="abs wm">DEUS</div>
+        <h1 class="abs">Fit the role, they perform.<br>Fit your company, they stay.</h1>
+        <p class="abs sub">DEUS Game-Based Assessment · Built around your roles and your culture</p>
+        <div class="abs prep"><span>Prepared for <span class="ph">[Company]</span></span><span class="logobox">Client logo</span></div>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dA p">
+        <h2 class="abs">Telkom Group trusts us with its MT selection. 2 years running.</h2>
+        <div class="abs stats">
+          <div class="stat"><span class="pre"></span><b>1,000+</b><span>MT candidates</span></div>
+          <div class="stat"><span class="pre"></span><b>7</b><span>companies (Telkom + 6 subsidiaries)</span></div>
+          <div class="stat"><span class="pre"></span><b>30+</b><span>provinces, all at once</span></div>
+          <div class="stat"><span class="pre">Results in</span><b>1 day</b><span></span></div>
+        </div>
+        <div class="abs photo">Photo: assets/telkom-photo.jpg<br>(not in repo yet)</div>
+        <div class="abs chip">Graha Merah Putih, Bandung</div>
+        <blockquote class="abs quote"><p>"Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya."</p><cite>Ibu Lina, Telkom Group Selection</cite></blockquote>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dA f">
+        <h2 class="abs">Two kinds of fit. One score.</h2>
+        <div class="abs disc one circle" style="opacity:1;background:radial-gradient(circle at 35% 35%, #C9D8FF, #9DB6FF)"><h3>Role fit</h3><p>Can they succeed in this job?</p></div>
+        <div class="abs disc two circle" style="opacity:1;background:radial-gradient(circle at 60% 40%, #FFD9CC, #FFB59F);opacity:.82"><h3>Culture fit</h3><p>Do they share your values and way of working?</p></div>
+        <div class="abs one-score">One score</div>
+        <div class="abs flow"><span>Your roles + your values</span><i>→</i><span>Success profile</span><i>→</i><span>Candidates play</span><i>→</i><span class="end">Suitability score</span></div>
+        <p class="abs foot">Profiles ready in <span class="ph">[X]</span> days.</p>
+      </div></figure>
+    </div>
+  </section>
+
+  <!-- ================= B ================= -->
+  <section class="dir" id="gamepieces">
+    <header>
+      <div>
+        <h2>B. Game Pieces</h2>
+        <p class="concept">Bright, flat game-board shapes that nod to the product being real games, kept in check by a disciplined grid.</p>
+        <div class="swatches">
+          <span class="sw"><i style="background:#1B1442"></i>#1B1442</span>
+          <span class="sw"><i style="background:#6B4BFF"></i>#6B4BFF</span>
+          <span class="sw"><i style="background:#1FD1A5"></i>#1FD1A5</span>
+          <span class="sw"><i style="background:#FFC940"></i>#FFC940</span>
+          <span class="sw"><i style="background:#FF86C8"></i>#FF86C8</span>
+        </div>
+      </div>
+      <dl class="spec">
+        <div><dt>Fonts</dt><dd>Unbounded (wide, bold headlines) and Plus Jakarta Sans (body). Jakarta was designed for Jakarta's city identity, which is a nice local touch for an Indonesian audience.</dd></div>
+        <div><dt>Layout</dt><dd>Big blocks of solid colour do the work: a violet side panel, mint and yellow halves meeting at a score dial. Shapes stay at the edges so text keeps a clean field.</dd></div>
+        <div><dt>Why</dt><dd>The most energetic and memorable option. It signals "this isn't a boring psikotes" right away. It's the boldest of the three, so it carries a little more risk with conservative BUMN rooms.</dd></div>
+      </dl>
+    </header>
+
+    <div class="slides">
+      <figure class="frame" style="margin:0"><div class="slide dB t">
+        <div class="tok c"></div><div class="tok tri"></div><div class="tok s"></div><div class="tok pill"></div><div class="tok dot"></div>
+        <div class="abs wm">DEUS</div>
+        <h1 class="abs">Fit the role,<br>they perform.<br>Fit your company,<br>they stay.</h1>
+        <p class="abs sub">DEUS Game-Based Assessment · Built around your roles and your culture</p>
+        <div class="abs prep"><span>Prepared for <span class="ph">[Company]</span></span><span class="logobox">Client logo</span></div>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dB p">
+        <div class="abs panel">
+          <h2>Telkom Group trusts us with its MT selection. 2 years running.</h2>
+          <blockquote class="q"><p>Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya.</p><cite>Ibu Lina, Telkom Group Selection</cite></blockquote>
+        </div>
+        <div class="abs stats">
+          <div class="stat" style="--c:var(--violet)"><span class="pre"></span><b>1,000+</b><span>MT candidates</span></div>
+          <div class="stat" style="--c:var(--mint)"><span class="pre"></span><b>7</b><span>companies (Telkom + 6 subsidiaries)</span></div>
+          <div class="stat" style="--c:var(--sun)"><span class="pre"></span><b>30+</b><span>provinces, all at once</span></div>
+          <div class="stat" style="--c:var(--pink)"><span class="pre">Results in</span><b>1 day</b><span></span></div>
+        </div>
+        <div class="abs photo">Photo: assets/telkom-photo.jpg (not in repo yet)</div>
+        <div class="abs chip">Graha Merah Putih, Bandung</div>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dB f">
+        <h2 class="abs">Two kinds of fit. One score.</h2>
+        <div class="abs half role"><h3>Role fit</h3><p>Can they succeed in this job?</p></div>
+        <div class="abs half cult"><h3>Culture fit</h3><p>Do they share your values and way of working?</p></div>
+        <div class="abs score">One<br>score</div>
+        <div class="abs flow"><span>Your roles + your values</span><i></i><span>Success profile</span><i></i><span>Candidates play</span><i></i><span class="end">Suitability score</span></div>
+        <p class="abs foot">Profiles ready in <span class="ph">[X]</span> days.</p>
+      </div></figure>
+    </div>
+  </section>
+
+  <!-- ================= C ================= -->
+  <section class="dir" id="clearsignal">
+    <header>
+      <div>
+        <h2>C. Clear Signal</h2>
+        <p class="concept">Bright mint and sky over a faint measurement grid, with an elegant serif. It reads like good science that's easy on the eye.</p>
+        <div class="swatches">
+          <span class="sw"><i style="background:#062A30"></i>#062A30</span>
+          <span class="sw"><i style="background:#00B386"></i>#00B386</span>
+          <span class="sw"><i style="background:#2E9BFF"></i>#2E9BFF</span>
+          <span class="sw"><i style="background:#D4F66A"></i>#D4F66A</span>
+          <span class="sw"><i style="background:#C6F3E1"></i>#C6F3E1</span>
+        </div>
+      </div>
+      <dl class="spec">
+        <div><dt>Fonts</dt><dd>Instrument Serif (headlines, big numbers) and Geist (body). The serif adds authority and the clean sans keeps it modern.</dd></div>
+        <div><dt>Layout</dt><dd>Open, airy pages with hairline structure. Numbers sit in a row like readings on an instrument. The core slide is an equation: Role fit + Culture fit = one ring (green half + blue half).</dd></div>
+        <div><dt>Why</dt><dd>Speaks most directly to the skeptical psikolog. It feels rigorous and trustworthy while staying bright and light. The ring becomes DEUS's recurring "score" symbol.</dd></div>
+      </dl>
+    </header>
+
+    <div class="slides">
+      <figure class="frame" style="margin:0"><div class="slide dC t">
+        <div class="abs ring"></div>
+        <div class="abs wm">DEUS</div>
+        <h1 class="abs">Fit the role, they perform.<br>Fit your company, they stay.</h1>
+        <p class="abs sub">DEUS Game-Based Assessment · Built around your roles and your culture</p>
+        <div class="abs prep"><span>Prepared for <span class="ph">[Company]</span></span><span class="logobox">Client logo</span></div>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dC p">
+        <h2 class="abs">Telkom Group trusts us with its MT selection.<br>2 years running.</h2>
+        <div class="abs stats">
+          <div class="stat"><span class="pre"></span><b>1,000+</b><span>MT candidates</span></div>
+          <div class="stat"><span class="pre"></span><b>7</b><span>companies (Telkom + 6 subsidiaries)</span></div>
+          <div class="stat"><span class="pre"></span><b>30+</b><span>provinces, all at once</span></div>
+          <div class="stat"><span class="pre">Results in</span><b>1 day</b><span></span></div>
+        </div>
+        <blockquote class="abs quote"><p>"Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya."</p><cite>Ibu Lina, Telkom Group Selection</cite></blockquote>
+        <div class="abs photo">Photo: assets/telkom-photo.jpg<br>(not in repo yet)</div>
+        <div class="abs chip">Graha Merah Putih, Bandung</div>
+      </div></figure>
+
+      <figure class="frame" style="margin:0"><div class="slide dC f">
+        <h2 class="abs">Two kinds of fit. One score.</h2>
+        <div class="abs eq">
+          <div class="term"><h3>Role fit</h3><div class="bar" style="background:var(--emerald)"></div><p>Can they succeed in this job?</p></div>
+          <div class="op">+</div>
+          <div class="term"><h3>Culture fit</h3><div class="bar" style="background:var(--sky)"></div><p>Do they share your values and way of working?</p></div>
+          <div class="op">=</div>
+          <div class="ring" style="transform:rotate(-90deg)"></div>
+        </div>
+        <div class="abs track"></div>
+        <div class="abs steps">
+          <div><i>1</i><span>Your roles + your values</span></div>
+          <div><i>2</i><span>Success profile</span></div>
+          <div><i>3</i><span>Candidates play</span></div>
+          <div><i>4</i><span>Suitability score</span></div>
+        </div>
+        <p class="abs foot">Profiles ready in <span class="ph">[X]</span> days.</p>
+      </div></figure>
+    </div>
+  </section>
+
+  <p class="note"><strong>Mix and match is fine.</strong> For example, A's gradients with C's ring motif, or B's colours with A's calmer type. Tell me which one (or which parts) and I'll build the full 10-slide deck plus appendix in that direction.</p>
+</div>
+
+<script>
+  document.querySelectorAll('.frame').forEach(function (f) {
+    var set = function () { f.style.setProperty('--s', f.clientWidth / 1920); };
+    set();
+    if ('ResizeObserver' in window) new ResizeObserver(set).observe(f);
+  });
+</script>
