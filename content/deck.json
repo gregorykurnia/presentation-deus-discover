@@ -500,20 +500,37 @@
       "hidden": false,
       "fields": {
         "headline": "Drive & Risk",
-        "measures": "[Full measures list]"
+        "measures": "Risk Taking · Strategic Planning · Effort Motivation · Decision Making · Psychomotor Speed · Perceptual Speed · Emotional Recognition"
       },
       "images": {
         "screenshot": {
-          "src": "assets/module-drive.jpg",
+          "src": "assets/drive-1.jpg",
           "fit": "cover",
           "focus": [
             50,
             50
           ],
-          "label": "Drive & Risk module screenshot"
+          "label": "Drive & Risk game screenshots",
+          "cycle": [
+            {
+              "src": "assets/drive-2.jpg"
+            },
+            {
+              "src": "assets/drive-3.jpg"
+            },
+            {
+              "src": "assets/drive-4.jpg"
+            },
+            {
+              "src": "assets/drive-5.jpg"
+            },
+            {
+              "src": "assets/drive-6.jpg"
+            }
+          ]
         },
         "reportSection": {
-          "src": null,
+          "src": "assets/report-drive.jpg",
           "fit": "contain",
           "focus": [
             50,

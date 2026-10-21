@@ -257,8 +257,8 @@
 
 /* ---------- Appendix (A1-A7, A9, A10) ---------- */
 .layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
-.layout-appendix .appendix__measures { left: 140px; top: 296px; width: 1640px; height: 50px; }
-.layout-appendix .appendix__shots { left: 140px; top: 400px; width: 1640px; height: 480px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.layout-appendix .appendix__measures { left: 140px; top: 296px; width: 1640px; height: 100px; }
+.layout-appendix .appendix__shots { left: 140px; top: 416px; width: 1640px; height: 480px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .layout-appendix .appendix__shot { height: 480px; border-radius: var(--radius); }
 .layout-appendix .appendix__shot:not(.img-slot--missing) { box-shadow: 0 24px 48px -28px rgba(15, 26, 58, 0.55); }
 .layout-appendix .appendix__panel {

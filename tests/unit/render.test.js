@@ -169,9 +169,9 @@ describe('renderDeck', () => {
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 'a4-drive');
+    const on = byId(renderDeck(seed, ctx()), 'a5-simulation');
     expect(on.querySelector('[data-field="measures"] mark.ph').textContent).toBe('[Full measures list]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a4-drive');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a5-simulation');
     expect(off.querySelector('mark.ph')).toBeNull();
     expect(off.querySelector('[data-field="measures"]').textContent).toBe('[Full measures list]');
   });
@@ -199,7 +199,7 @@ describe('renderDeck', () => {
     const client = byId(els, 's-title').querySelector('[data-image="clientLogo"]');
     expect(client.querySelector('img')).toBeNull();
     expect(client.querySelector('.img-missing').textContent).toContain('Client logo');
-    const report = byId(els, 'a4-drive').querySelector('[data-image="reportSection"] .img-missing');
+    const report = byId(els, 'a5-simulation').querySelector('[data-image="reportSection"] .img-missing');
     expect(report.textContent).toContain('Matching report section');
   });
 
