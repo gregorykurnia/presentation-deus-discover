@@ -22,9 +22,9 @@ describe('deck.json structure', () => {
     expect(typeof deck.rev).toBe('number');
   });
 
-  it('has 11 main slides and 8 appendix slides (divider + A1-A7)', () => {
+  it('has 11 main slides and 10 appendix slides (divider + A1-A9)', () => {
     expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(11);
-    expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(8);
+    expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(10);
     expect(deck.slides.filter((s) => s.layout === 'divider')).toHaveLength(1);
   });
 
@@ -64,11 +64,12 @@ describe('deck.json content is verbatim from the brief', () => {
   });
 
   // The deck's slide order may differ from the brief's (the Telkom proof slide moved to 8).
-  it('keeps speaker notes verbatim for the main slides', () => {
+  // The package slides (and their notes) moved to the appendix on 2026-10-21.
+  it('keeps the brief\'s speaker notes verbatim', () => {
     const notes = [...brief.matchAll(/^Notes: (.+)$/gm)].map((m) => m[1]);
     expect(notes).toHaveLength(11);
-    const main = deck.slides.filter((s) => s.section === 'main');
-    expect(main.map((s) => s.notes).sort()).toEqual(notes.sort());
+    const deckNotes = deck.slides.map((s) => s.notes);
+    for (const n of notes) expect(deckNotes, n).toContain(n);
   });
 
   it('has no branding that must not appear', () => {

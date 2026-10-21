@@ -18,9 +18,11 @@ import * as pilot from './layouts/pilot.js';
 import * as divider from './layouts/divider.js';
 import * as appendix from './layouts/appendix.js';
 import * as table from './layouts/table.js';
+import * as journey from './layouts/journey.js';
+import * as gains from './layouts/gains.js';
 
 export const LAYOUT_MODULES = Object.fromEntries(
-  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table]
+  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains]
     .map((m) => [m.name, { name: m.name, render: m.render }]),
 );
 

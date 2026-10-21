@@ -176,6 +176,58 @@
       "notes": "\"You don't need all four. I'll show you what we'd recommend for you.\""
     },
     {
+      "id": "s-journey",
+      "layout": "journey",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "From invitation to report.",
+        "steps": [
+          {
+            "title": "Invite",
+            "text": "Upload your candidate list. Every invitation goes out by email."
+          },
+          {
+            "title": "Play",
+            "text": "They play in a browser. Nothing to install."
+          },
+          {
+            "title": "Track",
+            "text": "See who has finished. Reminders go out automatically."
+          },
+          {
+            "title": "Report",
+            "text": "Scored automatically and ready the next working day."
+          }
+        ],
+        "durationsTitle": "Playing time",
+        "durations": [
+          {
+            "name": "Personality",
+            "time": "60 min"
+          },
+          {
+            "name": "Cognitive",
+            "time": "20 min"
+          },
+          {
+            "name": "Drive & Risk",
+            "time": "30 min"
+          },
+          {
+            "name": "Job Simulation",
+            "time": "1 h 30 min"
+          }
+        ],
+        "device": {
+          "title": "Best on a laptop",
+          "text": "Works on mobile too"
+        }
+      },
+      "images": {},
+      "notes": "\"Your team uploads one list. Everything after that runs on its own.\" Candidates only play the games you choose, so a Personality-only test is one hour."
+    },
+    {
       "id": "s-report",
       "layout": "report",
       "section": "main",
@@ -253,6 +305,37 @@
       "notes": "\"Don't just trust us. Check it in a pilot.\""
     },
     {
+      "id": "s-gains",
+      "layout": "gains",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "What changes for your company.",
+        "beforeLabel": "Today",
+        "afterLabel": "With DEUS",
+        "rows": [
+          {
+            "before": "Candidates memorize the answers",
+            "after": "Games capture real behavior, not rehearsed answers. Anti-cheat built in."
+          },
+          {
+            "before": "Results aren't tied to your roles or your culture",
+            "after": "Scored against your own success profile."
+          },
+          {
+            "before": "Wrong fits leave after you've invested in them",
+            "after": "Hire people who fit your company culture."
+          },
+          {
+            "before": "HR sends, chases and scores every test",
+            "after": "Invitations, reminders and scoring are automatic."
+          }
+        ]
+      },
+      "images": {},
+      "notes": "Each line answers a problem from the start. Candidates also enjoy playing, which reflects well on your company."
+    },
+    {
       "id": "s-proof",
       "layout": "proof",
       "section": "main",
@@ -290,95 +373,6 @@
         }
       },
       "notes": "\"Before I explain anything, this is what it looks like at scale.\""
-    },
-    {
-      "id": "s-package",
-      "layout": "package",
-      "section": "main",
-      "hidden": false,
-      "fields": {
-        "headline": "Personality Assessment Packages",
-        "tiers": [
-          {
-            "name": "Pilot",
-            "amount": "5",
-            "unit": "candidates",
-            "price": "Rp999,000",
-            "perCandidate": "≈ Rp199,800 per candidate",
-            "validity": "Valid 1 month"
-          },
-          {
-            "name": "Business",
-            "amount": "28",
-            "unit": "candidates",
-            "price": "Rp4,999,000",
-            "perCandidate": "≈ Rp178,500 per candidate",
-            "validity": "Valid 3 months"
-          },
-          {
-            "name": "Growth",
-            "amount": "60",
-            "unit": "candidates",
-            "price": "Rp9,999,000",
-            "perCandidate": "≈ Rp166,700 per candidate",
-            "validity": "Valid 4 months"
-          },
-          {
-            "name": "Enterprise",
-            "amount": "100",
-            "unit": "candidates",
-            "price": "Rp15,999,000",
-            "perCandidate": "≈ Rp160,000 per candidate",
-            "validity": "Valid 6 months"
-          }
-        ],
-        "includesTitle": "Every package includes",
-        "includes": [
-          "Personality profile",
-          "Competency profile",
-          "Suitability recommendation",
-          "50–60 minute test",
-          "Report in 1 working day"
-        ]
-      },
-      "images": {},
-      "notes": "Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer."
-    },
-    {
-      "id": "s-package-cognitive",
-      "layout": "package",
-      "section": "main",
-      "hidden": false,
-      "fields": {
-        "headline": "Cognitive Assessment Packages",
-        "tiers": [
-          {
-            "name": "Cognitive",
-            "amount": "100",
-            "unit": "candidates",
-            "price": "Rp9,900,000",
-            "perTest": "Rp99,000 per test",
-            "tests": "1 test · 30 minutes"
-          },
-          {
-            "name": "Cognitive + Drive & Risk",
-            "amount": "60",
-            "unit": "candidates",
-            "price": "Rp9,999,000",
-            "perTest": "≈ Rp83,300 per test",
-            "perCandidate": "≈ Rp166,700 per candidate",
-            "tests": "2 tests · 1 hour"
-          }
-        ],
-        "includesTitle": "Both packages include",
-        "includes": [
-          "Summarized batch report",
-          "Report in 1 working day",
-          "3-month validity"
-        ]
-      },
-      "images": {},
-      "notes": "Cognitive alone is Rp99,000 per test. Adding Drive & Risk brings each test down to about Rp83,300."
     },
     {
       "id": "s-pilot",
@@ -697,6 +691,95 @@
       },
       "images": {},
       "notes": ""
+    },
+    {
+      "id": "s-package",
+      "layout": "package",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Personality Assessment Packages",
+        "tiers": [
+          {
+            "name": "Pilot",
+            "amount": "5",
+            "unit": "candidates",
+            "price": "Rp999,000",
+            "perCandidate": "≈ Rp199,800 per candidate",
+            "validity": "Valid 1 month"
+          },
+          {
+            "name": "Business",
+            "amount": "28",
+            "unit": "candidates",
+            "price": "Rp4,999,000",
+            "perCandidate": "≈ Rp178,500 per candidate",
+            "validity": "Valid 3 months"
+          },
+          {
+            "name": "Growth",
+            "amount": "60",
+            "unit": "candidates",
+            "price": "Rp9,999,000",
+            "perCandidate": "≈ Rp166,700 per candidate",
+            "validity": "Valid 4 months"
+          },
+          {
+            "name": "Enterprise",
+            "amount": "100",
+            "unit": "candidates",
+            "price": "Rp15,999,000",
+            "perCandidate": "≈ Rp160,000 per candidate",
+            "validity": "Valid 6 months"
+          }
+        ],
+        "includesTitle": "Every package includes",
+        "includes": [
+          "Personality profile",
+          "Competency profile",
+          "Suitability recommendation",
+          "60-minute test",
+          "Report in 1 working day"
+        ]
+      },
+      "images": {},
+      "notes": "Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer."
+    },
+    {
+      "id": "s-package-cognitive",
+      "layout": "package",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Cognitive Assessment Packages",
+        "tiers": [
+          {
+            "name": "Cognitive",
+            "amount": "100",
+            "unit": "candidates",
+            "price": "Rp9,900,000",
+            "perTest": "Rp99,000 per test",
+            "tests": "1 test · 20 minutes"
+          },
+          {
+            "name": "Cognitive + Drive & Risk",
+            "amount": "60",
+            "unit": "candidates",
+            "price": "Rp9,999,000",
+            "perTest": "≈ Rp83,300 per test",
+            "perCandidate": "≈ Rp166,700 per candidate",
+            "tests": "2 tests · 50 minutes"
+          }
+        ],
+        "includesTitle": "Both packages include",
+        "includes": [
+          "Summarized batch report",
+          "Report in 1 working day",
+          "3-month validity"
+        ]
+      },
+      "images": {},
+      "notes": "Cognitive alone is Rp99,000 per test. Adding Drive & Risk brings each test down to about Rp83,300."
     },
     {
       "id": "a9-pricing",

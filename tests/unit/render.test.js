@@ -37,9 +37,9 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 19 seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 21 seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
-    expect(els).toHaveLength(19);
+    expect(els).toHaveLength(21);
     els.forEach((el, i) => {
       const slide = seed.slides[i];
       expect(el.tagName).toBe('SECTION');
@@ -68,8 +68,8 @@ describe('renderDeck', () => {
           .toBe('./assets/logo-mark-wordmark-dark.svg');
       }
     }
-    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('08');
-    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A7');
+    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('10');
+    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A9');
   });
 
   it('renders every text field verbatim inside a [data-field] element', () => {
@@ -176,7 +176,7 @@ describe('renderDeck', () => {
     expect(cog.querySelector('[data-field="tiers.1.perTest"] + [data-field="tiers.1.perCandidate"]')).not.toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.perCandidate"]')).toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.validity"]')).toBeNull();
-    expect(cog.querySelector('[data-field="tiers.0.tests"]').textContent).toBe('1 test · 30 minutes');
+    expect(cog.querySelector('[data-field="tiers.0.tests"]').textContent).toBe('1 test · 20 minutes');
     const pkg = byId(renderDeck(seed, ctx()), 's-package');
     expect(pkg.querySelector('.package__tiers--wide')).toBeNull();
   });
@@ -499,12 +499,12 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(17);
+      expect(ids).toHaveLength(19);
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(19);
+    expect(edit).toHaveLength(21);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
     // Numbering follows the visible slides: the fit slide is now number 2.
     expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');

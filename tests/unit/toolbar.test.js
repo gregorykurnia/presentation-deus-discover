@@ -19,7 +19,7 @@ describe('renderProblems (Upload JSON renders every slide before using a file)',
     const problems = renderProblems(deck);
     expect(problems).toHaveLength(2);
     expect(problems[0]).toMatch(/^Slide 5 \(s-modules\): /);
-    expect(problems[1]).toMatch(/^Slide 8 \(s-proof\): /);
+    expect(problems[1]).toMatch(/^Slide 10 \(s-proof\): /);
   });
 });
 

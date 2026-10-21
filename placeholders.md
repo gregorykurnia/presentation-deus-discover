@@ -7,4 +7,4 @@ Slide numbers match the presenter and the PDF (hidden slides skipped). 0 placeho
 
 These render as a labeled box in the presenter and the PDF until the file is added.
 
-- [ ] Slide 6: Replace report screenshot with one showing all four sections (Role fit, Culture fit, Motivation drivers, Recommendation); today Culture fit points at 'Strength patterns' and Motivation drivers at 'Development risks'. File: `assets/report-suitability.jpg` (same name), then re-check the callout positions in `content/deck.json`.
+- [ ] Slide 7: Replace report screenshot with one showing all four sections (Role fit, Culture fit, Motivation drivers, Recommendation); today Culture fit points at 'Strength patterns' and Motivation drivers at 'Development risks'. File: `assets/report-suitability.jpg` (same name), then re-check the callout positions in `content/deck.json`.
