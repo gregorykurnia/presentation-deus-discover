@@ -660,22 +660,22 @@
           ]
         },
         "batch": {
-          "src": null,
+          "src": "assets/report-batch.jpg",
           "fit": "cover",
           "focus": [
-            0,
+            50,
             0
           ],
-          "label": "Batch ranking screenshot"
+          "label": "Batch ranking & summary report"
         },
         "dashboard": {
-          "src": null,
+          "src": "assets/report-dashboard.jpg",
           "fit": "cover",
           "focus": [
-            0,
-            0
+            50,
+            50
           ],
-          "label": "Interactive dashboard screenshot"
+          "label": "Interactive dashboard"
         }
       },
       "notes": ""
