@@ -169,11 +169,11 @@ describe('renderDeck', () => {
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 'a5-simulation');
-    expect(on.querySelector('[data-field="measures"] mark.ph').textContent).toBe('[Full measures list]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a5-simulation');
+    const on = byId(renderDeck(seed, ctx()), 'a10-pdp');
+    expect(on.querySelector('[data-field="placeholder"] mark.ph').textContent).toBe('[confirm details with team]');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a10-pdp');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="measures"]').textContent).toBe('[Full measures list]');
+    expect(off.querySelector('[data-field="placeholder"]').textContent).toBe('[confirm details with team]');
   });
 
   it('spreads the pilot contact bar: email, website, phone in that order', () => {
@@ -195,6 +195,7 @@ describe('renderDeck', () => {
   it('renders a labeled .img-missing box when an image src is null', () => {
     const deck = clone();
     Object.assign(slideOf(deck, 's-title').images.clientLogo, { src: null, label: 'Client logo' });
+    slideOf(deck, 'a5-simulation').images.reportSection.src = null;
     const els = renderDeck(deck, ctx());
     const client = byId(els, 's-title').querySelector('[data-image="clientLogo"]');
     expect(client.querySelector('img')).toBeNull();

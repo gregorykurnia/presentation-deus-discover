@@ -548,20 +548,20 @@
       "hidden": false,
       "fields": {
         "headline": "Job Simulation",
-        "measures": "[Full measures list]"
+        "measures": "Analytical Thinking · Financial and Business Acumen · Information Gathering · Written Synthesis"
       },
       "images": {
         "screenshot": {
-          "src": "assets/module-simulation.jpg",
+          "src": "assets/simulation-1.jpg",
           "fit": "cover",
           "focus": [
             50,
             50
           ],
-          "label": "Job Simulation module screenshot"
+          "label": "Job Simulation game screenshot"
         },
         "reportSection": {
-          "src": null,
+          "src": "assets/report-simulation.jpg",
           "fit": "contain",
           "focus": [
             50,

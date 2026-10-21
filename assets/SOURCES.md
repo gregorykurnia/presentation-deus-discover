@@ -16,11 +16,13 @@ available (same filenames).
 | `cognitive-1.jpg` … `cognitive-7.jpg` | Screenshots supplied 2026-10-21 (`11.png` … `17.png`) | 2000×2000 | Black/grey bars trimmed, resized to 1600 wide; A2 Cognitive slideshow (`images.screenshot.cycle`); originals in `Cognitive Game Screenshot/` kept out of git |
 | `drive-1.jpg` … `drive-6.jpg` | Screenshots supplied 2026-10-21 (`41.png` … `46.png`) | 2000×2000 | Transparent bars trimmed, resized to 1600 wide; A3 Drive & Risk slideshow (`images.screenshot.cycle`); originals in `Neuroscience Game Screenshot/` kept out of git |
 | `module-drive.jpg` | DEUS p11 | 827×495 | Balloon risk game |
+| `simulation-1.jpg` | Screenshot supplied 2026-10-21 (`Event Manager Screenshot/37.png`) | 2000×2000 | Black bars trimmed, Next Chapter logo (top left) painted over with nearby background, resized to 1600 wide; A4 Job Simulation game picture; original kept out of git |
 | `module-simulation.jpg` | Document (4).pdf p18 | 535×318 | Investigation screen; sidebar with game logo cropped out |
 | `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections |
 | `report-personality.jpg` | Screenshot supplied 2026-10-21 (Individual Report, Spotlight tab) | 2660×1457 | App sidebar and top bar (with a staff email) cropped out; original `report-personality-original.png` kept out of git |
 | `report-cognitive.jpg` | Cognitive Assessment Report PDF supplied 2026-10-21 (page 6, Domain Profile) | 300 dpi render | Only the Cognitive Domain Breakdown card; the participant's name (percentile line, footer) is left out, and the PDF stays out of git |
 | `report-drive.jpg` | Screenshot supplied 2026-10-21 (Sten profile per domain) | 1009×833 | White margins and a stray edge line trimmed; A3 Drive & Risk report section; no participant name in the picture |
+| `report-simulation.jpg` | Sample Report Assessment 1 PDF supplied 2026-10-21 (page 3, Competency Detail) | 300 dpi render | Only the Analytical Thinking card; the page header and the footer (with Agate platform name) are left out, and the PDF stays out of git |
 | `extra/report-competency-scores.jpg` | DEUS p19 | 773×524 | Competency vs norm; stitching seam removed |
 | `extra/personality-forest.jpg` | DEUS p7 | 755×473 | Alternate Heroes scene |
 | `extra/cognitive-*.jpg` | DEUS p8, p9 | — | Alternate cognitive games |
