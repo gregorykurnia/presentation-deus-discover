@@ -199,7 +199,7 @@ describe('renderDeck', () => {
     const client = byId(els, 's-title').querySelector('[data-image="clientLogo"]');
     expect(client.querySelector('img')).toBeNull();
     expect(client.querySelector('.img-missing').textContent).toContain('Client logo');
-    const report = byId(els, 'a2-personality').querySelector('[data-image="reportSection"] .img-missing');
+    const report = byId(els, 'a3-cognitive').querySelector('[data-image="reportSection"] .img-missing');
     expect(report.textContent).toContain('Matching report section');
   });
 

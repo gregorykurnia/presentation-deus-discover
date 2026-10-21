@@ -16,6 +16,7 @@ available (same filenames).
 | `module-drive.jpg` | DEUS p11 | 827×495 | Balloon risk game |
 | `module-simulation.jpg` | Document (4).pdf p18 | 535×318 | Investigation screen; sidebar with game logo cropped out |
 | `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections |
+| `report-personality.jpg` | Screenshot supplied 2026-10-21 (Individual Report, Spotlight tab) | 2660×1457 | App sidebar and top bar (with a staff email) cropped out; original `report-personality-original.png` kept out of git |
 | `extra/report-competency-scores.jpg` | DEUS p19 | 773×524 | Competency vs norm; stitching seam removed |
 | `extra/personality-forest.jpg` | DEUS p7 | 755×473 | Alternate Heroes scene |
 | `extra/cognitive-*.jpg` | DEUS p8, p9 | — | Alternate cognitive games |

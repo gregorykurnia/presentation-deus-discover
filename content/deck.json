@@ -431,7 +431,7 @@
           "label": "Personality module screenshot"
         },
         "reportSection": {
-          "src": null,
+          "src": "assets/report-personality.jpg",
           "fit": "contain",
           "focus": [
             50,
