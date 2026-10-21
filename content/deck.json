@@ -579,13 +579,105 @@
       "hidden": false,
       "fields": {
         "headline": "Report types",
-        "bullets": [
-          "Individual report",
-          "Batch ranking by role / MT track",
-          "Interactive dashboard"
+        "groups": [
+          {
+            "label": "Per candidate",
+            "items": [
+              {
+                "key": "personality",
+                "title": "Personality report",
+                "tags": [
+                  "Recruitment",
+                  "Internal Development",
+                  "Leadership"
+                ]
+              },
+              {
+                "key": "suitability",
+                "title": "Role suitability report",
+                "note": "Customized to each role"
+              },
+              {
+                "key": "modules",
+                "title": "Module reports",
+                "tags": [
+                  "Cognitive",
+                  "Drive & Risk",
+                  "Job Simulation"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Per cohort",
+            "items": [
+              {
+                "key": "batch",
+                "title": "Batch ranking & summary"
+              },
+              {
+                "key": "dashboard",
+                "title": "Interactive dashboard"
+              }
+            ]
+          }
         ]
       },
-      "images": {},
+      "images": {
+        "personality": {
+          "src": "assets/report-personality-thumb.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Personality report"
+        },
+        "suitability": {
+          "src": "assets/report-suitability.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Role suitability report"
+        },
+        "modules": {
+          "src": "assets/report-cognitive.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Module reports",
+          "cycle": [
+            {
+              "src": "assets/report-drive.jpg"
+            },
+            {
+              "src": "assets/report-simulation.jpg"
+            }
+          ]
+        },
+        "batch": {
+          "src": null,
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Batch ranking screenshot"
+        },
+        "dashboard": {
+          "src": null,
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Interactive dashboard screenshot"
+        }
+      },
       "notes": ""
     },
     {

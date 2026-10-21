@@ -20,6 +20,7 @@ available (same filenames).
 | `module-simulation.jpg` | Document (4).pdf p18 | 535×318 | Investigation screen; sidebar with game logo cropped out |
 | `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections |
 | `report-personality.jpg` | Screenshot supplied 2026-10-21 (Individual Report, Spotlight tab) | 2660×1457 | App sidebar and top bar (with a staff email) cropped out; original `report-personality-original.png` kept out of git |
+| `report-personality-thumb.jpg` | Crop of `report-personality.jpg` (top left: profile header, tabs, start of Executive Summary) | 800×462 | A5 Report types card picture |
 | `report-cognitive.jpg` | Cognitive Assessment Report PDF supplied 2026-10-21 (page 6, Domain Profile) | 300 dpi render | Only the Cognitive Domain Breakdown card; the participant's name (percentile line, footer) is left out, and the PDF stays out of git |
 | `report-drive.jpg` | Screenshot supplied 2026-10-21 (Sten profile per domain) | 1009×833 | White margins and a stray edge line trimmed; A3 Drive & Risk report section; no participant name in the picture |
 | `report-simulation.jpg` | Sample Report Assessment 1 PDF supplied 2026-10-21 (page 3, Competency Detail) | 300 dpi render | Only the Analytical Thinking card; the page header and the footer (with Agate platform name) are left out, and the PDF stays out of git |

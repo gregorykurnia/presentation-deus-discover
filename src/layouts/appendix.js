@@ -4,7 +4,9 @@
 //   measures + images   -> measures line, screenshot, matching report section
 //   bullets             -> a list
 //   steps               -> a step flow
-import { h, text, bulletList, imageSlot, slideFrame, stepFlow } from './common.js';
+//   groups              -> labeled columns of cards (A5 report types): each card has a
+//                          picture (images[item.key]), a title, then tags or a note
+import { h, text, bulletList, imageSlot, slideFrame, stepFlow, fieldAt } from './common.js';
 
 export const name = 'appendix';
 
@@ -35,5 +37,24 @@ export function render(slide, ctx) {
     el.classList.add('appendix--steps');
     el.append(stepFlow(slide, 'steps', ctx, { class: 'appendix__flow', group: 'main' }));
   }
+  if (Array.isArray(f.groups)) {
+    el.classList.add('appendix--groups');
+    el.append(h('div', { class: 'appendix__groups', 'data-no-overlap': 'main' },
+      f.groups.map((g, gi) => h('div', { class: 'appendix__group' },
+        text('h3', slide, `groups.${gi}.label`, ctx, { class: 'eyebrow appendix__group-label' }),
+        (g.items ?? []).map((item, ii) => card(slide, `groups.${gi}.items.${ii}`, item, ctx))))));
+  }
   return el;
+}
+
+/** One report card: picture, title, then a row of tags or a one-line note. */
+function card(slide, path, item, ctx) {
+  const tags = fieldAt(slide, `${path}.tags`);
+  return h('article', { class: 'glass appendix__card' },
+    imageSlot(slide, item.key, ctx, { class: 'appendix__thumb' }),
+    h('div', { class: 'appendix__card-copy', 'data-fit': true },
+      text('h4', slide, `${path}.title`, ctx, { class: 'appendix__card-title' }),
+      Array.isArray(tags) && h('div', { class: 'appendix__tags' },
+        tags.map((_, i) => text('span', slide, `${path}.tags.${i}`, ctx, { class: 'pill appendix__tag' }))),
+      item.note != null && text('p', slide, `${path}.note`, ctx, { class: 'appendix__note' })));
 }

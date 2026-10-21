@@ -139,6 +139,19 @@ describe('renderDeck', () => {
     expect(trust.querySelector('mark.ph')).toBeNull();
   });
 
+  it('renders the report types slide as labeled columns of cards: picture, title, tags or note', () => {
+    const reports = byId(renderDeck(seed, ctx()), 'a6-reports');
+    const groups = reports.querySelectorAll('.appendix__group');
+    expect([...groups].map((g) => g.querySelector('.appendix__group-label').textContent)).toEqual(['Per candidate', 'Per cohort']);
+    expect([...groups].map((g) => g.querySelectorAll('.appendix__card').length)).toEqual([3, 2]);
+    const personality = groups[0].querySelector('.appendix__card');
+    expect(personality.querySelector('[data-image="personality"]')).not.toBeNull();
+    expect([...personality.querySelectorAll('.appendix__tag')].map((t) => t.textContent))
+      .toEqual(['Recruitment', 'Internal Development', 'Leadership']);
+    expect(reports.querySelector('[data-field="groups.0.items.1.note"]').textContent).toBe('Customized to each role');
+    expect(reports.querySelector('.appendix__list')).toBeNull();
+  });
+
   it('renders the package slide as one card per tier and an "includes" strip', () => {
     const pkg = byId(renderDeck(seed, ctx()), 's-package');
     expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Personality Assessment Packages');
