@@ -229,6 +229,20 @@ describe('renderDeck', () => {
     expect(slot.querySelector('.img-missing').textContent).toContain('Telkom photo');
   });
 
+  it('cycles the Cognitive appendix screenshots in present mode only', () => {
+    const shot = (mode) => byId(renderDeck(seed, ctx({ mode })), 'a3-cognitive').querySelector('[data-image="screenshot"]');
+    const present = shot('present');
+    expect(present.hasAttribute('data-cycle')).toBe(true);
+    expect(present.querySelector('img:not(.img-slot__next)').getAttribute('src')).toBe('assets/cognitive-1.jpg');
+    expect([...present.querySelectorAll('.img-slot__next')].map((el) => el.getAttribute('src')))
+      .toEqual([2, 3, 4, 5, 6, 7].map((i) => `assets/cognitive-${i}.jpg`));
+    for (const mode of ['edit', 'print']) {
+      const still = shot(mode);
+      expect(still.hasAttribute('data-cycle')).toBe(false);
+      expect(still.querySelectorAll('img')).toHaveLength(1);
+    }
+  });
+
   it('renders the video with controls and poster in present mode', () => {
     const video = byId(renderDeck(seed, ctx({ assetBase: './' })), 's-video');
     const v = video.querySelector('[data-image="video"] video');

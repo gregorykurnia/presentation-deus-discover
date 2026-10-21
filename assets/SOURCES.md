@@ -13,6 +13,7 @@ available (same filenames).
 | `telkom-photo.jpg` | DEUS p26 (Success Story) | 588×440 | Telkom signing photo, Graha Merah Putih |
 | `module-personality.jpg` | DEUS p7 | 766×477 | Heroes of a Fallen Land, festival choice screen |
 | `module-cognitive.jpg` | DEUS p9 | 1160×651 | Speed Sorting card game |
+| `cognitive-1.jpg` … `cognitive-7.jpg` | Screenshots supplied 2026-10-21 (`11.png` … `17.png`) | 2000×2000 | Black/grey bars trimmed, resized to 1600 wide; A2 Cognitive slideshow (`images.screenshot.cycle`); originals in `Cognitive Game Screenshot/` kept out of git |
 | `module-drive.jpg` | DEUS p11 | 827×495 | Balloon risk game |
 | `module-simulation.jpg` | Document (4).pdf p18 | 535×318 | Investigation screen; sidebar with game logo cropped out |
 | `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections |

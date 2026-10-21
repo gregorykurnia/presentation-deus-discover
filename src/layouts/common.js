@@ -202,8 +202,47 @@ export function imageSlot(slide, key, ctx, opts = {}) {
   }
   media.addEventListener('error', showMissing, { once: true });
   media.setAttribute('src', assetUrl(img.src, ctx));
-  slot.append(media, ...(opts.overlay ?? []));
+  const next = ctx.mode === 'present' && opts.tag !== 'video' ? cycleImages(img, ctx) : [];
+  if (next.length) slot.setAttribute('data-cycle', '');
+  slot.append(media, ...next, ...(opts.overlay ?? []));
   return slot;
+}
+
+const CYCLE_HOLD_MS = 3000;
+const CYCLE_FADE_MS = 600;
+
+/**
+ * Present mode only: img.cycle ([{ src }, ...]) are more pictures shown after img.src,
+ * one after another, each fading in over the one before; after the last, img.src shows
+ * again and it repeats. img.src stays the picture in edit and print. Each later picture
+ * is a stacked <img> on a Web Animation, so nothing keeps running once the slide is
+ * gone; the presenter restarts them when the slide is shown. Reduced motion: none.
+ */
+function cycleImages(img, ctx) {
+  const srcs = (Array.isArray(img.cycle) ? img.cycle : []).map((c) => c?.src).filter(Boolean);
+  if (!srcs.length || globalThis.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return [];
+  const total = (srcs.length + 1) * CYCLE_HOLD_MS;
+  return srcs.map((src, i) => {
+    const el = h('img', { class: 'img-slot__next', alt: '', 'aria-hidden': 'true', decoding: 'async', draggable: 'false' });
+    el.addEventListener('error', () => el.remove(), { once: true });
+    el.setAttribute('src', assetUrl(src, ctx));
+    if (typeof el.animate !== 'function') return el;
+    // Picture i+1 fades in at (i+1) x hold and stays until the next one covers it; the
+    // last one fades out instead, back to img.src underneath.
+    const start = (i + 1) * CYCLE_HOLD_MS;
+    const last = i === srcs.length - 1;
+    const at = (ms) => ms / total;
+    const frames = [
+      { opacity: 0, offset: 0 },
+      { opacity: 0, offset: at(start - CYCLE_FADE_MS) },
+      { opacity: 1, offset: at(start) },
+      ...(last
+        ? [{ opacity: 1, offset: at(total - CYCLE_FADE_MS) }, { opacity: 0, offset: 1 }]
+        : [{ opacity: 1, offset: at(start + CYCLE_HOLD_MS) }, { opacity: 0, offset: at(start + CYCLE_HOLD_MS) }, { opacity: 0, offset: 1 }]),
+    ];
+    el.animate(frames, { duration: total, iterations: Infinity, easing: 'linear' });
+    return el;
+  });
 }
 
 /** Two-digit slide numbers for main slides ("02"), appendix labels as is ("A9"). */

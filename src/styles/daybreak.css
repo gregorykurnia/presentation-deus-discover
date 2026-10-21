@@ -178,6 +178,8 @@
   object-fit: var(--img-fit, cover);
   object-position: var(--img-focus, 50% 50%);
 }
+/* img.cycle pictures, stacked over img.src and faded in turn (common.js cycleImages). */
+.img-slot > .img-slot__next { position: absolute; inset: 0; opacity: 0; }
 /* A missing file: a clean labeled box saying what goes there. */
 .img-missing {
   display: grid;

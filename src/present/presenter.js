@@ -80,6 +80,10 @@ export function startPresenter(deckData, rootEl, options = {}) {
       m.currentTime = 0;
       Promise.resolve(m.play?.()).catch(() => {});
     });
+    // So do cycling pictures (img.cycle), from the first one.
+    slides[index].querySelectorAll('.img-slot[data-cycle] .img-slot__next').forEach((el) => {
+      el.getAnimations?.().forEach((a) => { a.currentTime = 0; });
+    });
     // The trailer does too, with sound. Browsers allow sound only after a key press or click
     // on the page (arriving by arrow key or clicker counts); before that it plays muted.
     slides[index].querySelectorAll('video[data-play-on-show]').forEach((m) => {

@@ -453,13 +453,33 @@
       },
       "images": {
         "screenshot": {
-          "src": "assets/module-cognitive.jpg",
+          "src": "assets/cognitive-1.jpg",
           "fit": "cover",
           "focus": [
             50,
             50
           ],
-          "label": "Cognitive module screenshot"
+          "label": "Cognitive game screenshots",
+          "cycle": [
+            {
+              "src": "assets/cognitive-2.jpg"
+            },
+            {
+              "src": "assets/cognitive-3.jpg"
+            },
+            {
+              "src": "assets/cognitive-4.jpg"
+            },
+            {
+              "src": "assets/cognitive-5.jpg"
+            },
+            {
+              "src": "assets/cognitive-6.jpg"
+            },
+            {
+              "src": "assets/cognitive-7.jpg"
+            }
+          ]
         },
         "reportSection": {
           "src": null,
