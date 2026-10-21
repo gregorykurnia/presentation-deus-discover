@@ -208,7 +208,7 @@ export function imageSlot(slide, key, ctx, opts = {}) {
   return slot;
 }
 
-const CYCLE_HOLD_MS = 3000;
+const CYCLE_HOLD_MS = 2000;
 const CYCLE_FADE_MS = 600;
 
 /**
