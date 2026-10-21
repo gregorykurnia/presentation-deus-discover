@@ -51,8 +51,8 @@ async function previewOf(context) {
 test.beforeEach(async ({ page }) => {
   resetDraft();
   await page.goto('/edit.html');
-  await expect(page.locator('.ed-frame')).toHaveCount(19);
-  await expect(thumbs(page)).toHaveCount(19);
+  await expect(page.locator('.ed-frame')).toHaveCount(21);
+  await expect(thumbs(page)).toHaveCount(21);
   await expect(status(page)).toHaveText('Saved');
 });
 
@@ -64,7 +64,7 @@ test('the sidebar shows a 240px live thumbnail per slide, numbered like the pres
   expect(Math.round(box.height)).toBe(135);
   const nums = await thumbs(page).locator('.ed-thumb__num').allTextContents();
   expect(nums.slice(0, 12)).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', 'A']);
-  expect(nums.at(-1)).toBe('A7');
+  expect(nums.at(-1)).toBe('A9');
   // Thumbnails are pictures, not a second copy of the editable fields.
   await expect(page.locator('.ed-sorter [data-slide-id], .ed-sorter [contenteditable]')).toHaveCount(0);
 });
@@ -113,8 +113,8 @@ test('keyboard users move a slide with the up/down buttons; focus stays on the b
   await expect.poll(draftIds).toEqual(moved(SEED_IDS, 1, 3));
 });
 
-test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidden", the numbers close up', async ({ page, context }) => {
-  const thumb = thumbs(page).nth(7);
+test('hide slide 10: Preview skips it, its thumbnail is dimmed and labeled "Hidden", the numbers close up', async ({ page, context }) => {
+  const thumb = thumbs(page).nth(9);
   await expect(thumb).toHaveAttribute('data-thumb-id', 's-proof');
   await tool(thumb, 'Hide slide').click();
 
@@ -124,27 +124,27 @@ test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidde
   const opacity = await thumb.locator('.ed-thumb__stage').evaluate((el) => Number(getComputedStyle(el).opacity));
   expect(opacity).toBeLessThan(0.7);
   await expect(thumb.locator('.ed-thumb__num')).toHaveText('');
-  await expect(thumbOf(page, 's-package').locator('.ed-thumb__num')).toHaveText('8');
+  await expect(thumbOf(page, 's-pilot').locator('.ed-thumb__num')).toHaveText('10');
   await expect(page.locator('.ed-frame[data-slide-id="s-proof"] .ed-frame__label')).toHaveText('Hidden');
   await expect(tool(thumb, 'Show slide')).toBeVisible();
   await expect.poll(() => readDraft().slides.find((s) => s.id === 's-proof').hidden).toBe(true);
   await expect(status(page)).toHaveText('Saved');
 
   const shown = await previewOf(context);
-  expect(shown).toHaveLength(18);
+  expect(shown).toHaveLength(20);
   expect(shown.map((s) => s.id)).not.toContain('s-proof');
-  expect(shown.find((s) => s.id === 's-package').num).toBe('08');
+  expect(shown.find((s) => s.id === 's-pilot').num).toBe('10');
 
   await tool(thumb, 'Show slide').click();
   await expect(thumb).not.toHaveClass(/is-hidden/);
-  await expect(thumb.locator('.ed-thumb__num')).toHaveText('8');
+  await expect(thumb.locator('.ed-thumb__num')).toHaveText('10');
 });
 
 test('Duplicate puts a copy right after the original', async ({ page }) => {
   await tool(thumbOf(page, 's-fit'), 'Duplicate slide').click();
   const want = [...SEED_IDS.slice(0, 3), 's-fit-copy', ...SEED_IDS.slice(3)];
   await expect.poll(() => thumbIds(page)).toEqual(want);
-  await expect(page.locator('.ed-frame')).toHaveCount(20);
+  await expect(page.locator('.ed-frame')).toHaveCount(22);
   await expect(thumbOf(page, 's-fit-copy').locator('.ed-thumb__num')).toHaveText('4');
   await expect.poll(draftIds).toEqual(want);
   const draft = readDraft();
@@ -162,18 +162,18 @@ test('Delete asks inside the page (never a browser confirm()); Cancel keeps the 
   await expect(confirm).toContainText("Today's assessments check if they can do the job.");
   await confirm.getByRole('button', { name: 'Cancel' }).click();
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(19);
+  await expect(thumbs(page)).toHaveCount(21);
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await page.keyboard.press('Escape');
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(19);
+  await expect(thumbs(page)).toHaveCount(21);
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await confirm.getByRole('button', { name: 'Delete slide' }).click();
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(18);
-  await expect(page.locator('.ed-frame')).toHaveCount(18);
+  await expect(thumbs(page)).toHaveCount(20);
+  await expect(page.locator('.ed-frame')).toHaveCount(20);
   await expect.poll(draftIds).toEqual(SEED_IDS.filter((id) => id !== 's-problem'));
   expect(nativeDialogs).toBe(0);
 
@@ -188,7 +188,7 @@ test('the notes drawer edits the current slide notes: data-notes and the draft f
   await expect(box).toHaveValue(notesOf('s-title'));
 
   await thumbOf(page, 's-proof').locator('.ed-thumb__view').click();
-  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 8');
+  await expect(page.locator('.ed-notes__slide')).toHaveText('Slide 10');
   await expect(box).toHaveValue(notesOf('s-proof'));
   await expect(thumbOf(page, 's-proof')).toHaveClass(/is-current/);
 
@@ -234,9 +234,9 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
   const realFiles = ['content/deck.json', 'placeholders.md', 'deck.html', 'DEUS-Pitch.pdf'];
   const before = realFiles.map((f) => (existsSync(f) ? statSync(f).mtimeMs : null));
 
-  await tool(thumbOf(page, 's-trust'), 'Hide slide').click(); // slide 7
+  await tool(thumbOf(page, 's-trust'), 'Hide slide').click(); // slide 8
   await tool(thumbOf(page, 's-video'), 'Move up').click(); // slide 4 -> 3
-  await tool(thumbOf(page, 's-pilot'), 'Delete slide').click(); // slide 10
+  await tool(thumbOf(page, 's-pilot'), 'Delete slide').click(); // slide 11
   await page.getByRole('dialog').getByRole('button', { name: 'Delete slide' }).click();
   await expect(status(page)).toHaveText('Saved');
   const draft = readDraft();
@@ -256,16 +256,16 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    // Trust is hidden, so proof (slide 8 in the seed) is now slide 7.
+    // Trust is hidden, so proof (slide 10 in the seed) is now slide 9.
     expect(md).not.toContain('The science behind the games'); // hidden
     expect(md).not.toContain("We'll tailor it to your roles"); // deleted
-    expect(headings).toEqual(['## Slide 7']);
+    expect(headings).toEqual(['## Slide 9']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
     const pdf = join(out, 'DEUS-Pitch.pdf');
     const visible = draft.slides.filter((s) => !s.hidden);
-    expect(visible).toHaveLength(17);
-    expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+17$/m);
+    expect(visible).toHaveLength(19);
+    expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+19$/m);
     const page3 = execFileSync('pdftotext', ['-f', '3', '-l', '3', pdf, '-'], { encoding: 'utf8' });
     expect(page3).toContain('This is what your candidates play');
     const all = execFileSync('pdftotext', [pdf, '-'], { encoding: 'utf8' });

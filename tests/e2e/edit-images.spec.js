@@ -35,7 +35,7 @@ const center = (box) => ({ x: box.x + box.width / 2, y: box.y + box.height / 2 }
 
 async function openEditor(page) {
   await page.goto('/edit.html');
-  await expect(page.locator('.ed-frame')).toHaveCount(19);
+  await expect(page.locator('.ed-frame')).toHaveCount(21);
   await expect(page.locator('.ed-status')).toHaveText('Saved');
 }
 
