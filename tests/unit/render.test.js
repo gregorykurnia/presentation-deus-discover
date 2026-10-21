@@ -169,9 +169,9 @@ describe('renderDeck', () => {
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 'a3-cognitive');
+    const on = byId(renderDeck(seed, ctx()), 'a4-drive');
     expect(on.querySelector('[data-field="measures"] mark.ph').textContent).toBe('[Full measures list]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a3-cognitive');
+    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a4-drive');
     expect(off.querySelector('mark.ph')).toBeNull();
     expect(off.querySelector('[data-field="measures"]').textContent).toBe('[Full measures list]');
   });
