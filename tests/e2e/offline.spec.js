@@ -63,7 +63,7 @@ test('dist/offline/deck.html runs from file:// with the network blocked', async 
 test('deck.html?print renders every visible slide from file://', async ({ page }) => {
   const { problems } = await openOffline(page, `${pathToFileURL(bundleHtml).href}?print`);
   await expect(page.locator('.slide')).toHaveCount(visible.length);
-  expect(visible.length).toBe(23);
+  expect(visible.length).toBe(22);
   expect(problems).toEqual([]);
 });
 

@@ -255,7 +255,7 @@
 .layout-divider .divider__disc-one { left: 1260px; top: 160px; width: 640px; height: 640px; }
 .layout-divider .divider__disc-two { left: 1500px; top: 480px; width: 640px; height: 640px; }
 
-/* ---------- Appendix (A1-A8, A10, A11) ---------- */
+/* ---------- Appendix (A1-A7, A9, A10) ---------- */
 .layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
 .layout-appendix .appendix__measures { left: 140px; top: 296px; width: 1640px; height: 50px; }
 .layout-appendix .appendix__shots { left: 140px; top: 400px; width: 1640px; height: 480px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }

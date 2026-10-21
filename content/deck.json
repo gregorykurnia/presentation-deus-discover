@@ -394,8 +394,8 @@
           "No long-term contract. Buy a package when you need it."
         ],
         "email": "admin@deushcs.com",
-    "website": "www.deushcs.com",
-    "phone": "+62 823-1212-1660"
+        "website": "www.deushcs.com",
+        "phone": "+62 823-1212-1660"
       },
       "images": {},
       "notes": "Offer one free candidate for the trial. \"Which role is hardest for you to hire right now? Let's start there.\""
@@ -412,25 +412,13 @@
       "notes": ""
     },
     {
-      "id": "a1-profiles",
-      "layout": "appendix",
-      "section": "appendix",
-      "hidden": false,
-      "fields": {
-        "headline": "Example role & culture profiles",
-        "placeholder": "[Example profiles: Finance vs Sales; example using company values]"
-      },
-      "images": {},
-      "notes": ""
-    },
-    {
       "id": "a2-personality",
       "layout": "appendix",
       "section": "appendix",
       "hidden": false,
       "fields": {
         "headline": "Personality",
-        "measures": "[Full measures list]"
+        "measures": "32 Personality · 24 Competencies · Customized Competencies"
       },
       "images": {
         "screenshot": {

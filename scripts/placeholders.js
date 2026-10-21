@@ -30,10 +30,6 @@ const md = checklistMarkdown(deck, {
   ],
   notes: [
     {
-      match: (s) => slideHasText(s, '[Example profiles: Finance vs Sales; example using company values]'),
-      text: 'The bracket text "[Example profiles: Finance vs Sales; example using company values]" was written as a placeholder for this deck (the brief only says "placeholder"). Replace it with the real example profiles.',
-    },
-    {
       match: (s) => slideHasText(s, '[Full measures list]'),
       text: '"[Full measures list]" and the "Matching report section" boxes were written as placeholders for this deck (the brief says "as placeholders"). Replace each with the module\'s real measures list and report section.',
     },
