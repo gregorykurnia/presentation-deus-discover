@@ -482,7 +482,7 @@
           ]
         },
         "reportSection": {
-          "src": null,
+          "src": "assets/report-cognitive.jpg",
           "fit": "contain",
           "focus": [
             50,
