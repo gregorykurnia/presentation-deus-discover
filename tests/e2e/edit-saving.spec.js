@@ -25,7 +25,7 @@ async function editEnd(page, locator) {
 test.beforeEach(async ({ page }) => {
   resetDraft();
   await page.goto('/edit.html');
-  await expect(page.locator('.ed-frame')).toHaveCount(22);
+  await expect(page.locator('.ed-frame')).toHaveCount(19);
   await expect(status(page)).toHaveText('Saved');
 });
 

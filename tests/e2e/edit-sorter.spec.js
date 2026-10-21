@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { execFileSync } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, statSync } from 'node:fs';
+import { existsSync, mkdtempSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { DRAFT_FILE, readDraft, resetDraft } from './helpers/draft.js';
@@ -51,8 +51,8 @@ async function previewOf(context) {
 test.beforeEach(async ({ page }) => {
   resetDraft();
   await page.goto('/edit.html');
-  await expect(page.locator('.ed-frame')).toHaveCount(22);
-  await expect(thumbs(page)).toHaveCount(22);
+  await expect(page.locator('.ed-frame')).toHaveCount(19);
+  await expect(thumbs(page)).toHaveCount(19);
   await expect(status(page)).toHaveText('Saved');
 });
 
@@ -64,7 +64,7 @@ test('the sidebar shows a 240px live thumbnail per slide, numbered like the pres
   expect(Math.round(box.height)).toBe(135);
   const nums = await thumbs(page).locator('.ed-thumb__num').allTextContents();
   expect(nums.slice(0, 12)).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', 'A']);
-  expect(nums.at(-1)).toBe('A10');
+  expect(nums.at(-1)).toBe('A7');
   // Thumbnails are pictures, not a second copy of the editable fields.
   await expect(page.locator('.ed-sorter [data-slide-id], .ed-sorter [contenteditable]')).toHaveCount(0);
 });
@@ -109,7 +109,7 @@ test('keyboard users move a slide with the up/down buttons; focus stays on the b
 
   const up = tool(thumbOf(page, 's-title'), 'Move up');
   await expect(up).toBeDisabled();
-  await expect(tool(thumbOf(page, 'a11-research'), 'Move down')).toBeDisabled();
+  await expect(tool(thumbOf(page, 'a9-pricing'), 'Move down')).toBeDisabled();
   await expect.poll(draftIds).toEqual(moved(SEED_IDS, 1, 3));
 });
 
@@ -131,7 +131,7 @@ test('hide slide 8: Preview skips it, its thumbnail is dimmed and labeled "Hidde
   await expect(status(page)).toHaveText('Saved');
 
   const shown = await previewOf(context);
-  expect(shown).toHaveLength(21);
+  expect(shown).toHaveLength(18);
   expect(shown.map((s) => s.id)).not.toContain('s-proof');
   expect(shown.find((s) => s.id === 's-package').num).toBe('08');
 
@@ -144,7 +144,7 @@ test('Duplicate puts a copy right after the original', async ({ page }) => {
   await tool(thumbOf(page, 's-fit'), 'Duplicate slide').click();
   const want = [...SEED_IDS.slice(0, 3), 's-fit-copy', ...SEED_IDS.slice(3)];
   await expect.poll(() => thumbIds(page)).toEqual(want);
-  await expect(page.locator('.ed-frame')).toHaveCount(23);
+  await expect(page.locator('.ed-frame')).toHaveCount(20);
   await expect(thumbOf(page, 's-fit-copy').locator('.ed-thumb__num')).toHaveText('4');
   await expect.poll(draftIds).toEqual(want);
   const draft = readDraft();
@@ -162,18 +162,18 @@ test('Delete asks inside the page (never a browser confirm()); Cancel keeps the 
   await expect(confirm).toContainText("Today's assessments check if they can do the job.");
   await confirm.getByRole('button', { name: 'Cancel' }).click();
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(22);
+  await expect(thumbs(page)).toHaveCount(19);
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await page.keyboard.press('Escape');
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(22);
+  await expect(thumbs(page)).toHaveCount(19);
 
   await tool(thumbOf(page, 's-problem'), 'Delete slide').click();
   await confirm.getByRole('button', { name: 'Delete slide' }).click();
   await expect(confirm).toBeHidden();
-  await expect(thumbs(page)).toHaveCount(21);
-  await expect(page.locator('.ed-frame')).toHaveCount(21);
+  await expect(thumbs(page)).toHaveCount(18);
+  await expect(page.locator('.ed-frame')).toHaveCount(18);
   await expect.poll(draftIds).toEqual(SEED_IDS.filter((id) => id !== 's-problem'));
   expect(nativeDialogs).toBe(0);
 
@@ -244,21 +244,28 @@ test('placeholders and the PDF re-run on the edited draft follow its order and s
 
   const out = mkdtempSync(join(tmpdir(), 'deus-sorter-'));
   try {
-    const env = { ...process.env, DECK_FILE: DRAFT_FILE, DECK_OUT_DIR: out };
+    // The deck has no text placeholders left: give the hidden trust slide and the proof
+    // slide after it one each, in a copy of the draft.
+    const withPlaceholders = structuredClone(draft);
+    for (const id of ['s-trust', 's-proof']) {
+      withPlaceholders.slides.find((s) => s.id === id).fields.headline += ' [confirm]';
+    }
+    const deckFile = join(out, 'draft.json');
+    writeFileSync(deckFile, JSON.stringify(withPlaceholders));
+    const env = { ...process.env, DECK_FILE: deckFile, DECK_OUT_DIR: out };
     execFileSync(process.execPath, ['scripts/placeholders.js'], { env, stdio: 'pipe' });
     const md = readFileSync(join(out, 'placeholders.md'), 'utf8');
     const headings = md.split('\n').filter((l) => l.startsWith('## Slide')).map((l) => l.replace(/:.*/, ''));
-    // The main slides before the pilot have no text placeholders left, and the pilot is deleted,
-    // so the list starts at the appendix.
+    // Trust is hidden, so proof (slide 8 in the seed) is now slide 7.
     expect(md).not.toContain('The science behind the games'); // hidden
     expect(md).not.toContain("We'll tailor it to your roles"); // deleted
-    expect(headings.slice(0, 2)).toEqual(['## Slide A2', '## Slide A3']);
+    expect(headings).toEqual(['## Slide 7']);
 
     execFileSync(process.execPath, ['export-pdf.js', '--source', 'local'], { env, stdio: 'pipe', timeout: 200_000 });
     const pdf = join(out, 'DEUS-Pitch.pdf');
     const visible = draft.slides.filter((s) => !s.hidden);
-    expect(visible).toHaveLength(20);
-    expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+20$/m);
+    expect(visible).toHaveLength(17);
+    expect(execFileSync('pdfinfo', [pdf], { encoding: 'utf8' })).toMatch(/^Pages:\s+17$/m);
     const page3 = execFileSync('pdftotext', ['-f', '3', '-l', '3', pdf, '-'], { encoding: 'utf8' });
     expect(page3).toContain('This is what your candidates play');
     const all = execFileSync('pdftotext', [pdf, '-'], { encoding: 'utf8' });

@@ -1,4 +1,4 @@
-// Appendix reference slides (A1-A7, A9, A10): simpler than the main deck, same
+// Appendix reference slides (A1-A6): simpler than the main deck, same
 // system. The variant follows the fields present:
 //   placeholder         -> one framed placeholder block
 //   measures + images   -> measures line, screenshot, matching report section

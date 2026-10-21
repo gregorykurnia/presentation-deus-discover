@@ -1,4 +1,4 @@
-// A9: full pricing table. Numbers right-aligned in tabular figures.
+// A7: full pricing table. Numbers right-aligned in tabular figures.
 import { h, text, slideFrame, fieldAt } from './common.js';
 
 export const name = 'table';

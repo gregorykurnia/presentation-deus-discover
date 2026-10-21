@@ -255,7 +255,7 @@
 .layout-divider .divider__disc-one { left: 1260px; top: 160px; width: 640px; height: 640px; }
 .layout-divider .divider__disc-two { left: 1500px; top: 480px; width: 640px; height: 640px; }
 
-/* ---------- Appendix (A1-A7, A9, A10) ---------- */
+/* ---------- Appendix (A1-A6) ---------- */
 .layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
 .layout-appendix .appendix__measures { left: 140px; top: 296px; width: 1640px; height: 100px; }
 .layout-appendix .appendix__shots { left: 140px; top: 416px; width: 1640px; height: 480px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
@@ -285,7 +285,7 @@
 .layout-appendix .appendix__group:nth-child(2) .appendix__thumb { width: 100%; height: auto; flex: 1; min-height: 0; }
 .layout-appendix .appendix__group:nth-child(2) .appendix__card-copy { flex: none; padding: 0 10px; }
 
-/* ---------- A9: Pricing table ---------- */
+/* ---------- A7: Pricing table ---------- */
 .layout-table .table__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }
 .layout-table .table__subtitle { left: 140px; top: 268px; width: 1640px; height: 50px; }
 .layout-table .table__panel { left: 140px; top: 350px; width: 1640px; padding: 20px 56px; }

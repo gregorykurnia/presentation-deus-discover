@@ -37,9 +37,9 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 22 seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 19 seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
-    expect(els).toHaveLength(22);
+    expect(els).toHaveLength(19);
     els.forEach((el, i) => {
       const slide = seed.slides[i];
       expect(el.tagName).toBe('SECTION');
@@ -69,7 +69,7 @@ describe('renderDeck', () => {
       }
     }
     expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('08');
-    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A8');
+    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A7');
   });
 
   it('renders every text field verbatim inside a [data-field] element', () => {
@@ -182,11 +182,14 @@ describe('renderDeck', () => {
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
-    const on = byId(renderDeck(seed, ctx()), 'a10-pdp');
-    expect(on.querySelector('[data-field="placeholder"] mark.ph').textContent).toBe('[confirm details with team]');
-    const off = byId(renderDeck(seed, ctx({ highlight: false })), 'a10-pdp');
+    // The seed has no text placeholders left, so the test adds one.
+    const deck = clone();
+    slideOf(deck, 'a7-platform').fields.headline = 'Platform features [confirm with team]';
+    const on = byId(renderDeck(deck, ctx()), 'a7-platform');
+    expect(on.querySelector('[data-field="headline"] mark.ph').textContent).toBe('[confirm with team]');
+    const off = byId(renderDeck(deck, ctx({ highlight: false })), 'a7-platform');
     expect(off.querySelector('mark.ph')).toBeNull();
-    expect(off.querySelector('[data-field="placeholder"]').textContent).toBe('[confirm details with team]');
+    expect(off.querySelector('[data-field="headline"]').textContent).toBe('Platform features [confirm with team]');
   });
 
   it('spreads the pilot contact bar: email, website, phone in that order', () => {
@@ -496,12 +499,12 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(20);
+      expect(ids).toHaveLength(17);
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(22);
+    expect(edit).toHaveLength(19);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
     // Numbering follows the visible slides: the fit slide is now number 2.
     expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');

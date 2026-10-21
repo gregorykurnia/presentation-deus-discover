@@ -72,11 +72,25 @@ test('placeholder highlight flag is the first script and a classic global', asyn
   expect(await page.evaluate(() => typeof globalThis.SHOW_PLACEHOLDER_HIGHLIGHT)).toBe('boolean');
 });
 
+// The deck has no text placeholders left: serve the draft with one added.
+async function withPlaceholder(page) {
+  await page.route(/\/__deck(\?.*)?$/, async (route) => {
+    if (route.request().method() !== 'GET') return route.continue();
+    const res = await route.fetch();
+    const body = await res.json();
+    body.deck.slides.find((s) => s.id === 's-problem').fields.headline += ' [confirm]';
+    await route.fulfill({ response: res, json: body });
+  });
+}
+
 test('placeholders are highlighted when the flag is true', async ({ page }) => {
+  await withPlaceholder(page);
+  await page.goto('/present.html?print');
   await expect(page.locator('mark.ph').first()).toBeAttached();
 });
 
 test('flag false: no placeholder is highlighted (variant served with the flag flipped)', async ({ page }) => {
+  await withPlaceholder(page);
   await page.route(/\/present\.html(\?.*)?$/, async (route) => {
     const res = await route.fetch();
     const body = (await res.text()).replace(

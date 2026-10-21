@@ -22,9 +22,9 @@ describe('deck.json structure', () => {
     expect(typeof deck.rev).toBe('number');
   });
 
-  it('has 11 main slides and 11 appendix slides (divider + A1-A10)', () => {
+  it('has 11 main slides and 8 appendix slides (divider + A1-A7)', () => {
     expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(11);
-    expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(11);
+    expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(8);
     expect(deck.slides.filter((s) => s.layout === 'divider')).toHaveLength(1);
   });
 
@@ -53,13 +53,13 @@ describe('deck.json content is verbatim from the brief', () => {
     },
   );
 
-  // Placeholders that have since been filled in with real content.
-  const FILLED = ['[Company]'];
+  // Placeholders that have since been filled in with real content, or whose slide was
+  // removed (A7 method, A9 UU PDP, A10 research: 2026-10-21).
+  const RESOLVED = ['[Company]', '[confirm details with team]', '[summary + source]'];
 
-  it('keeps every [bracketed placeholder] from the slides section of the brief, unless filled', () => {
+  it('keeps every [bracketed placeholder] from the slides section of the brief, unless resolved', () => {
     const slidesPart = brief.slice(brief.indexOf('## Slides'), brief.indexOf('## Step 2'));
-    const placeholders = [...new Set(slidesPart.match(/\[[^\]]+\]/g))].filter((p) => !FILLED.includes(p));
-    expect(placeholders.length).toBeGreaterThan(1);
+    const placeholders = [...new Set(slidesPart.match(/\[[^\]]+\]/g))].filter((p) => !RESOLVED.includes(p));
     for (const p of placeholders) expect(text, p).toContain(p);
   });
 

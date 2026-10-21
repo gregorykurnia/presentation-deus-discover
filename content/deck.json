@@ -699,23 +699,6 @@
       "notes": ""
     },
     {
-      "id": "a8-method",
-      "layout": "appendix",
-      "section": "appendix",
-      "hidden": false,
-      "fields": {
-        "headline": "How we built it",
-        "steps": [
-          "Theory",
-          "Item development",
-          "Validation",
-          "Norming"
-        ]
-      },
-      "images": {},
-      "notes": ""
-    },
-    {
       "id": "a9-pricing",
       "layout": "table",
       "section": "appendix",
@@ -753,30 +736,6 @@
           ]
         },
         "footer": "Minimum order Rp10 juta."
-      },
-      "images": {},
-      "notes": ""
-    },
-    {
-      "id": "a10-pdp",
-      "layout": "appendix",
-      "section": "appendix",
-      "hidden": false,
-      "fields": {
-        "headline": "Candidate data handling under UU PDP",
-        "placeholder": "[confirm details with team]"
-      },
-      "images": {},
-      "notes": ""
-    },
-    {
-      "id": "a11-research",
-      "layout": "appendix",
-      "section": "appendix",
-      "hidden": false,
-      "fields": {
-        "headline": "Research: fit and retention",
-        "placeholder": "[summary + source]"
       },
       "images": {},
       "notes": ""

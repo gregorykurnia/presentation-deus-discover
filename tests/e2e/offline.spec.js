@@ -53,8 +53,8 @@ test('dist/offline/deck.html runs from file:// with the network blocked', async 
   await expect.poll(() => page.evaluate(() => [...document.querySelectorAll('video')]
     .filter((v) => v.readyState < 1).map((v) => v.getAttribute('src')))).toEqual([]);
 
-  // Missing files (appendix report sections, QR) show the clean labeled box.
-  expect(await page.locator('.img-missing').count()).toBeGreaterThan(0);
+  // Every picture is in place (the labeled missing box is covered by the render unit tests).
+  expect(await page.locator('.img-missing').count()).toBe(0);
 
   expect(externalRequests).toEqual([]);
   expect(problems).toEqual([]);
@@ -63,7 +63,7 @@ test('dist/offline/deck.html runs from file:// with the network blocked', async 
 test('deck.html?print renders every visible slide from file://', async ({ page }) => {
   const { problems } = await openOffline(page, `${pathToFileURL(bundleHtml).href}?print`);
   await expect(page.locator('.slide')).toHaveCount(visible.length);
-  expect(visible.length).toBe(22);
+  expect(visible.length).toBe(19);
   expect(problems).toEqual([]);
 });
 
