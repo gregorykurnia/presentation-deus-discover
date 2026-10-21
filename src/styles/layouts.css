@@ -82,8 +82,6 @@
 .layout-title .title__client { width: 260px; height: 104px; border-radius: var(--radius-sm); }
 .layout-title .title__client > img { object-position: left center; }
 .layout-title .title__client .img-missing { padding: 12px; }
-.layout-title .title__disc-one { left: 1430px; top: 120px; width: 564px; height: 564px; }
-.layout-title .title__disc-two { left: 1610px; top: 422px; width: 564px; height: 564px; }
 
 /* ---------- 2. Proof ---------- */
 /* Text on the left, the group photo as a landscape card on the right, so the
@@ -109,7 +107,6 @@
 .layout-problem .problem__list { left: 140px; top: 480px; width: 1240px; height: 380px; }
 .layout-problem .problem__list .list__item { font-size: 40px; }
 .layout-problem .problem__list .list__item::before { background: var(--coral); }
-.layout-problem .problem__disc { left: 1480px; top: 600px; width: 620px; height: 620px; opacity: 0.6; }
 
 /* ---------- 4. Fit ---------- */
 .layout-fit .fit__headline {
@@ -210,7 +207,6 @@
 .layout-trust .trust__pillar::before { top: calc(26px + 0.65em - 3px); }
 .layout-trust .trust__title { margin: 0; font: 700 36px/1.3 var(--font); letter-spacing: -0.01em; }
 .layout-trust .trust__text { margin: 8px 0 0; font: 500 28px/1.35 var(--font); color: var(--muted); text-wrap: balance; }
-.layout-trust .trust__disc { left: -180px; top: 700px; width: 640px; height: 640px; opacity: 0.55; }
 
 /* ---------- How it runs (journey) ---------- */
 .layout-journey .journey__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
@@ -303,16 +299,12 @@
 .layout-pilot .pilot__contact-text { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; }
 .layout-pilot .pilot__contact-website { text-align: center; }
 .layout-pilot .pilot__contact-phone { text-align: right; }
-.layout-pilot .pilot__disc-one { left: 1440px; top: 470px; width: 520px; height: 520px; }
-.layout-pilot .pilot__disc-two { left: 1620px; top: 700px; width: 520px; height: 520px; }
 
 /* ---------- Divider ---------- */
 .layout-divider .divider__headline {
   left: 140px; top: 430px; width: 1200px; height: 200px;
   font: 700 160px/1.16 var(--font); letter-spacing: -0.03em;
 }
-.layout-divider .divider__disc-one { left: 1260px; top: 160px; width: 640px; height: 640px; }
-.layout-divider .divider__disc-two { left: 1500px; top: 480px; width: 640px; height: 640px; }
 
 /* ---------- Appendix (A1-A6) ---------- */
 .layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }

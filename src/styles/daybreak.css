@@ -124,7 +124,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Decorative discs (layouts set position and size) ---------- */
+/* ---------- Fit slide discs (the layout sets position and size) ---------- */
 .disc-one, .disc-two { position: absolute; border-radius: 50%; }
 .disc-one { background: radial-gradient(circle at 35% 35%, var(--disc-one-a), var(--disc-one-b)); opacity: 0.8; }
 .disc-two { background: radial-gradient(circle at 60% 40%, var(--disc-two-a), var(--disc-two-b)); opacity: 0.75; }

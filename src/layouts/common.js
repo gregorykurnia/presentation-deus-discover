@@ -289,8 +289,3 @@ export function stepFlow(slide, path, ctx, opts = {}) {
   });
   return flow;
 }
-
-/** Decorative disc (no content). */
-export function disc(which, cls) {
-  return h('div', { class: `disc-${which} ${cls}`, 'aria-hidden': 'true' });
-}
