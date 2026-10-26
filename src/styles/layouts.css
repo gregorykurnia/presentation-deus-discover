@@ -73,15 +73,10 @@
 .small-print { font: 500 var(--fs-small)/1.35 var(--font); color: var(--muted); }
 
 /* ---------- 1. Title ---------- */
-.layout-title .title__logo { left: 140px; top: 80px; width: 223px; height: 180px; border-radius: 0; }
+.layout-title .title__logo { left: 140px; top: 180px; width: 223px; height: 180px; border-radius: 0; }
 .layout-title .title__logo > img { object-position: left center; }
-.layout-title .title__headline { left: 140px; top: 330px; width: 1240px; height: 230px; text-wrap: wrap; }
-.layout-title .title__subtitle { left: 140px; top: 600px; width: 1200px; height: 120px; font-size: 42px; }
-.layout-title .title__prep { left: 140px; bottom: 100px; display: flex; align-items: center; gap: 32px; }
-.layout-title .title__prepared { font: 600 32px/1.2 var(--font); white-space: nowrap; height: 40px; max-width: 1000px; }
-.layout-title .title__client { width: 260px; height: 104px; border-radius: var(--radius-sm); }
-.layout-title .title__client > img { object-position: left center; }
-.layout-title .title__client .img-missing { padding: 12px; }
+.layout-title .title__headline { left: 140px; top: 430px; width: 1240px; height: 230px; text-wrap: wrap; }
+.layout-title .title__subtitle { left: 140px; top: 700px; width: 1200px; height: 120px; font-size: 42px; }
 
 /* ---------- 2. Proof ---------- */
 /* Text on the left, the group photo as a landscape card on the right, so the

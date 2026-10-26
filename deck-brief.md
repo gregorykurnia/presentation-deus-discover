@@ -51,7 +51,6 @@ Other rules:
 Purpose: hook them in the first 10 seconds.
 - Headline: "Fit the role, they perform. Fit your company, they stay."
 - Subtitle: "DEUS Game-Based Assessment · Built around your roles and your culture"
-- "Prepared for" + client logo (the logo carries the company name, so it isn't repeated in the text)
 - DEUS logo
 Notes: Open with: "Most tests only check if someone can do the job. We also check if they belong in your company."
 

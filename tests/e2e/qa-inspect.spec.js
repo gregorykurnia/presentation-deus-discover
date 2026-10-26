@@ -29,7 +29,7 @@ test('inspectSlides reports a forced overflow, an overlap and text under 26px', 
   ]);
 });
 
-test('the pricing table, "Prepared for" and the pilot contact line report overflow when text grows', async ({ page }) => {
+test('the pricing table and the pilot contact line report overflow when text grows', async ({ page }) => {
   const render = (d) => page.evaluate(async (data) => {
     const { renderDeck } = await import('/src/render.js');
     const root = document.getElementById('deck-root');
@@ -38,7 +38,7 @@ test('the pricing table, "Prepared for" and the pilot contact line report overfl
   }, d);
   const overflows = async () => (await page.evaluate(inspectSlides, OPTS))
     .filter((p) => p.kind === 'overflow').map((p) => `${p.slideId} ${p.name}`);
-  const watched = ['s-title preparedFor', 's-pilot phone', 'a9-pricing table.columns'];
+  const watched = ['s-pilot phone', 'a9-pricing table.columns'];
 
   await page.goto('/present.html?print');
   await render(deck);
@@ -46,7 +46,6 @@ test('the pricing table, "Prepared for" and the pilot contact line report overfl
 
   const long = structuredClone(deck);
   const slide = (id) => long.slides.find((s) => s.id === id);
-  slide('s-title').fields.preparedFor = `Prepared for ${'A very long company name '.repeat(4)}`;
   slide('s-pilot').fields.phone += ' / +62 812-3456-7890 (WhatsApp)';
   slide('a9-pricing').fields.table.rows[3][0] = '4 (full suite) '.concat('with every optional add-on module '.repeat(6));
   await render(long);

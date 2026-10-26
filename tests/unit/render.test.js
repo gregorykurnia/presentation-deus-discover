@@ -210,12 +210,12 @@ describe('renderDeck', () => {
 
   it('renders a labeled .img-missing box when an image src is null', () => {
     const deck = clone();
-    Object.assign(slideOf(deck, 's-title').images.clientLogo, { src: null, label: 'Client logo' });
+    slideOf(deck, 's-title').images.logo.src = null;
     slideOf(deck, 'a5-simulation').images.reportSection.src = null;
     const els = renderDeck(deck, ctx());
-    const client = byId(els, 's-title').querySelector('[data-image="clientLogo"]');
-    expect(client.querySelector('img')).toBeNull();
-    expect(client.querySelector('.img-missing').textContent).toContain('Client logo');
+    const logo = byId(els, 's-title').querySelector('[data-image="logo"]');
+    expect(logo.querySelector('img')).toBeNull();
+    expect(logo.querySelector('.img-missing').textContent).toContain('DEUS logo');
     const report = byId(els, 'a5-simulation').querySelector('[data-image="reportSection"] .img-missing');
     expect(report.textContent).toContain('Matching report section');
   });
@@ -478,12 +478,11 @@ describe('renderDeck', () => {
     expect(item.textContent).toBe('Apply → Play ≤ Score ≈ Hire');
   });
 
-  it('gives the pricing table, "Prepared for" and the pilot contact line a sized data-fit box', () => {
+  it('gives the pricing table and the pilot contact line a sized data-fit box', () => {
     const els = renderDeck(seed, ctx({ mode: 'print' }));
     const table = byId(els, 'a9-pricing').querySelector('.price-table');
     expect(table.hasAttribute('data-fit')).toBe(false);
     expect(table.parentElement.matches('.price-table-box[data-fit]')).toBe(true);
-    expect(byId(els, 's-title').querySelector('.title__prepared[data-fit]')).not.toBeNull();
     expect(byId(els, 's-pilot').querySelector('.pilot__contact-phone[data-fit]')).not.toBeNull();
   });
 
