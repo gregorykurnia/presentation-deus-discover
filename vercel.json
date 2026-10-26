@@ -3,6 +3,10 @@
   "framework": null,
   "buildCommand": "npm run export:offline",
   "outputDirectory": "dist/offline",
-  "rewrites": [{ "source": "/", "destination": "/deck.html" }],
+  "rewrites": [
+    { "source": "/", "destination": "/deck.html" },
+    { "source": "/discover", "destination": "/deck.html" }
+  ],
+  "redirects": [{ "source": "/discover/", "destination": "/discover", "permanent": true }],
   "git": { "deploymentEnabled": { "staging": false, "lane-*": false } }
 }
