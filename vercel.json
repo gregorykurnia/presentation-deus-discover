@@ -4,10 +4,13 @@
   "buildCommand": "npm run export:offline",
   "outputDirectory": "dist/offline",
   "rewrites": [
-    { "source": "/", "missing": [{ "type": "host", "value": "deck.deushcs.com" }], "destination": "/deck.html" },
+    { "source": "/", "destination": "/deck.html" },
     { "source": "/discover", "destination": "/deck.html" },
     { "source": "/:path*", "destination": "https://deushr.web.app/:path*" }
   ],
-  "redirects": [{ "source": "/discover/", "destination": "/discover", "permanent": true }],
+  "redirects": [
+    { "source": "/", "has": [{ "type": "host", "value": "deck.deushcs.com" }], "destination": "/about", "permanent": false },
+    { "source": "/discover/", "destination": "/discover", "permanent": true }
+  ],
   "git": { "deploymentEnabled": { "staging": false, "lane-*": false } }
 }
