@@ -64,7 +64,7 @@ test('the sidebar shows a 240px live thumbnail per slide, numbered like the pres
   expect(Math.round(box.height)).toBe(135);
   const nums = await thumbs(page).locator('.ed-thumb__num').allTextContents();
   expect(nums.slice(0, 12)).toEqual(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', 'A']);
-  expect(nums.at(-1)).toBe('A9');
+  expect(nums.at(-1)).toBe('A8');
   // Thumbnails are pictures, not a second copy of the editable fields.
   await expect(page.locator('.ed-sorter [data-slide-id], .ed-sorter [contenteditable]')).toHaveCount(0);
 });

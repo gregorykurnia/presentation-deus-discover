@@ -37,11 +37,13 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 21 seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 20 visible seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
-    expect(els).toHaveLength(21);
+    const shown = seed.slides.filter((s) => !s.hidden);
+    expect(shown).toHaveLength(20);
+    expect(els).toHaveLength(shown.length);
     els.forEach((el, i) => {
-      const slide = seed.slides[i];
+      const slide = shown[i];
       expect(el.tagName).toBe('SECTION');
       expect(el.classList.contains('slide')).toBe(true);
       expect(el.dataset.slideId).toBe(slide.id);
@@ -69,7 +71,7 @@ describe('renderDeck', () => {
       }
     }
     expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('10');
-    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A9');
+    expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A8');
   });
 
   it('renders every text field verbatim inside a [data-field] element', () => {
@@ -175,8 +177,9 @@ describe('renderDeck', () => {
     expect(fewer.querySelectorAll('.compare__row')[0].querySelectorAll('.compare__mark')).toHaveLength(2);
   });
 
-  it('renders the cognitive packages as two wide cards, price per test first', () => {
-    const cog = byId(renderDeck(seed, ctx()), 's-package-cognitive');
+  it('renders the cognitive packages (hidden since 2026-11-03) as two wide cards, price per test first', () => {
+    expect(byId(renderDeck(seed, ctx()), 's-package-cognitive')).toBeUndefined();
+    const cog = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-package-cognitive');
     expect(cog.querySelector('[data-field="headline"]').textContent).toBe('Cognitive Assessment Packages');
     expect(cog.querySelectorAll('.package__tier')).toHaveLength(2);
     expect(cog.querySelector('.package__tiers').classList.contains('package__tiers--wide')).toBe(true);
@@ -505,7 +508,7 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(19);
+      expect(ids).toHaveLength(18); // the seed already hides the cognitive packages
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }

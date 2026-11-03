@@ -794,7 +794,7 @@
       "id": "s-package-cognitive",
       "layout": "package",
       "section": "appendix",
-      "hidden": false,
+      "hidden": true,
       "fields": {
         "headline": "Cognitive Assessment Packages",
         "tiers": [
