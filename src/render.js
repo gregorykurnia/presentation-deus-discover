@@ -20,9 +20,10 @@ import * as appendix from './layouts/appendix.js';
 import * as table from './layouts/table.js';
 import * as journey from './layouts/journey.js';
 import * as gains from './layouts/gains.js';
+import * as compare from './layouts/compare.js';
 
 export const LAYOUT_MODULES = Object.fromEntries(
-  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains]
+  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains, compare]
     .map((m) => [m.name, { name: m.name, render: m.render }]),
 );
 

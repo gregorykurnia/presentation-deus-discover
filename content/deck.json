@@ -684,56 +684,111 @@
     },
     {
       "id": "s-package",
-      "layout": "package",
+      "layout": "compare",
       "section": "appendix",
       "hidden": false,
       "fields": {
         "headline": "Personality Assessment Packages",
+        "note": "An assessment is one candidate taking every module in the package.",
         "tiers": [
           {
-            "name": "Pilot",
-            "amount": "5",
-            "unit": "candidates",
-            "price": "Rp999,000",
-            "perCandidate": "≈ Rp199,800 per candidate",
-            "validity": "Valid 1 month"
+            "name": "Essentials",
+            "price": "Rp1,000,000",
+            "amount": "10 assessments",
+            "each": "Rp100,000 each"
           },
           {
-            "name": "Business",
-            "amount": "28",
-            "unit": "candidates",
-            "price": "Rp4,999,000",
-            "perCandidate": "≈ Rp178,500 per candidate",
-            "validity": "Valid 3 months"
+            "name": "Role Fit",
+            "price": "Rp5,000,000",
+            "amount": "30 assessments",
+            "each": "≈ Rp166,700 each"
           },
           {
-            "name": "Growth",
-            "amount": "60",
-            "unit": "candidates",
-            "price": "Rp9,999,000",
-            "perCandidate": "≈ Rp166,700 per candidate",
-            "validity": "Valid 4 months"
-          },
-          {
-            "name": "Enterprise",
-            "amount": "100",
-            "unit": "candidates",
-            "price": "Rp15,999,000",
-            "perCandidate": "≈ Rp160,000 per candidate",
-            "validity": "Valid 6 months"
+            "name": "Full Suite",
+            "price": "Rp10,000,000",
+            "amount": "36 assessments",
+            "each": "≈ Rp277,800 each"
           }
         ],
-        "includesTitle": "Every package includes",
-        "includes": [
-          "Personality profile",
-          "Competency profile",
-          "Suitability recommendation",
-          "60-minute test",
-          "Report in 1 working day"
+        "groups": [
+          {
+            "title": "Modules",
+            "rows": [
+              {
+                "label": "Personality",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Cognitive",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              },
+              {
+                "label": "Drive & Risk",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              },
+              {
+                "label": "Job Simulation",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "title": "What you receive",
+            "rows": [
+              {
+                "label": "Individual report",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Summarized batch report",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Suitability report, customized to your roles",
+                "marks": [
+                  false,
+                  true,
+                  false
+                ]
+              },
+              {
+                "label": "Interactive dashboard",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              }
+            ]
+          }
         ]
       },
       "images": {},
-      "notes": "Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer."
+      "notes": "An assessment is one candidate taking every module in the package. Role Fit adds a suitability report customized to your roles; Full Suite adds Cognitive, Drive & Risk, Job Simulation and the interactive dashboard. There is no long-term contract."
     },
     {
       "id": "s-package-cognitive",

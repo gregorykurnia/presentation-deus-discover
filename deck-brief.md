@@ -113,15 +113,16 @@ Purpose: answer the skeptical psikolog in the room.
 Notes: "Don't just trust us. Check it in a pilot."
 
 ### Slide 9: Personality Assessment packages
-Purpose: make the decision easy: show the packages and their prices together.
+Purpose: make the decision easy: show the packages, their prices and what each includes side by side.
 - Headline: "Personality Assessment Packages"
-- Four package cards (name, candidates, price, price per candidate, validity):
-  - Pilot: 5 candidates, Rp999,000, ≈ Rp199,800 per candidate, valid 1 month
-  - Business: 28 candidates, Rp4,999,000, ≈ Rp178,500 per candidate, valid 3 months
-  - Growth: 60 candidates, Rp9,999,000, ≈ Rp166,700 per candidate, valid 4 months
-  - Enterprise: 100 candidates, Rp15,999,000, ≈ Rp160,000 per candidate, valid 6 months
-- "Every package includes": Personality profile, Competency profile, Suitability recommendation, 50–60 minute test, Report in 1 working day
-Notes: Every package has the same test and report. Bigger packages cost less per candidate and stay valid longer.
+- A comparison table, one column per package (name, price, assessments, price per assessment):
+  - Essentials: Rp1,000,000, 10 assessments, Rp100,000 each
+  - Role Fit: Rp5,000,000, 30 assessments, ≈ Rp166,700 each
+  - Full Suite: Rp10,000,000, 36 assessments, ≈ Rp277,800 each
+- Modules: Personality (all three); Cognitive, Drive & Risk, Job Simulation (Full Suite only)
+- What you receive: Individual report and Summarized batch report (all three); Suitability report, customized to your roles (Role Fit only); Interactive dashboard (Full Suite only)
+- Note in the table's corner: "An assessment is one candidate taking every module in the package."
+Notes: An assessment is one candidate taking every module in the package. Role Fit adds a suitability report customized to your roles; Full Suite adds Cognitive, Drive & Risk, Job Simulation and the interactive dashboard. There is no long-term contract.
 
 ### Slide 10: Cognitive Assessment packages
 Purpose: the same decision for Cognitive, and show that adding Drive & Risk makes each test cheaper.

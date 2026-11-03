@@ -38,8 +38,9 @@ describe('deck.json content is verbatim from the brief', () => {
     'Personality Assessment Packages',
     'Cognitive Assessment Packages',
     '≈ Rp83,300 per test',
-    'Rp15,999,000',
-    '≈ Rp199,800 per candidate',
+    'Rp10,000,000',
+    '≈ Rp277,800 each',
+    'Suitability report, customized to your roles',
     'Profiles ready in 1 day.',
   ])('contains %s', (s) => {
     expect(all).toContain(s);

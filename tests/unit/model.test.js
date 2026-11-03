@@ -16,7 +16,7 @@ describe('LAYOUTS', () => {
   it('lists the 15 layouts', () => {
     expect(LAYOUTS).toEqual([
       'title', 'proof', 'problem', 'fit', 'video', 'modules', 'report',
-      'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains',
+      'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains', 'compare',
     ]);
   });
 });

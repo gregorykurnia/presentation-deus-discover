@@ -152,18 +152,27 @@ describe('renderDeck', () => {
     expect(reports.querySelector('.appendix__list')).toBeNull();
   });
 
-  it('renders the package slide as one card per tier and an "includes" strip', () => {
+  it('renders the personality packages as a comparison matrix: one column per tier, a mark per row', () => {
     const pkg = byId(renderDeck(seed, ctx()), 's-package');
+    expect(pkg.classList.contains('layout-compare')).toBe(true);
     expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Personality Assessment Packages');
-    expect(pkg.querySelectorAll('.package__tier')).toHaveLength(4);
-    expect(pkg.querySelector('.package__tiers').style.getPropertyValue('--tiers')).toBe('4');
-    expect(pkg.querySelector('[data-field="tiers.3.price"]').textContent).toBe('Rp15,999,000');
-    expect(pkg.querySelectorAll('.package__includes-list .list__item')).toHaveLength(5);
+    expect([...pkg.querySelectorAll('.compare__name')].map((n) => n.textContent)).toEqual(['Essentials', 'Role Fit', 'Full Suite']);
+    expect(pkg.querySelector('[data-field="tiers.2.price"]').textContent).toBe('Rp10,000,000');
+    expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('30 assessments');
+    expect([...pkg.querySelectorAll('.compare__group-title')].map((g) => g.textContent)).toEqual(['Modules', 'What you receive']);
+    expect(pkg.querySelectorAll('.compare__row')).toHaveLength(8);
+    // Suitability report: Role Fit only.
+    const suitability = pkg.querySelector('[data-field="groups.1.rows.2.label"]').closest('tr');
+    expect([...suitability.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
+      .toEqual(['Not included', 'Included', 'Not included']);
+    expect(pkg.querySelector('[data-field="note"]').textContent).toMatch(/^An assessment is one candidate/);
     expect(pkg.querySelector('mark.ph')).toBeNull();
 
     const deck = clone();
     slideOf(deck, 's-package').fields.tiers.pop();
-    expect(byId(renderDeck(deck, ctx()), 's-package').querySelectorAll('.package__tier')).toHaveLength(3);
+    const fewer = byId(renderDeck(deck, ctx()), 's-package');
+    expect(fewer.querySelectorAll('.compare__tier')).toHaveLength(2);
+    expect(fewer.querySelectorAll('.compare__row')[0].querySelectorAll('.compare__mark')).toHaveLength(2);
   });
 
   it('renders the cognitive packages as two wide cards, price per test first', () => {
@@ -177,8 +186,6 @@ describe('renderDeck', () => {
     expect(cog.querySelector('[data-field="tiers.0.perCandidate"]')).toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.validity"]')).toBeNull();
     expect(cog.querySelector('[data-field="tiers.0.tests"]').textContent).toBe('1 test · 20 minutes');
-    const pkg = byId(renderDeck(seed, ctx()), 's-package');
-    expect(pkg.querySelector('.package__tiers--wide')).toBeNull();
   });
 
   it('highlights placeholders only when ctx.highlight is on', () => {
@@ -437,7 +444,7 @@ describe('renderDeck', () => {
     for (const el of [pkg, table]) {
       expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t)), el.dataset.slideId).toEqual([]);
     }
-    const approx = pkg.querySelector('[data-field="tiers.0.perCandidate"] .glyph');
+    const approx = pkg.querySelector('[data-field="tiers.1.each"] .glyph');
     expect(approx.getAttribute('role')).toBe('img');
     expect(approx.getAttribute('aria-label')).toBe('≈');
     expect(approx.querySelector('svg[aria-hidden="true"] path')).not.toBeNull();
@@ -445,7 +452,7 @@ describe('renderDeck', () => {
     const le = table.querySelector('[data-field="table.columns.1"] .glyph');
     expect(le.getAttribute('aria-label')).toBe('≤');
     // The field's text is unchanged (editor + copy/paste read it back verbatim).
-    expect(pkg.querySelector('[data-field="tiers.0.perCandidate"]').textContent).toBe('≈ Rp199,800 per candidate');
+    expect(pkg.querySelector('[data-field="tiers.1.each"]').textContent).toBe('≈ Rp166,700 each');
     expect(table.querySelector('[data-field="table.columns.1"]').textContent).toBe('Starter (≤250 candidates)');
   });
 

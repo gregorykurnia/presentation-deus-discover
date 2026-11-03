@@ -1,5 +1,5 @@
 /* =====================================================================
-   Layouts: positions and layout-specific styling for the 13 templates in
+   Layouts: positions and layout-specific styling for the 16 templates in
    src/layouts/. Load AFTER daybreak.css (it uses its tokens and classes).
 
    Geometry (1920 x 1080): side margins 140 (x 140-1780). Content slides
@@ -344,6 +344,37 @@
 .layout-table .price-table tbody tr:last-child td { border-bottom: 0; font-weight: 700; }
 .layout-table .price-table td.num { font-weight: 600; }
 .layout-table .table__footer { left: 140px; top: 916px; width: 1640px; height: 40px; }
+
+/* ---------- A7: Package comparison ---------- */
+.layout-compare .compare__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
+.layout-compare .compare__panel { left: 140px; top: 290px; width: 1640px; padding: 26px 48px 12px; }
+.layout-compare .compare__box { height: 640px; }
+.layout-compare .compare__table { width: 100%; height: 100%; border-collapse: collapse; table-layout: fixed; }
+.layout-compare .compare__corner { width: 640px; }
+/* Low-specificity defaults (:where) so the cell rules below win. */
+.layout-compare :where(.compare__table th, .compare__table td) { padding: 0 12px; text-align: left; vertical-align: middle; }
+.layout-compare .compare__tier, .layout-compare .compare__cell, .layout-compare .compare__group-row td { text-align: center; }
+.layout-compare thead th { height: 168px; padding-bottom: 14px; vertical-align: bottom; border-bottom: 2px solid var(--soft-line); }
+.layout-compare .compare__tier > span { display: block; }
+.layout-compare .compare__name { font: 700 30px/1.2 var(--font); letter-spacing: -0.01em; }
+.layout-compare .compare__price { margin-top: 4px; font: 700 38px/1.15 var(--font); letter-spacing: -0.01em; color: var(--cobalt); white-space: nowrap; }
+.layout-compare .compare__amount { margin-top: 8px; font: 600 26px/1.2 var(--font); }
+.layout-compare .compare__each { font: 500 26px/1.2 var(--font); color: var(--muted); white-space: nowrap; }
+.layout-compare .compare__note { display: block; max-width: 520px; font: 500 var(--fs-small)/1.35 var(--font); color: var(--muted); }
+.layout-compare .compare__group-row > * { height: 44px; background: rgba(211, 226, 255, 0.5); }
+.layout-compare .compare__group-title { font: 600 var(--fs-small)/1.2 var(--font); letter-spacing: 0.08em; text-transform: uppercase; color: var(--cobalt); }
+.layout-compare .compare__row > * { height: 48px; border-bottom: 2px solid var(--soft-line); }
+.layout-compare .compare__group:last-child .compare__row:last-child > * { border-bottom: 0; }
+.layout-compare .compare__label { font: 500 28px/1.2 var(--font); white-space: nowrap; }
+.layout-compare .compare__mark { display: inline-block; width: 36px; height: 36px; vertical-align: middle; border-radius: 50%; background: no-repeat center / 22px 22px; }
+.layout-compare .compare__mark--yes {
+  background-color: var(--sky);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='%232D5BFF' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+.layout-compare .compare__mark--no {
+  background-size: 18px 18px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6L6 18' fill='none' stroke='%234B5677' stroke-opacity='0.45' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E");
+}
 
 /* ---------- Unknown layout ---------- */
 .slide-error { left: 140px; top: 300px; width: 1640px; height: 500px; }
