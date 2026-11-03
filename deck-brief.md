@@ -112,9 +112,9 @@ Purpose: answer the skeptical psikolog in the room.
   - Established local norms: "Benchmarked on thousands of Indonesian candidates. 100% local data."
 Notes: "Don't just trust us. Check it in a pilot."
 
-### Slide 9: Personality Assessment packages
+### Slide 9: Assessment packages
 Purpose: make the decision easy: show the packages, their prices and what each includes side by side.
-- Headline: "Personality Assessment Packages"
+- Headline: "Assessment Packages"
 - A comparison table, one column per package (name, price, assessments, price per assessment):
   - Essentials: Rp1,000,000, 10 assessments, Rp100,000 each
   - Role Fit: Rp5,000,000, 30 assessments, ≈ Rp166,700 each

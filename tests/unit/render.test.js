@@ -154,10 +154,10 @@ describe('renderDeck', () => {
     expect(reports.querySelector('.appendix__list')).toBeNull();
   });
 
-  it('renders the personality packages as a comparison matrix: one column per tier, a mark per row', () => {
+  it('renders the assessment packages as a comparison matrix: one column per tier, a mark per row', () => {
     const pkg = byId(renderDeck(seed, ctx()), 's-package');
     expect(pkg.classList.contains('layout-compare')).toBe(true);
-    expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Personality Assessment Packages');
+    expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Assessment Packages');
     expect([...pkg.querySelectorAll('.compare__name')].map((n) => n.textContent)).toEqual(['Essentials', 'Role Fit', 'Full Suite']);
     expect(pkg.querySelector('[data-field="tiers.2.price"]').textContent).toBe('Rp10,000,000');
     expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('30 assessments');

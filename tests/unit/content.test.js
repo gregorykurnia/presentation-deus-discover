@@ -35,7 +35,7 @@ describe('deck.json structure', () => {
 
 describe('deck.json content is verbatim from the brief', () => {
   it.each([
-    'Personality Assessment Packages',
+    'Assessment Packages',
     'Cognitive Assessment Packages',
     '≈ Rp83,300 per test',
     'Rp10,000,000',
