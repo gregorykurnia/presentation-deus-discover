@@ -700,8 +700,8 @@
           {
             "name": "Role Fit",
             "price": "Rp5,000,000",
-            "amount": "30 assessments",
-            "each": "≈ Rp166,700 each"
+            "amount": "20 assessments",
+            "each": "Rp250,000 each"
           },
           {
             "name": "Full Suite",
@@ -726,7 +726,7 @@
                 "label": "Cognitive",
                 "marks": [
                   false,
-                  false,
+                  true,
                   true
                 ]
               },
@@ -734,7 +734,7 @@
                 "label": "Drive & Risk",
                 "marks": [
                   false,
-                  false,
+                  true,
                   true
                 ]
               },
@@ -771,7 +771,7 @@
                 "label": "Suitability report, customized to your roles",
                 "marks": [
                   false,
-                  true,
+                  false,
                   false
                 ]
               },
@@ -779,7 +779,7 @@
                 "label": "Interactive dashboard",
                 "marks": [
                   false,
-                  false,
+                  true,
                   true
                 ]
               }
@@ -788,7 +788,7 @@
         ]
       },
       "images": {},
-      "notes": "An assessment is one candidate taking every module in the package. Role Fit adds a suitability report customized to your roles; Full Suite adds Cognitive, Drive & Risk, Job Simulation and the interactive dashboard. There is no long-term contract."
+      "notes": "An assessment is one candidate taking every module in the package. Role Fit adds Cognitive, Drive & Risk and the interactive dashboard; Full Suite adds Job Simulation on top. There is no long-term contract."
     },
     {
       "id": "s-package-cognitive",

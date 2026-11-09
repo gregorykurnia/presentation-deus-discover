@@ -117,12 +117,12 @@ Purpose: make the decision easy: show the packages, their prices and what each i
 - Headline: "Assessment Packages"
 - A comparison table, one column per package (name, price, assessments, price per assessment):
   - Essentials: Rp1,000,000, 10 assessments, Rp100,000 each
-  - Role Fit: Rp5,000,000, 30 assessments, ≈ Rp166,700 each
+  - Role Fit: Rp5,000,000, 20 assessments, Rp250,000 each
   - Full Suite: Rp10,000,000, 36 assessments, ≈ Rp277,800 each
-- Modules: Personality (all three); Cognitive, Drive & Risk, Job Simulation (Full Suite only)
-- What you receive: Individual report and Summarized batch report (all three); Suitability report, customized to your roles (Role Fit only); Interactive dashboard (Full Suite only)
+- Modules: Personality (all three); Cognitive, Drive & Risk (Role Fit and Full Suite); Job Simulation (Full Suite only)
+- What you receive: Individual report and Summarized batch report (all three); Suitability report, customized to your roles (none for now); Interactive dashboard (Role Fit and Full Suite)
 - Note in the table's corner: "An assessment is one candidate taking every module in the package."
-Notes: An assessment is one candidate taking every module in the package. Role Fit adds a suitability report customized to your roles; Full Suite adds Cognitive, Drive & Risk, Job Simulation and the interactive dashboard. There is no long-term contract.
+Notes: An assessment is one candidate taking every module in the package. Role Fit adds Cognitive, Drive & Risk and the interactive dashboard; Full Suite adds Job Simulation on top. There is no long-term contract.
 
 ### Slide 10: Cognitive Assessment packages
 Purpose: the same decision for Cognitive, and show that adding Drive & Risk makes each test cheaper.

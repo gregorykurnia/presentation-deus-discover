@@ -160,13 +160,16 @@ describe('renderDeck', () => {
     expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Assessment Packages');
     expect([...pkg.querySelectorAll('.compare__name')].map((n) => n.textContent)).toEqual(['Essentials', 'Role Fit', 'Full Suite']);
     expect(pkg.querySelector('[data-field="tiers.2.price"]').textContent).toBe('Rp10,000,000');
-    expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('30 assessments');
+    expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('20 assessments');
     expect([...pkg.querySelectorAll('.compare__group-title')].map((g) => g.textContent)).toEqual(['Modules', 'What you receive']);
     expect(pkg.querySelectorAll('.compare__row')).toHaveLength(8);
-    // Suitability report: Role Fit only.
+    // Suitability report: no package includes it for now.
     const suitability = pkg.querySelector('[data-field="groups.1.rows.2.label"]').closest('tr');
     expect([...suitability.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
-      .toEqual(['Not included', 'Included', 'Not included']);
+      .toEqual(['Not included', 'Not included', 'Not included']);
+    const dashboard = pkg.querySelector('[data-field="groups.1.rows.3.label"]').closest('tr');
+    expect([...dashboard.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
+      .toEqual(['Not included', 'Included', 'Included']);
     expect(pkg.querySelector('[data-field="note"]').textContent).toMatch(/^An assessment is one candidate/);
     expect(pkg.querySelector('mark.ph')).toBeNull();
 
@@ -447,7 +450,7 @@ describe('renderDeck', () => {
     for (const el of [pkg, table]) {
       expect(visibleTextNodes(el).filter((t) => SYMBOL_CHARS.test(t)), el.dataset.slideId).toEqual([]);
     }
-    const approx = pkg.querySelector('[data-field="tiers.1.each"] .glyph');
+    const approx = pkg.querySelector('[data-field="tiers.2.each"] .glyph');
     expect(approx.getAttribute('role')).toBe('img');
     expect(approx.getAttribute('aria-label')).toBe('≈');
     expect(approx.querySelector('svg[aria-hidden="true"] path')).not.toBeNull();
@@ -455,7 +458,7 @@ describe('renderDeck', () => {
     const le = table.querySelector('[data-field="table.columns.1"] .glyph');
     expect(le.getAttribute('aria-label')).toBe('≤');
     // The field's text is unchanged (editor + copy/paste read it back verbatim).
-    expect(pkg.querySelector('[data-field="tiers.1.each"]').textContent).toBe('≈ Rp166,700 each');
+    expect(pkg.querySelector('[data-field="tiers.2.each"]').textContent).toBe('≈ Rp277,800 each');
     expect(table.querySelector('[data-field="table.columns.1"]').textContent).toBe('Starter (≤250 candidates)');
   });
 
