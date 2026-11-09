@@ -163,10 +163,10 @@ describe('renderDeck', () => {
     expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('20 assessments');
     expect([...pkg.querySelectorAll('.compare__group-title')].map((g) => g.textContent)).toEqual(['Modules', 'What you receive']);
     expect(pkg.querySelectorAll('.compare__row')).toHaveLength(8);
-    // Suitability report: no package includes it for now.
+    // Suitability report: Full Suite only.
     const suitability = pkg.querySelector('[data-field="groups.1.rows.2.label"]').closest('tr');
     expect([...suitability.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
-      .toEqual(['Not included', 'Not included', 'Not included']);
+      .toEqual(['Not included', 'Not included', 'Included']);
     const dashboard = pkg.querySelector('[data-field="groups.1.rows.3.label"]').closest('tr');
     expect([...dashboard.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
       .toEqual(['Not included', 'Included', 'Included']);
