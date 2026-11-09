@@ -2,7 +2,7 @@
 // callouts are sized to the screenshot. With a screenshot of another aspect ratio
 // that loads late, the callouts must still sit on the displayed image.
 import { test, expect } from '@playwright/test';
-import { readDraft, resetDraft, writeDraft } from './helpers/draft.js';
+import { addReportCallouts, readDraft, resetDraft } from './helpers/draft.js';
 import { waitForPrintReady } from '../../scripts/lib/print-deck.js';
 
 const OTHER_RATIO = 'assets/logo-lockup-dark.png'; // 1600x1294, the frame is 1180x740
@@ -13,7 +13,7 @@ test('print waits until the report callouts are placed on a screenshot of anothe
   const report = deck.slides.find((s) => s.id === 's-report').images.report;
   report.src = OTHER_RATIO;
   report.fit = 'contain';
-  writeDraft(deck);
+  addReportCallouts(deck);
   // The screenshot arrives late, after the deck has rendered.
   await page.route(`**/${OTHER_RATIO}`, async (route) => {
     await new Promise((r) => setTimeout(r, 1500));
@@ -54,7 +54,8 @@ test('print waits until the report callouts are placed on a screenshot of anothe
     return { sized: frame.classList.contains('report__frame--sized'), shown, dots };
   });
   expect(placed.sized).toBe(true);
-  const { callouts } = report;
+  const { callouts } = deck.slides.find((s) => s.id === 's-report').images.report;
+  expect(placed.dots).toHaveLength(callouts.length);
   placed.dots.forEach((dot, i) => {
     expect(Math.abs(dot.x - (placed.shown.left + (callouts[i].x / 100) * placed.shown.w))).toBeLessThan(3);
   });

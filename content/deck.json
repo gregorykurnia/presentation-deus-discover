@@ -228,35 +228,14 @@
       },
       "images": {
         "report": {
-          "src": "assets/report-suitability.jpg",
-          "fit": "contain",
+          "src": "assets/report-bank-teller.jpg",
+          "fit": "cover",
           "focus": [
             50,
-            50
+            0
           ],
           "label": "Suitability report screenshot",
-          "callouts": [
-            {
-              "label": "Role fit",
-              "x": 16,
-              "y": 15
-            },
-            {
-              "label": "Culture fit",
-              "x": 20.5,
-              "y": 79.2
-            },
-            {
-              "label": "Motivation drivers",
-              "x": 68,
-              "y": 79.2
-            },
-            {
-              "label": "Recommendation",
-              "x": 23.5,
-              "y": 2.4
-            }
-          ]
+          "callouts": []
         },
         "video": {
           "src": "assets/report-demo.mp4",
@@ -618,7 +597,7 @@
           "label": "Personality report"
         },
         "suitability": {
-          "src": "assets/report-suitability.jpg",
+          "src": "assets/report-bank-teller.jpg",
           "fit": "cover",
           "focus": [
             0,

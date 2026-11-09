@@ -6,6 +6,15 @@ import { LAYOUTS } from '../../src/model.js';
 
 const seed = JSON.parse(readFileSync(resolve(process.cwd(), 'content/deck.json'), 'utf8'));
 const clone = () => structuredClone(seed);
+// Slide 7 ships without callouts (2026-11-09); the callout tests add these.
+const withCallouts = () => {
+  const deck = clone();
+  deck.slides.find((s) => s.id === 's-report').images.report.callouts = [
+    { label: 'Role fit', x: 16, y: 15 },
+    { label: 'Recommendation', x: 23.5, y: 2.4 },
+  ];
+  return deck;
+};
 const ctx = (over = {}) => ({ mode: 'present', highlight: true, assetBase: '', ...over });
 const byId = (els, id) => els.find((el) => el.dataset.slideId === id);
 const slideOf = (deck, id) => deck.slides.find((s) => s.id === id);
@@ -314,16 +323,17 @@ describe('renderDeck', () => {
     const print = byId(renderDeck(seed, ctx({ mode: 'print' })), 's-report');
     expect(print.querySelector('video')).toBeNull();
     expect(print.querySelector('[data-image="report"] img')).not.toBeNull();
-    const edit = byId(renderDeck(seed, ctx({ mode: 'edit' })), 's-report');
+    const edit = byId(renderDeck(withCallouts(), ctx({ mode: 'edit' })), 's-report');
     expect(edit.querySelector('[data-image="report"] .video__poster[data-image="video"] video')).not.toBeNull();
     expect(edit.querySelectorAll('[data-callout]').length).toBeGreaterThan(0);
   });
 
   it('positions the report callouts by percent coordinates', () => {
-    const report = byId(renderDeck(seed, ctx({ mode: 'print' })), 's-report');
+    const deck = withCallouts();
+    const report = byId(renderDeck(deck, ctx({ mode: 'print' })), 's-report');
     const callouts = [...report.querySelectorAll('.report__frame [data-callout]')];
-    const spec = seed.slides.find((s) => s.id === 's-report').images.report.callouts;
-    expect(callouts).toHaveLength(spec.length);
+    const spec = deck.slides.find((s) => s.id === 's-report').images.report.callouts;
+    expect(callouts).toHaveLength(2);
     callouts.forEach((c, i) => {
       expect(c.dataset.callout).toBe(String(i));
       expect(c.style.left).toBe(`${spec[i].x}%`);
@@ -336,6 +346,7 @@ describe('renderDeck', () => {
   it('places the callouts on the displayed screenshot: its aspect ratio, fit and focus go to CSS on load', () => {
     const deck = clone();
     deck.slides.find((s) => s.id === 's-report').images.report.focus = [0, 100];
+    deck.slides.find((s) => s.id === 's-report').images.report.fit = 'contain';
     const report = byId(renderDeck(deck, ctx({ mode: 'print' })), 's-report');
     const frame = report.querySelector('.report__frame');
     const img = frame.querySelector('[data-image="report"] img');
@@ -414,7 +425,7 @@ describe('renderDeck', () => {
     });
 
     it('in report callout labels', () => {
-      const deck = clone();
+      const deck = withCallouts();
       deck.slides.find((s) => s.id === 's-report').images.report.callouts[0].label = EVIL;
       const report = byId(renderDeck(deck, ctx({ mode: 'print' })), 's-report');
       expect(report.querySelector('[data-callout="0"] .callout__label').textContent).toBe(EVIL);

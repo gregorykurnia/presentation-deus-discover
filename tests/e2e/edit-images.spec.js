@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { existsSync, readFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
-import { readDraft, resetDraft, writeDraft, UPLOAD_DIR } from './helpers/draft.js';
+import { addReportCallouts, readDraft, resetDraft, writeDraft, UPLOAD_DIR } from './helpers/draft.js';
 
 const FOREST = 'assets/extra/personality-forest.jpg';
 const UPLOAD_SRC = /^assets\/uploads\/[0-9a-f]{16}\.jpg$/;
@@ -135,6 +135,8 @@ test('the video slide has a poster slot in edit mode; clicking an empty slot ope
 });
 
 test('dragging a report callout updates its x/y in the JSON', async ({ page }) => {
+  addReportCallouts();
+  await openEditor(page);
   const frame = page.locator('.slide[data-slide-id="s-report"] .report__callouts');
   const dot = page.locator('.slide[data-slide-id="s-report"] [data-callout="0"] .callout__dot');
   await dot.scrollIntoViewIfNeeded();
@@ -155,7 +157,8 @@ test('dragging a report callout updates its x/y in the JSON', async ({ page }) =
 test('report callouts sit on the displayed screenshot, not the frame, whatever its aspect ratio', async ({ page }) => {
   const deck = readDraft();
   imageOf(deck, 's-report', 'report').src = 'assets/logo.png'; // square, in a 1180x740 frame
-  writeDraft(deck);
+  imageOf(deck, 's-report', 'report').fit = 'contain';
+  addReportCallouts(deck);
   await openEditor(page);
   const img = page.locator('.slide[data-slide-id="s-report"] [data-image="report"] img');
   await img.scrollIntoViewIfNeeded();

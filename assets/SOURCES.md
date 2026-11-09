@@ -18,7 +18,8 @@ available (same filenames).
 | `module-drive.jpg` | DEUS p11 | 827×495 | Balloon risk game |
 | `simulation-1.jpg` | Screenshot supplied 2026-10-21 (`Event Manager Screenshot/37.png`) | 2000×2000 | Black bars trimmed, Next Chapter logo (top left) painted over with nearby background, resized to 1600 wide; A4 Job Simulation game picture; original kept out of git |
 | `module-simulation.jpg` | Document (4).pdf p18 | 535×318 | Investigation screen; sidebar with game logo cropped out |
-| `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections |
+| `report-suitability.jpg` | DEUS p19 | 754×473 | Suitability summary; no distinct culture-fit / motivation sections; no longer used (replaced by `report-bank-teller.jpg`, 2026-11-09) |
+| `report-bank-teller.jpg` | Screenshot supplied 2026-11-09 (role suitability report, Hendra Gunawan, Bank Teller, simulated demo data) | 896×562 | Top of the page cut below the competency tiles, first "Does well" bullet blanked, so the crop ends cleanly; slide 7 (no callouts) and the A5 Role suitability card |
 | `report-personality.jpg` | Screenshot supplied 2026-10-21 (Individual Report, Spotlight tab) | 2660×1457 | App sidebar and top bar (with a staff email) cropped out; original `report-personality-original.png` kept out of git |
 | `report-personality-thumb.jpg` | Crop of `report-personality.jpg` (top left: profile header, tabs, start of Executive Summary) | 800×462 | A5 Report types card picture |
 | `report-batch.jpg` | Screenshot supplied 2026-10-21 (Batch Neuro Report, Cohort Overview) | 1000×389 | Top of the page: header, stat tiles, start of Domain Statistics; black top bar cut off; original `batch-report.png` kept out of git |
