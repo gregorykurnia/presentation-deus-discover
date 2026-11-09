@@ -360,6 +360,7 @@
 .layout-compare .compare__price { margin-top: 4px; font: 700 38px/1.15 var(--font); letter-spacing: -0.01em; color: var(--cobalt); white-space: nowrap; }
 .layout-compare .compare__amount { margin-top: 8px; font: 600 26px/1.2 var(--font); }
 .layout-compare .compare__each { font: 500 26px/1.2 var(--font); color: var(--muted); white-space: nowrap; }
+.layout-compare .compare__quote { left: 140px; top: 990px; width: 1640px; margin: 0; color: var(--muted); }
 .layout-compare .compare__note { display: block; max-width: 520px; font: 500 var(--fs-small)/1.35 var(--font); color: var(--muted); }
 .layout-compare .compare__group-row > * { height: 44px; background: rgba(211, 226, 255, 0.5); }
 .layout-compare .compare__group-title { font: 600 var(--fs-small)/1.2 var(--font); letter-spacing: 0.08em; text-transform: uppercase; color: var(--cobalt); }

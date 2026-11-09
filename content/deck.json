@@ -690,6 +690,7 @@
       "fields": {
         "headline": "Assessment Packages",
         "note": "An assessment is one candidate taking every module in the package.",
+        "quote": "Need a different mix of modules or more than 36 assessments? Ask us for a custom quote.",
         "tiers": [
           {
             "name": "Essentials",

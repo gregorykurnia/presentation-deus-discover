@@ -171,6 +171,7 @@ describe('renderDeck', () => {
     expect([...dashboard.querySelectorAll('.compare__mark')].map((m) => m.getAttribute('aria-label')))
       .toEqual(['Not included', 'Included', 'Included']);
     expect(pkg.querySelector('[data-field="note"]').textContent).toMatch(/^An assessment is one candidate/);
+    expect(pkg.querySelector('[data-field="quote"]').textContent).toMatch(/custom quote\.$/);
     expect(pkg.querySelector('mark.ph')).toBeNull();
 
     const deck = clone();

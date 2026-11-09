@@ -1,7 +1,7 @@
 // A7: personality packages as a comparison matrix. One column per tier (name, price,
 // assessments, price per assessment), then groups of rows ("Modules", "What you
 // receive") with a check or a cross per tier. The empty top-left cell holds the note
-// (what one assessment is). Marks are booleans in deck.json, so the editor changes the
+// (what one assessment is); an optional line under the panel invites a custom quote. Marks are booleans in deck.json, so the editor changes the
 // wording but not which tier has what.
 import { h, text, slideFrame, fieldAt } from './common.js';
 
@@ -33,6 +33,7 @@ export function render(slide, ctx) {
     h('div', { class: 'glass compare__panel', 'data-no-overlap': 'main' },
       h('div', { class: 'compare__box', 'data-fit': true }, table)),
   );
+  if (fieldAt(slide, 'quote') != null) el.append(text('p', slide, 'quote', ctx, { class: 't-small compare__quote' }));
   return el;
 }
 

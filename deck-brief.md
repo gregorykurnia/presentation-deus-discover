@@ -122,6 +122,7 @@ Purpose: make the decision easy: show the packages, their prices and what each i
 - Modules: Personality (all three); Cognitive, Drive & Risk (Role Fit and Full Suite); Job Simulation (Full Suite only)
 - What you receive: Individual report and Summarized batch report (all three); Suitability report, customized to your roles (Full Suite only); Interactive dashboard (Role Fit and Full Suite)
 - Note in the table's corner: "An assessment is one candidate taking every module in the package."
+- Line under the table: "Need a different mix of modules or more than 36 assessments? Ask us for a custom quote."
 Notes: An assessment is one candidate taking every module in the package. Role Fit adds Cognitive, Drive & Risk and the interactive dashboard; Full Suite adds Job Simulation and a suitability report customized to your roles. There is no long-term contract.
 
 ### Slide 10: Cognitive Assessment packages
