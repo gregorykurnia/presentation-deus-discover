@@ -142,6 +142,23 @@ describe('renderDeck', () => {
     expect(mods.querySelector('[data-field="modules.0.feeds"]').textContent).toBe('Culture fit');
   });
 
+  it('renders the Telkom quotes under the photo, the client quote credited to the team only', () => {
+    const proof = byId(renderDeck(seed, ctx()), 's-proof');
+    expect(proof.classList.contains('proof--quotes')).toBe(true);
+    expect(proof.querySelectorAll('.proof__quote')).toHaveLength(4);
+    const client = proof.querySelector('.proof__quote--client');
+    expect(client.querySelector('[data-field="quotes.3.by"]').textContent).toBe('Telkom Group Selection Team');
+    expect(proof.textContent).not.toMatch(/Lina/);
+  });
+
+  it('keeps the large Telkom photo when the slide has no quotes', () => {
+    const deck = clone();
+    delete slideOf(deck, 's-proof').fields.quotes;
+    const proof = byId(renderDeck(deck, ctx()), 's-proof');
+    expect(proof.classList.contains('proof--quotes')).toBe(false);
+    expect(proof.querySelector('.proof__quotes')).toBeNull();
+  });
+
   it('renders the trust slide as four pillars, a title and a proof line each', () => {
     const trust = byId(renderDeck(seed, ctx()), 's-trust');
     expect(trust.querySelector('[data-field="headline"]').textContent).toBe('The science behind the games.');

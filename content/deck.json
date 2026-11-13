@@ -328,6 +328,21 @@
             "prefix": "Results in",
             "value": "1 day"
           }
+        ],
+        "quotes": [
+          {
+            "text": "Bagus sekali idenya, saya pertama kali menjalankan psikotest dengan metode seperti ini dan tidak terasa seperti psikotest. Sangat menyenangkan!"
+          },
+          {
+            "text": "Tidak pernah disangka tes psikologi dapat dilakukan dengan cara yang sangat menyenangkan."
+          },
+          {
+            "text": "Semoga lebih banyak tes-tes gamifikasi yang luar biasa ke depan."
+          },
+          {
+            "text": "Senang sekali bisa bekerja sama dengan tim DEUS dalam penyiapan seleksi untuk karyawan Telkom Group. Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya. Semoga kerja sama kami tetap berjalan dengan baik.",
+            "by": "Telkom Group Selection Team"
+          }
         ]
       },
       "images": {
@@ -336,7 +351,7 @@
           "fit": "cover",
           "focus": [
             50,
-            100
+            66
           ],
           "label": "Telkom photo"
         }
