@@ -21,9 +21,10 @@ import * as table from './layouts/table.js';
 import * as journey from './layouts/journey.js';
 import * as gains from './layouts/gains.js';
 import * as compare from './layouts/compare.js';
+import * as logos from './layouts/logos.js';
 
 export const LAYOUT_MODULES = Object.fromEntries(
-  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains, compare]
+  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains, compare, logos]
     .map((m) => [m.name, { name: m.name, render: m.render }]),
 );
 

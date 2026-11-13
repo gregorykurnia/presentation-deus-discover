@@ -359,6 +359,198 @@
       "notes": "\"Before I explain anything, this is what it looks like at scale.\""
     },
     {
+      "id": "s-clients",
+      "layout": "logos",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Trusted by 40+ brands across Indonesia."
+      },
+      "images": {
+        "logo-01": {
+          "src": "assets/clients/telkom-indonesia.png",
+          "fit": "contain",
+          "label": "Telkom Indonesia"
+        },
+        "logo-02": {
+          "src": "assets/clients/telkommetra.png",
+          "fit": "contain",
+          "label": "TelkomMetra"
+        },
+        "logo-03": {
+          "src": "assets/clients/finnet.png",
+          "fit": "contain",
+          "label": "Finnet"
+        },
+        "logo-04": {
+          "src": "assets/clients/telkom-akses.png",
+          "fit": "contain",
+          "label": "Telkom Akses"
+        },
+        "logo-05": {
+          "src": "assets/clients/telin.png",
+          "fit": "contain",
+          "label": "Telin"
+        },
+        "logo-06": {
+          "src": "assets/clients/neutradc.png",
+          "fit": "contain",
+          "label": "NeutraDC"
+        },
+        "logo-07": {
+          "src": "assets/clients/telkomproperty.png",
+          "fit": "contain",
+          "label": "TelkomProperty"
+        },
+        "logo-08": {
+          "src": "assets/clients/boga-group.png",
+          "fit": "contain",
+          "label": "Boga Group"
+        },
+        "logo-09": {
+          "src": "assets/clients/paradise-dynasty.png",
+          "fit": "contain",
+          "label": "Paradise Dynasty"
+        },
+        "logo-10": {
+          "src": "assets/clients/ocean8.png",
+          "fit": "contain",
+          "label": "Ocean8"
+        },
+        "logo-11": {
+          "src": "assets/clients/loaf-bun.png",
+          "fit": "contain",
+          "label": "Loaf Bun"
+        },
+        "logo-12": {
+          "src": "assets/clients/kimukatsu.png",
+          "fit": "contain",
+          "label": "Kimukatsu"
+        },
+        "logo-13": {
+          "src": "assets/clients/kintan-buffet.png",
+          "fit": "contain",
+          "label": "Kintan Buffet"
+        },
+        "logo-14": {
+          "src": "assets/clients/shaburi.png",
+          "fit": "contain",
+          "label": "Shaburi"
+        },
+        "logo-15": {
+          "src": "assets/clients/pepper-lunch.png",
+          "fit": "contain",
+          "label": "Pepper Lunch"
+        },
+        "logo-16": {
+          "src": "assets/clients/delamibrands.png",
+          "fit": "contain",
+          "label": "Delamibrands"
+        },
+        "logo-17": {
+          "src": "assets/clients/executive.png",
+          "fit": "contain",
+          "label": "Executive"
+        },
+        "logo-18": {
+          "src": "assets/clients/colorbox.png",
+          "fit": "contain",
+          "label": "Colorbox"
+        },
+        "logo-19": {
+          "src": "assets/clients/et-cetera.png",
+          "fit": "contain",
+          "label": "Et Cetera"
+        },
+        "logo-20": {
+          "src": "assets/clients/wood.png",
+          "fit": "contain",
+          "label": "Wood"
+        },
+        "logo-21": {
+          "src": "assets/clients/wrangler.png",
+          "fit": "contain",
+          "label": "Wrangler"
+        },
+        "logo-22": {
+          "src": "assets/clients/tirajeans.png",
+          "fit": "contain",
+          "label": "Tirajeans"
+        },
+        "logo-23": {
+          "src": "assets/clients/jenahara.png",
+          "fit": "contain",
+          "label": "Jenahara"
+        },
+        "logo-24": {
+          "src": "assets/clients/binacitra-kharisma-lestari.png",
+          "fit": "contain",
+          "label": "Binacitra Kharisma Lestari"
+        },
+        "logo-25": {
+          "src": "assets/clients/watchout.png",
+          "fit": "contain",
+          "label": "Watchout"
+        },
+        "logo-26": {
+          "src": "assets/clients/triset.png",
+          "fit": "contain",
+          "label": "Triset"
+        },
+        "logo-27": {
+          "src": "assets/clients/oxa.png",
+          "fit": "contain",
+          "label": "Oxa"
+        },
+        "logo-28": {
+          "src": "assets/clients/sekolah-pelita-harapan.png",
+          "fit": "contain",
+          "label": "Sekolah Pelita Harapan"
+        },
+        "logo-29": {
+          "src": "assets/clients/jvckenwood.png",
+          "fit": "contain",
+          "label": "JVC Kenwood"
+        },
+        "logo-30": {
+          "src": "assets/clients/sekolah-kristen-calvin.png",
+          "fit": "contain",
+          "label": "Sekolah Kristen Calvin"
+        },
+        "logo-31": {
+          "src": "assets/clients/matahari-sakti.png",
+          "fit": "contain",
+          "label": "Matahari Sakti"
+        },
+        "logo-32": {
+          "src": "assets/clients/helios-capital.png",
+          "fit": "contain",
+          "label": "Helios Capital"
+        },
+        "logo-33": {
+          "src": "assets/clients/hanania-kidz-clinic.png",
+          "fit": "contain",
+          "label": "Hanania Kidz Clinic"
+        },
+        "logo-34": {
+          "src": "assets/clients/eliteair.png",
+          "fit": "contain",
+          "label": "EliteAir"
+        },
+        "logo-35": {
+          "src": "assets/clients/healthy-choice.png",
+          "fit": "contain",
+          "label": "Healthy Choice"
+        },
+        "logo-36": {
+          "src": "assets/clients/glamify.png",
+          "fit": "contain",
+          "label": "Glamify"
+        }
+      },
+      "notes": "\"Telkom isn't the only one. Telecom, F&B, fashion, retail, schools and clinics use DEUS.\""
+    },
+    {
       "id": "s-pilot",
       "layout": "pilot",
       "section": "main",

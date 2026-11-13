@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { logoBox } from '../../src/layouts/logos.js';
 import { renderDeck, LAYOUT_MODULES } from '../../src/render.js';
 import { LAYOUTS } from '../../src/model.js';
 
@@ -46,10 +47,10 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 20 visible seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 21 visible seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
     const shown = seed.slides.filter((s) => !s.hidden);
-    expect(shown).toHaveLength(20);
+    expect(shown).toHaveLength(21);
     expect(els).toHaveLength(shown.length);
     els.forEach((el, i) => {
       const slide = shown[i];
@@ -157,6 +158,22 @@ describe('renderDeck', () => {
     const proof = byId(renderDeck(deck, ctx()), 's-proof');
     expect(proof.classList.contains('proof--quotes')).toBe(false);
     expect(proof.querySelector('.proof__quotes')).toBeNull();
+  });
+
+  it('renders the clients slide as one wall of every logo, in deck order', () => {
+    const wall = byId(renderDeck(seed, ctx()), 's-clients');
+    expect(wall.querySelector('[data-field="headline"]').textContent).toBe('Trusted by 40+ brands across Indonesia.');
+    const logos = [...wall.querySelectorAll('.logos__logo')];
+    expect(logos).toHaveLength(36);
+    expect(logos[0].dataset.image).toBe('logo-01');
+    expect(logos[0].querySelector('img').getAttribute('alt')).toBe('Telkom Indonesia');
+    expect(logos.at(-1).querySelector('img').getAttribute('alt')).toBe('Glamify');
+  });
+
+  it('sizes logos to about the same area, inside a 200x72 cell', () => {
+    expect(logoBox(4)).toEqual({ w: 181, h: 45 });
+    expect(logoBox(13.3)).toEqual({ w: 200, h: 15 });
+    expect(logoBox(0.8)).toEqual({ w: 58, h: 72 });
   });
 
   it('renders the trust slide as four pillars, a title and a proof line each', () => {
@@ -540,12 +557,12 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(18); // the seed already hides the cognitive packages
+      expect(ids).toHaveLength(19); // the seed already hides the cognitive packages
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(21);
+    expect(edit).toHaveLength(22);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
     // Numbering follows the visible slides: the fit slide is now number 2.
     expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');
