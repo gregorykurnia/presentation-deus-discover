@@ -1,6 +1,6 @@
 export const LAYOUTS = [
   'title', 'proof', 'problem', 'fit', 'video', 'modules', 'report',
-  'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains', 'compare', 'logos',
+  'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains', 'compare', 'logos', 'usage',
 ];
 
 const SECTIONS = ['main', 'appendix'];

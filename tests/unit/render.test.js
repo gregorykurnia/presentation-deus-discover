@@ -47,10 +47,10 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 21 visible seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 22 visible seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
     const shown = seed.slides.filter((s) => !s.hidden);
-    expect(shown).toHaveLength(21);
+    expect(shown).toHaveLength(22);
     expect(els).toHaveLength(shown.length);
     els.forEach((el, i) => {
       const slide = shown[i];
@@ -80,7 +80,7 @@ describe('renderDeck', () => {
           .toBe('./assets/logo-mark-wordmark-dark.svg');
       }
     }
-    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('10');
+    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('11');
     expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A8');
   });
 
@@ -174,6 +174,19 @@ describe('renderDeck', () => {
     expect(logoBox(4)).toEqual({ w: 181, h: 45 });
     expect(logoBox(13.3)).toEqual({ w: 200, h: 15 });
     expect(logoBox(0.8)).toEqual({ w: 58, h: 72 });
+  });
+
+  it('renders the uses slide as five cards: an icon, the use and one sentence', () => {
+    const usage = byId(renderDeck(seed, ctx()), 's-usage');
+    expect(usage.querySelector('.slide-header__num').textContent).toBe('02');
+    expect(usage.querySelector('[data-field="headline"]').textContent).toBe('Uses of Our Assessment');
+    const cards = [...usage.querySelectorAll('.usage__card')];
+    expect(cards.map((c) => c.querySelector('.usage__title').textContent)).toEqual([
+      'Recruitment & MT Programs', 'Talent Mapping', 'Internal Development', 'Promotion', 'Leadership Development',
+    ]);
+    expect(cards.every((c) => c.querySelector('.usage__icon svg path'))).toBe(true);
+    expect(usage.querySelector('[data-field="uses.3.text"]').textContent)
+      .toBe('Check who is ready for the next role before you promote them.');
   });
 
   it('renders the trust slide as four pillars, a title and a proof line each', () => {
@@ -557,15 +570,15 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(19); // the seed already hides the cognitive packages
+      expect(ids).toHaveLength(20); // the seed already hides the cognitive packages
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(22);
+    expect(edit).toHaveLength(23);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
-    // Numbering follows the visible slides: the fit slide is now number 2.
-    expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('02');
+    // Numbering follows the visible slides: the fit slide is now number 3.
+    expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('03');
   });
 
   it('renders an unknown layout as a labeled error slide instead of throwing', () => {

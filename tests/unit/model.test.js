@@ -13,10 +13,10 @@ const slide = (id, layout, extra = {}) => ({
 });
 
 describe('LAYOUTS', () => {
-  it('lists the 17 layouts', () => {
+  it('lists the 18 layouts', () => {
     expect(LAYOUTS).toEqual([
       'title', 'proof', 'problem', 'fit', 'video', 'modules', 'report',
-      'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains', 'compare', 'logos',
+      'trust', 'package', 'pilot', 'divider', 'appendix', 'table', 'journey', 'gains', 'compare', 'logos', 'usage',
     ]);
   });
 });

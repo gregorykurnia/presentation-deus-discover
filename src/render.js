@@ -22,9 +22,10 @@ import * as journey from './layouts/journey.js';
 import * as gains from './layouts/gains.js';
 import * as compare from './layouts/compare.js';
 import * as logos from './layouts/logos.js';
+import * as usage from './layouts/usage.js';
 
 export const LAYOUT_MODULES = Object.fromEntries(
-  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains, compare, logos]
+  [title, proof, problem, fit, video, modules, report, trust, pkg, pilot, divider, appendix, table, journey, gains, compare, logos, usage]
     .map((m) => [m.name, { name: m.name, render: m.render }]),
 );
 

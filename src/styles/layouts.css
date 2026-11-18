@@ -112,6 +112,22 @@
 .layout-proof .proof__quote--client::before { left: 28px; top: 21px; }
 .layout-proof .proof__quote--client .quote__by { margin-top: 8px; font-style: normal; }
 
+/* ---------- Uses of the assessment (usage) ---------- */
+/* Five glass cards in one row: icon disc, the use, one sentence. Discs alternate cobalt and coral. */
+.layout-usage .usage__headline { left: 140px; top: 170px; width: 1640px; height: 90px; white-space: nowrap; }
+.layout-usage .usage__row {
+  left: 140px; top: 380px; width: 1640px; margin: 0; padding: 0; list-style: none;
+  display: grid; grid-template-columns: repeat(5, 1fr); column-gap: 24px;
+}
+.layout-usage .usage__card { padding: 44px 30px 52px; display: flex; flex-direction: column; gap: 40px; min-width: 0; }
+.layout-usage .usage__icon { display: grid; place-items: center; width: 96px; height: 96px; border-radius: 50%; }
+.layout-usage .usage__icon svg { width: 46px; height: 46px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+.layout-usage .usage__icon--cobalt { background: radial-gradient(circle at 35% 35%, #E3ECFF, var(--sky)); color: var(--cobalt); }
+.layout-usage .usage__icon--coral { background: radial-gradient(circle at 35% 35%, #FFEDE4, var(--peach)); color: #E5522F; }
+.layout-usage .usage__copy { height: 260px; }
+.layout-usage .usage__title { min-height: 2.3em; font: 700 34px/1.15 var(--font); letter-spacing: -0.015em; }
+.layout-usage .usage__text { margin-top: 18px; font: 500 28px/1.35 var(--font); color: var(--muted); }
+
 /* ---------- Clients ("Trusted by") ---------- */
 /* One white panel, 6 x 6 cells; logos keep their own colours and are sized in logos.js. */
 .layout-logos .logos__headline { left: 140px; top: 170px; width: 1640px; height: 100px; }

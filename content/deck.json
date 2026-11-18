@@ -25,6 +25,44 @@
       "notes": "Open with: \"Most tests only check if someone can do the job. We also check if they belong in your company.\""
     },
     {
+      "id": "s-usage",
+      "layout": "usage",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Uses of Our Assessment",
+        "uses": [
+          {
+            "key": "recruitment",
+            "title": "Recruitment & MT Programs",
+            "text": "Find candidates who fit the role and your company."
+          },
+          {
+            "key": "mapping",
+            "title": "Talent Mapping",
+            "text": "See your employees' strengths and gaps in one place."
+          },
+          {
+            "key": "development",
+            "title": "Internal Development",
+            "text": "Know what each employee should develop next."
+          },
+          {
+            "key": "promotion",
+            "title": "Promotion",
+            "text": "Check who is ready for the next role before you promote them."
+          },
+          {
+            "key": "leadership",
+            "title": "Leadership Development",
+            "text": "Find employees with leadership potential early."
+          }
+        ]
+      },
+      "images": {},
+      "notes": "Ask: \"Which of these matters most to you this year?\" Then lean on that use for the rest of the pitch."
+    },
+    {
       "id": "s-problem",
       "layout": "problem",
       "section": "main",
