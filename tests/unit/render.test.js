@@ -162,7 +162,7 @@ describe('renderDeck', () => {
 
   it('renders the clients slide as one wall of every logo, in deck order', () => {
     const wall = byId(renderDeck(seed, ctx()), 's-clients');
-    expect(wall.querySelector('[data-field="headline"]').textContent).toBe('Trusted by 40+ brands across Indonesia.');
+    expect(wall.querySelector('[data-field="headline"]').textContent).toBe('A few of the companies we work with.');
     const logos = [...wall.querySelectorAll('.logos__logo')];
     expect(logos).toHaveLength(36);
     expect(logos[0].dataset.image).toBe('logo-01');
