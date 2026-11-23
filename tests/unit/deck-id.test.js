@@ -14,9 +14,9 @@ const ctx = { mode: 'present', highlight: true, assetBase: '' };
 const slideEl = (deck, slideId) => renderDeck(deck, ctx).find((el) => el.dataset.slideId === slideId);
 
 describe('Indonesian deck', () => {
-  it('is a valid deck of the 22 Canva slides, all visible, with lang "id"', () => {
+  it('is a valid deck of the 22 Canva slides plus the trailer, all visible, with lang "id"', () => {
     expect(validateDeck(id)).toEqual([]);
-    expect(visibleSlides(id)).toHaveLength(22);
+    expect(visibleSlides(id)).toHaveLength(23);
     expect(id.lang).toBe('id');
   });
 
@@ -41,4 +41,23 @@ describe('Indonesian deck', () => {
   it('leaves the English report headline without accent spans', () => {
     expect(slideEl(en, 's-report').querySelector('.report__headline .accent')).toBeNull();
   });
+});
+
+describe('HoAFL trailer slide', () => {
+  it.each([['English', en], ['Indonesian', id]])('%s deck plays it right after the four modules', (_, deck) => {
+    const ids = visibleSlides(deck).map((s) => s.id);
+    expect(ids.indexOf('s-trailer')).toBe(ids.indexOf('s-modules') + 1);
+    const slide = deck.slides.find((s) => s.id === 's-trailer');
+    expect(slide.images.video.src).toBe('assets/hoafl-trailer.mp4');
+    expect(slide.images.poster.src).toBe('assets/hoafl-trailer-poster.jpg');
+    expect(slideEl(deck, 's-trailer').querySelector('video')).not.toBeNull();
+  });
+
+  it.each([['English', en, '45 min'], ['Indonesian', id, '45 menit']])(
+    '%s journey slide gives Personality the 45 minutes the trailer says',
+    (_, deck, time) => {
+      const j = deck.slides.find((s) => s.id === 's-journey');
+      expect(j.fields.durations.find((d) => d.name === 'Personality').time).toBe(time);
+    },
+  );
 });

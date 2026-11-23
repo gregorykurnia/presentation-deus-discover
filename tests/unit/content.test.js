@@ -22,8 +22,8 @@ describe('deck.json structure', () => {
     expect(typeof deck.rev).toBe('number');
   });
 
-  it('has 13 main slides and 10 appendix slides (divider + A1-A9)', () => {
-    expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(13);
+  it('has 14 main slides and 10 appendix slides (divider + A1-A9)', () => {
+    expect(deck.slides.filter((s) => s.section === 'main')).toHaveLength(14);
     expect(deck.slides.filter((s) => s.section === 'appendix')).toHaveLength(10);
     expect(deck.slides.filter((s) => s.layout === 'divider')).toHaveLength(1);
   });

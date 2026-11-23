@@ -47,10 +47,10 @@ describe('layout modules', () => {
 });
 
 describe('renderDeck', () => {
-  it('renders the 22 visible seed slides as <section class="slide"> elements with id and notes', () => {
+  it('renders the 23 visible seed slides as <section class="slide"> elements with id and notes', () => {
     const els = renderDeck(seed, ctx());
     const shown = seed.slides.filter((s) => !s.hidden);
-    expect(shown).toHaveLength(22);
+    expect(shown).toHaveLength(23);
     expect(els).toHaveLength(shown.length);
     els.forEach((el, i) => {
       const slide = shown[i];
@@ -80,7 +80,7 @@ describe('renderDeck', () => {
           .toBe('./assets/logo-mark-wordmark-dark.svg');
       }
     }
-    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('11');
+    expect(byId(els, 's-proof').querySelector('.slide-header__num').textContent).toBe('12');
     expect(byId(els, 'a9-pricing').querySelector('.slide-header__num').textContent).toBe('A8');
   });
 
@@ -570,12 +570,12 @@ describe('renderDeck', () => {
     slideOf(deck, 'a2-personality').hidden = true;
     for (const mode of ['present', 'print']) {
       const ids = renderDeck(deck, ctx({ mode })).map((el) => el.dataset.slideId);
-      expect(ids).toHaveLength(20); // the seed already hides the cognitive packages
+      expect(ids).toHaveLength(21); // the seed already hides the cognitive packages
       expect(ids).not.toContain('s-problem');
       expect(ids).not.toContain('a2-personality');
     }
     const edit = renderDeck(deck, ctx({ mode: 'edit' }));
-    expect(edit).toHaveLength(23);
+    expect(edit).toHaveLength(24);
     expect(byId(edit, 's-problem').classList.contains('slide--hidden')).toBe(true);
     // Numbering follows the visible slides: the fit slide is now number 3.
     expect(byId(edit, 's-fit').querySelector('.slide-header__num').textContent).toBe('03');

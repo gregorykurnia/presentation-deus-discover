@@ -204,6 +204,31 @@
       "notes": "\"You don't need all four. I'll show you what we'd recommend for you.\""
     },
     {
+      "id": "s-trailer",
+      "layout": "video",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "The Personality game: Heroes of a Fallen Land."
+      },
+      "images": {
+        "video": {
+          "src": "assets/hoafl-trailer.mp4",
+          "label": "Heroes of a Fallen Land trailer"
+        },
+        "poster": {
+          "src": "assets/hoafl-trailer-poster.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Trailer poster"
+        }
+      },
+      "notes": "This is the Personality game. Candidates play it in about 45 minutes, and it feeds the culture fit score. The trailer ends on the report your team receives."
+    },
+    {
       "id": "s-journey",
       "layout": "journey",
       "section": "main",
@@ -232,7 +257,7 @@
         "durations": [
           {
             "name": "Personality",
-            "time": "60 min"
+            "time": "45 min"
           },
           {
             "name": "Cognitive",
