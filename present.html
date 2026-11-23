@@ -14,6 +14,8 @@
   <style>
     body { margin: 0; }
     body.present { height: 100vh; overflow: hidden; background: #0b1330; }
+    /* A swipe down must change the slide, not pull-to-refresh or bounce the page. */
+    html:has(body.present), body.present { overscroll-behavior: none; }
     body.present .slide { position: absolute; left: 0; top: 0; transform-origin: top left; }
     body.present .slide:not(.is-current) { display: none; }
     .counter {

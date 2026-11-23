@@ -1,5 +1,6 @@
 // Presenter library: one scaled slide at a time (or all slides stacked with ?print).
 // Keys: Right/Space/PageDown next, Left/PageUp previous, Home/End, N notes, F fullscreen.
+// Touch: swipe left/up or tap the right two-thirds for next; swipe right/down or tap the left third back.
 // No deck import here: the entry (present.js, later the Phase 3 viewer) passes the deck in.
 //   startPresenter(deck, rootEl, { highlight, print, window }) -> { slides, destroy() }
 import { renderDeck } from '../render.js';
@@ -60,10 +61,19 @@ export function startPresenter(deckData, rootEl, options = {}) {
 
   let index = 0;
 
+  // The screen's size in CSS px. Not innerWidth: on phones that grows with any content wider
+  // than the screen, so a slide sized from it widens the page, which widens the slide again
+  // until it sits off-screen. (jsdom has no layout, so tests fall back to innerWidth.)
+  function viewport() {
+    const de = doc.documentElement;
+    return { w: de.clientWidth || win.innerWidth, h: de.clientHeight || win.innerHeight };
+  }
+
   function fit() {
-    const scale = Math.min(win.innerWidth / SLIDE_W, win.innerHeight / SLIDE_H);
-    const x = (win.innerWidth - SLIDE_W * scale) / 2;
-    const y = (win.innerHeight - SLIDE_H * scale) / 2;
+    const { w, h } = viewport();
+    const scale = Math.min(w / SLIDE_W, h / SLIDE_H);
+    const x = (w - SLIDE_W * scale) / 2;
+    const y = (h - SLIDE_H * scale) / 2;
     slides[index].style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
   }
 
@@ -131,6 +141,50 @@ export function startPresenter(deckData, rootEl, options = {}) {
     event.preventDefault();
   }
 
+  // Phones and tablets: swipe left or up for the next slide, right or down for the previous one;
+  // a tap on the right two-thirds of the screen goes forward, on the left third back.
+  // Touches on links, buttons and media controls are left to them, and so is a pinch or a pan
+  // while the page is zoomed in.
+  const SWIPE_MIN = 40; // px of finger travel that counts as a swipe
+  const TAP_MAX = 12; // px of finger travel that still counts as a tap
+  let touchStart = null;
+
+  function isControl(el) {
+    return Boolean(el?.closest?.('a, button, video, audio, input, textarea, select, label, [role="button"]'))
+      || el?.isContentEditable === true;
+  }
+
+  function onTouchStart(event) {
+    const zoomed = (win.visualViewport?.scale ?? 1) > 1.05;
+    touchStart = event.touches?.length === 1 && !zoomed && !isControl(event.target)
+      ? { x: event.touches[0].clientX, y: event.touches[0].clientY }
+      : null;
+  }
+
+  function onTouchEnd(event) {
+    const start = touchStart;
+    touchStart = null;
+    const touch = event.changedTouches?.[0];
+    if (!start || !touch) return;
+    const dx = touch.clientX - start.x;
+    const dy = touch.clientY - start.y;
+    const ax = Math.abs(dx);
+    const ay = Math.abs(dy);
+    let step;
+    if (Math.max(ax, ay) >= SWIPE_MIN) {
+      step = ax >= ay ? (dx < 0 ? 1 : -1) : (dy < 0 ? 1 : -1);
+    } else if (ax <= TAP_MAX && ay <= TAP_MAX) {
+      step = touch.clientX < viewport().w / 3 ? -1 : 1;
+    } else {
+      return;
+    }
+    // Stop the browser's follow-up click landing on whatever sits there on the new slide.
+    if (event.cancelable) event.preventDefault();
+    show(index + step);
+  }
+
+  function onTouchCancel() { touchStart = null; }
+
   function onHash() {
     const i = indexFromHash(win.location.hash, slides.length);
     if (i !== null && i !== index) show(i, { updateHash: false });
@@ -139,6 +193,9 @@ export function startPresenter(deckData, rootEl, options = {}) {
   win.addEventListener('keydown', onKey);
   win.addEventListener('resize', fit);
   win.addEventListener('hashchange', onHash);
+  win.addEventListener('touchstart', onTouchStart, { passive: true });
+  win.addEventListener('touchend', onTouchEnd, { passive: false });
+  win.addEventListener('touchcancel', onTouchCancel);
   show(indexFromHash(win.location.hash, slides.length) ?? 0);
 
   return {
@@ -147,6 +204,9 @@ export function startPresenter(deckData, rootEl, options = {}) {
       win.removeEventListener('keydown', onKey);
       win.removeEventListener('resize', fit);
       win.removeEventListener('hashchange', onHash);
+      win.removeEventListener('touchstart', onTouchStart);
+      win.removeEventListener('touchend', onTouchEnd);
+      win.removeEventListener('touchcancel', onTouchCancel);
     },
   };
 }
