@@ -914,25 +914,25 @@
       "fields": {
         "headline": "Assessment Packages",
         "note": "An assessment is one candidate taking every module in the package.",
-        "quote": "Need a different mix of modules or more than 36 assessments? Ask us for a custom quote.",
+        "quote": "Need a different mix of modules or more than 40 assessments? Ask us for a custom quote.",
         "tiers": [
           {
             "name": "Essentials",
-            "price": "Rp1,000,000",
+            "price": "Rp999,999",
             "amount": "10 assessments",
-            "each": "Rp100,000 each"
+            "each": "≈ Rp100,000 each"
           },
           {
             "name": "Role Fit",
-            "price": "Rp5,000,000",
-            "amount": "20 assessments",
-            "each": "Rp250,000 each"
+            "price": "Rp4,999,999",
+            "amount": "25 assessments",
+            "each": "≈ Rp200,000 each"
           },
           {
             "name": "Full Suite",
-            "price": "Rp10,000,000",
-            "amount": "36 assessments",
-            "each": "≈ Rp277,800 each"
+            "price": "Rp9,999,999",
+            "amount": "40 assessments",
+            "each": "≈ Rp250,000 each"
           }
         ],
         "groups": [
