@@ -1,0 +1,1064 @@
+{
+  "id": "deus-id",
+  "rev": 1,
+  "lang": "id",
+  "title": "DEUS · Asesmen Berbasis Game",
+  "slides": [
+    {
+      "id": "s-title",
+      "layout": "title",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "DEUS; Asesmen Berbasis Game",
+        "subtitle": "Right fit, Longer stay. Temukan kecocokan yang membawa karyawan bertahan."
+      },
+      "images": {
+        "logo": {
+          "src": "assets/logo-lockup-dark.svg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "DEUS logo"
+        }
+      },
+      "notes": "Buka dengan: “Kebanyakan tes hanya mengecek apakah seseorang mampu mengerjakan pekerjaannya. Kami juga mengecek apakah mereka cocok dengan perusahaan Anda.”"
+    },
+    {
+      "id": "s-usage",
+      "layout": "usage",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Kegunaan Asesmen Kami",
+        "uses": [
+          {
+            "key": "recruitment",
+            "title": "Rekrutmen & Program MT",
+            "text": "Temukan kandidat yang sesuai dengan perusahaan Anda."
+          },
+          {
+            "key": "mapping",
+            "title": "Talent Mapping",
+            "text": "Ketahui kelebihan & kekurangan karyawan dalam satu platform."
+          },
+          {
+            "key": "development",
+            "title": "Pengembangan Internal",
+            "text": "Ketahui apa yang perlu dikembangkan setiap karyawan."
+          },
+          {
+            "key": "promotion",
+            "title": "Promosi",
+            "text": "Pastikan siapa yang siap mengisi posisi selanjutnya."
+          },
+          {
+            "key": "leadership",
+            "title": "Leadership Development",
+            "text": "Temukan karyawan yang berpotensi menjadi pemimpin."
+          }
+        ]
+      },
+      "images": {},
+      "notes": "Tanyakan: “Mana yang paling penting bagi Anda tahun ini?” Lalu fokuskan sisa presentasi pada kegunaan tersebut."
+    },
+    {
+      "id": "s-problem",
+      "layout": "problem",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Pada umumnya, Asesmen hanya menilai kemampuan bekerja seseorang. Namun tidak menilai kesesuaian seseorang dengan perusahaan.",
+        "bullets": [
+          "Kandidat menghafal jawabannya",
+          "Hasilnya tidak dikaitkan dengan peran dan budaya perusahaan Anda",
+          "Karyawan yang tidak sesuai, keluar setelah perusahaan berinvestasi kepada mereka"
+        ]
+      },
+      "images": {},
+      "notes": "Tanyakan: “Dari batch MT terakhir Anda, berapa orang yang masih bertahan?” Lalu dengarkan."
+    },
+    {
+      "id": "s-fit",
+      "layout": "fit",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Kami menilai setiap kandidat dari kesesuaian peran & budaya perusahaan.",
+        "roleFit": {
+          "title": "Kesesuaian peran",
+          "text": "Apakah mereka sudah sesuai di posisi ini?"
+        },
+        "cultureFit": {
+          "title": "Kesesuaian budaya",
+          "text": "Apakah nilai dan cara kerja mereka sejalan dengan perusahaan Anda?"
+        },
+        "steps": [
+          "Peran + nilai perusahaan Anda",
+          "Success Profile",
+          "Pengerjaan assesmen",
+          "Suitability score"
+        ],
+        "footer": "Laporan siap dalam 1 hari."
+      },
+      "images": {},
+      "notes": "“Game-nya sama, tetapi definisi suksesnya berbeda. Kecocokan budaya berarti nilai-nilai perusahaan Anda yang dituliskan dengan jelas, bukan ‘orang yang mirip dengan kita’.”"
+    },
+    {
+      "id": "s-video",
+      "layout": "video",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Inilah yang dimainkan kandidat Anda."
+      },
+      "images": {
+        "video": {
+          "src": "assets/demo.mp4",
+          "label": "Product demo video"
+        },
+        "poster": {
+          "src": "assets/demo-poster.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Demo video poster"
+        }
+      },
+      "notes": "“Saat ia memainkan game balon, game itu mengukur cara ia mengambil risiko dan belajar dari kesalahan. Hasilnya langsung masuk ke skor kecocokannya.”"
+    },
+    {
+      "id": "s-modules",
+      "layout": "modules",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "4 Jenis Assesmen, masing-masing menilai aspek yang berbeda.",
+        "modules": [
+          {
+            "key": "personality",
+            "name": "Personality",
+            "measures": "Gaya kerja, nilai, kerjasama tim",
+            "feeds": "Culture Fit"
+          },
+          {
+            "key": "cognitive",
+            "name": "Cognitive",
+            "measures": "Daya ingat, logika, angka, kecepatan dalam berfikir",
+            "feeds": "Role Fit"
+          },
+          {
+            "key": "drive",
+            "name": "Drive & Risk",
+            "measures": "Motivasi, keberanian mengambil risiko, memahami orang lain",
+            "feeds": "What drives them"
+          },
+          {
+            "key": "simulation",
+            "name": "Job Simulation",
+            "measures": "Studi kasus yang dapat di sesuaikan",
+            "feeds": "Role Fit"
+          }
+        ]
+      },
+      "images": {
+        "personality": {
+          "src": "assets/module-personality.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Personality module screenshot"
+        },
+        "cognitive": {
+          "src": "assets/module-cognitive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Cognitive module screenshot"
+        },
+        "drive": {
+          "src": "assets/module-drive.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Drive & Risk module screenshot"
+        },
+        "simulation": {
+          "src": "assets/module-simulation.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            50
+          ],
+          "label": "Job Simulation module screenshot"
+        }
+      },
+      "notes": "“Anda tidak perlu memakai keempatnya. Saya akan tunjukkan yang kami rekomendasikan untuk Anda.”"
+    },
+    {
+      "id": "s-journey",
+      "layout": "journey",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "From invitation to Report.",
+        "steps": [
+          {
+            "title": "Invite",
+            "text": "Upload data kandidat. Semua undangan dikirim lewat email."
+          },
+          {
+            "title": "Play",
+            "text": "Siapkan perangkat & browser. Tidak perlu menginstal apa pun."
+          },
+          {
+            "title": "Track",
+            "text": "Pantau progres penyelesaian assesmen.dengan reminder otomatis."
+          },
+          {
+            "title": "Report",
+            "text": "Penilaian secara otomatis & laporan siap dalam 1 hari."
+          }
+        ],
+        "durationsTitle": "Durasi bermain",
+        "durations": [
+          {
+            "name": "Personality",
+            "time": "60 menit"
+          },
+          {
+            "name": "Cognitive",
+            "time": "20 menit"
+          },
+          {
+            "name": "Drive & Risk",
+            "time": "30 menit"
+          },
+          {
+            "name": "Job Simulation",
+            "time": "1 jam 30 menit"
+          }
+        ],
+        "device": {
+          "title": "Best on laptop",
+          "text": "Works on mobile too"
+        }
+      },
+      "images": {},
+      "notes": "“Tim Anda cukup mengunggah satu daftar. Setelah itu, semuanya berjalan sendiri.” Kandidat hanya memainkan game yang Anda pilih, jadi tes Kepribadian saja memakan waktu satu jam."
+    },
+    {
+      "id": "s-report",
+      "layout": "report",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Apakah mereka sudah sesuai dengan {Posisi, Budaya, serta Nilai Perusahaan?} Pengembangan Apa yang mereka butuhkan?",
+        "footer": "Ready for the next day."
+      },
+      "images": {
+        "report": {
+          "src": "assets/report-bank-teller.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            0
+          ],
+          "label": "Suitability report screenshot",
+          "callouts": []
+        },
+        "video": {
+          "src": "assets/report-demo.mp4",
+          "label": "Report demo video"
+        }
+      },
+      "notes": "“Inilah yang dibuka tim Anda keesokan paginya.”"
+    },
+    {
+      "id": "s-trust",
+      "layout": "trust",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Ilmu di balik game kami.",
+        "pillars": [
+          {
+            "title": "Berbasis ilmu yang teruji",
+            "text": "Dirancang berdasarkan model Big Five"
+          },
+          {
+            "title": "Dirancang oleh psikolog",
+            "text": "Proses empat tahap yang ketat: teori, penyusunan butir soal, validasi, dan penyusunan norma."
+          },
+          {
+            "title": "Dibandingkan dengan tes konvensional",
+            "text": "Validitas game dirancang sesuai dengan penilaian tes konvensional."
+          },
+          {
+            "title": "Norma lokal yang sudah mapan",
+            "text": "Disesuaikan dengan standar norma lokal"
+          }
+        ]
+      },
+      "images": {},
+      "notes": "“Jangan hanya percaya kata kami. Buktikan sendiri lewat uji coba.”"
+    },
+    {
+      "id": "s-gains",
+      "layout": "gains",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Apa yang berubah untuk perusahaan Anda.",
+        "beforeLabel": "Saat ini",
+        "afterLabel": "Dengan DEUS",
+        "rows": [
+          {
+            "before": "Kandidat menghafal jawabannya",
+            "after": "Game merekam perilaku asli, bukan jawaban yang sudah dilatih. Dilengkapi sistem anti-kecurangan."
+          },
+          {
+            "before": "Hasilnya tidak dikaitkan dengan peran dan budaya perusahaan Anda",
+            "after": "Dinilai berdasarkan nilai standar perusahaan"
+          },
+          {
+            "before": "Karyawan yang tidak cocok keluar setelah Anda berinvestasi pada mereka",
+            "after": "Rekrut orang yang cocok dengan budaya perusahaan Anda."
+          },
+          {
+            "before": "HR mengirim, mengingatkan, dan menilai setiap tes secara manual",
+            "after": "Pengingat dan penilaian berjalan otomatis."
+          }
+        ]
+      },
+      "images": {},
+      "notes": "Setiap baris menjawab satu masalah dari awal presentasi. Kandidat juga menikmati permainannya, dan itu memberi kesan baik tentang perusahaan Anda."
+    },
+    {
+      "id": "s-proof",
+      "layout": "proof",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Dua tahun berturut-turut, Telkom Group dan anak perusahaannya menjalankan seleksi MT bersama DEUS.",
+        "stats": [
+          {
+            "value": "1.000+",
+            "label": "kandidat MT"
+          },
+          {
+            "value": "7",
+            "label": "perusahaan (Telkom + 6 anak perusahaan)"
+          },
+          {
+            "value": "30+",
+            "label": "provinsi, serentak"
+          },
+          {
+            "prefix": "Hasil dalam",
+            "value": "1 hari"
+          }
+        ],
+        "quotes": [
+          {
+            "text": "Bagus sekali idenya, saya pertama kali menjalankan psikotest dengan metode seperti ini dan tidak terasa seperti psikotest. Sangat menyenangkan!"
+          },
+          {
+            "text": "Tidak pernah disangka tes psikologi dapat dilakukan dengan cara yang sangat menyenangkan."
+          },
+          {
+            "text": "Semoga lebih banyak tes-tes gamifikasi yang luar biasa ke depan."
+          },
+          {
+            "text": "Senang sekali bisa bekerja sama dengan tim DEUS dalam penyiapan seleksi untuk karyawan Telkom Group. Kami sangat terbantu dengan profesionalitas sepanjang persiapan hingga proses akhirnya. Semoga kerja sama kami tetap berjalan dengan baik.",
+            "by": "Telkom Group Selection Team"
+          }
+        ]
+      },
+      "images": {
+        "photo": {
+          "src": "assets/telkom-photo.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            66
+          ],
+          "label": "Telkom photo"
+        }
+      },
+      "notes": "“Sebelum saya menjelaskan lebih jauh, beginilah wujudnya dalam skala besar.”"
+    },
+    {
+      "id": "s-clients",
+      "layout": "logos",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Beberapa perusahaan yang bekerja sama dengan kami."
+      },
+      "images": {
+        "logo-01": {
+          "src": "assets/clients/telkom-indonesia.png",
+          "fit": "contain",
+          "label": "Telkom Indonesia"
+        },
+        "logo-02": {
+          "src": "assets/clients/telkommetra.png",
+          "fit": "contain",
+          "label": "TelkomMetra"
+        },
+        "logo-03": {
+          "src": "assets/clients/finnet.png",
+          "fit": "contain",
+          "label": "Finnet"
+        },
+        "logo-04": {
+          "src": "assets/clients/telkom-akses.png",
+          "fit": "contain",
+          "label": "Telkom Akses"
+        },
+        "logo-05": {
+          "src": "assets/clients/telin.png",
+          "fit": "contain",
+          "label": "Telin"
+        },
+        "logo-06": {
+          "src": "assets/clients/neutradc.png",
+          "fit": "contain",
+          "label": "NeutraDC"
+        },
+        "logo-07": {
+          "src": "assets/clients/telkomproperty.png",
+          "fit": "contain",
+          "label": "TelkomProperty"
+        },
+        "logo-08": {
+          "src": "assets/clients/boga-group.png",
+          "fit": "contain",
+          "label": "Boga Group"
+        },
+        "logo-09": {
+          "src": "assets/clients/paradise-dynasty.png",
+          "fit": "contain",
+          "label": "Paradise Dynasty"
+        },
+        "logo-10": {
+          "src": "assets/clients/ocean8.png",
+          "fit": "contain",
+          "label": "Ocean8"
+        },
+        "logo-11": {
+          "src": "assets/clients/loaf-bun.png",
+          "fit": "contain",
+          "label": "Loaf Bun"
+        },
+        "logo-12": {
+          "src": "assets/clients/kimukatsu.png",
+          "fit": "contain",
+          "label": "Kimukatsu"
+        },
+        "logo-13": {
+          "src": "assets/clients/kintan-buffet.png",
+          "fit": "contain",
+          "label": "Kintan Buffet"
+        },
+        "logo-14": {
+          "src": "assets/clients/shaburi.png",
+          "fit": "contain",
+          "label": "Shaburi"
+        },
+        "logo-15": {
+          "src": "assets/clients/pepper-lunch.png",
+          "fit": "contain",
+          "label": "Pepper Lunch"
+        },
+        "logo-16": {
+          "src": "assets/clients/delamibrands.png",
+          "fit": "contain",
+          "label": "Delamibrands"
+        },
+        "logo-17": {
+          "src": "assets/clients/executive.png",
+          "fit": "contain",
+          "label": "Executive"
+        },
+        "logo-18": {
+          "src": "assets/clients/colorbox.png",
+          "fit": "contain",
+          "label": "Colorbox"
+        },
+        "logo-19": {
+          "src": "assets/clients/et-cetera.png",
+          "fit": "contain",
+          "label": "Et Cetera"
+        },
+        "logo-20": {
+          "src": "assets/clients/wood.png",
+          "fit": "contain",
+          "label": "Wood"
+        },
+        "logo-21": {
+          "src": "assets/clients/wrangler.png",
+          "fit": "contain",
+          "label": "Wrangler"
+        },
+        "logo-22": {
+          "src": "assets/clients/tirajeans.png",
+          "fit": "contain",
+          "label": "Tirajeans"
+        },
+        "logo-23": {
+          "src": "assets/clients/jenahara.png",
+          "fit": "contain",
+          "label": "Jenahara"
+        },
+        "logo-24": {
+          "src": "assets/clients/binacitra-kharisma-lestari.png",
+          "fit": "contain",
+          "label": "Binacitra Kharisma Lestari"
+        },
+        "logo-25": {
+          "src": "assets/clients/watchout.png",
+          "fit": "contain",
+          "label": "Watchout"
+        },
+        "logo-26": {
+          "src": "assets/clients/triset.png",
+          "fit": "contain",
+          "label": "Triset"
+        },
+        "logo-27": {
+          "src": "assets/clients/oxa.png",
+          "fit": "contain",
+          "label": "Oxa"
+        },
+        "logo-28": {
+          "src": "assets/clients/sekolah-pelita-harapan.png",
+          "fit": "contain",
+          "label": "Sekolah Pelita Harapan"
+        },
+        "logo-29": {
+          "src": "assets/clients/jvckenwood.png",
+          "fit": "contain",
+          "label": "JVC Kenwood"
+        },
+        "logo-30": {
+          "src": "assets/clients/sekolah-kristen-calvin.png",
+          "fit": "contain",
+          "label": "Sekolah Kristen Calvin"
+        },
+        "logo-31": {
+          "src": "assets/clients/matahari-sakti.png",
+          "fit": "contain",
+          "label": "Matahari Sakti"
+        },
+        "logo-32": {
+          "src": "assets/clients/helios-capital.png",
+          "fit": "contain",
+          "label": "Helios Capital"
+        },
+        "logo-33": {
+          "src": "assets/clients/hanania-kidz-clinic.png",
+          "fit": "contain",
+          "label": "Hanania Kidz Clinic"
+        },
+        "logo-34": {
+          "src": "assets/clients/eliteair.png",
+          "fit": "contain",
+          "label": "EliteAir"
+        },
+        "logo-35": {
+          "src": "assets/clients/healthy-choice.png",
+          "fit": "contain",
+          "label": "Healthy Choice"
+        },
+        "logo-36": {
+          "src": "assets/clients/glamify.png",
+          "fit": "contain",
+          "label": "Glamify"
+        }
+      },
+      "notes": "“Bukan hanya Telkom. Perusahaan di bidang telekomunikasi, F&B, fesyen, ritel, sekolah, dan klinik juga menggunakan DEUS.”"
+    },
+    {
+      "id": "s-pilot",
+      "layout": "pilot",
+      "section": "main",
+      "hidden": false,
+      "fields": {
+        "headline": "Coba gratis. Kami sesuaikan dengan budaya dan posisi di perusahaan Anda!",
+        "bullets": [
+          "Sampling gratis: beberapa karyawan terbaik Anda mengerjakan asesmen-nya",
+          "Lihat laporan asli sebelum Anda membeli",
+          "Dari hasil mereka, kami menyusun Suitability Profile untuk setiap peran",
+          "Tanpa kontrak jangka panjang. Beli paket saat Anda membutuhkannya."
+        ],
+        "email": "admin@deushcs.com",
+        "website": "www.deushcs.com",
+        "phone": "+62 823-1212-1660"
+      },
+      "images": {},
+      "notes": "Tawarkan satu kandidat gratis untuk uji coba. “Peran apa yang saat ini paling sulit Anda isi? Mari kita mulai dari situ.”"
+    },
+    {
+      "id": "s-appendix",
+      "layout": "divider",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Lampiran",
+        "subtitle": "Detail modul, jenis laporan, fitur platform, dan harga."
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a2-personality",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Kepribadian",
+        "measures": "32 Aspek Kepribadian · 24 Kompetensi · Kompetensi yang Disesuaikan"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/module-personality.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Personality module screenshot"
+        },
+        "reportSection": {
+          "src": "assets/report-personality.jpg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a3-cognitive",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Kognitif",
+        "measures": "Memori Kerja · Atensi · Kemampuan Visual · Pemrosesan Spasial · Perencanaan · Fleksibilitas Kognitif"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/cognitive-1.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Cognitive game screenshots",
+          "cycle": [
+            {
+              "src": "assets/cognitive-2.jpg"
+            },
+            {
+              "src": "assets/cognitive-3.jpg"
+            },
+            {
+              "src": "assets/cognitive-4.jpg"
+            },
+            {
+              "src": "assets/cognitive-5.jpg"
+            },
+            {
+              "src": "assets/cognitive-6.jpg"
+            },
+            {
+              "src": "assets/cognitive-7.jpg"
+            }
+          ]
+        },
+        "reportSection": {
+          "src": "assets/report-cognitive.jpg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a4-drive",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Motivasi & Risiko",
+        "measures": "Pengambilan Risiko · Perencanaan Strategis · Motivasi Berusaha · Pengambilan Keputusan · Kecepatan Psikomotor · Kecepatan Persepsi · Pengenalan Emosi"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/drive-1.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Drive & Risk game screenshots",
+          "cycle": [
+            {
+              "src": "assets/drive-2.jpg"
+            },
+            {
+              "src": "assets/drive-3.jpg"
+            },
+            {
+              "src": "assets/drive-4.jpg"
+            },
+            {
+              "src": "assets/drive-5.jpg"
+            },
+            {
+              "src": "assets/drive-6.jpg"
+            }
+          ]
+        },
+        "reportSection": {
+          "src": "assets/report-drive.jpg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a5-simulation",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Simulasi Kerja",
+        "measures": "Berpikir Analitis · Pemahaman Keuangan dan Bisnis · Pengumpulan Informasi · Sintesis Tertulis"
+      },
+      "images": {
+        "screenshot": {
+          "src": "assets/simulation-1.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Job Simulation game screenshot"
+        },
+        "reportSection": {
+          "src": "assets/report-simulation.jpg",
+          "fit": "contain",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Matching report section"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a6-reports",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Jenis laporan",
+        "groups": [
+          {
+            "label": "Per kandidat",
+            "items": [
+              {
+                "key": "personality",
+                "title": "Laporan kepribadian",
+                "tags": [
+                  "Rekrutmen",
+                  "Pengembangan Internal",
+                  "Kepemimpinan"
+                ]
+              },
+              {
+                "key": "suitability",
+                "title": "Laporan kesesuaian peran",
+                "note": "Disesuaikan untuk setiap peran"
+              },
+              {
+                "key": "modules",
+                "title": "Laporan per modul",
+                "tags": [
+                  "Kognitif",
+                  "Motivasi & Risiko",
+                  "Simulasi Kerja"
+                ]
+              }
+            ]
+          },
+          {
+            "label": "Per batch",
+            "items": [
+              {
+                "key": "batch",
+                "title": "Peringkat & ringkasan batch"
+              },
+              {
+                "key": "dashboard",
+                "title": "Dasbor interaktif"
+              }
+            ]
+          }
+        ]
+      },
+      "images": {
+        "personality": {
+          "src": "assets/report-personality-thumb.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Personality report"
+        },
+        "suitability": {
+          "src": "assets/report-bank-teller.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Role suitability report"
+        },
+        "modules": {
+          "src": "assets/report-cognitive.jpg",
+          "fit": "cover",
+          "focus": [
+            0,
+            0
+          ],
+          "label": "Module reports",
+          "cycle": [
+            {
+              "src": "assets/report-drive.jpg"
+            },
+            {
+              "src": "assets/report-simulation.jpg"
+            }
+          ]
+        },
+        "batch": {
+          "src": "assets/report-batch.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            0
+          ],
+          "label": "Batch ranking & summary report"
+        },
+        "dashboard": {
+          "src": "assets/report-dashboard.jpg",
+          "fit": "cover",
+          "focus": [
+            50,
+            50
+          ],
+          "label": "Interactive dashboard"
+        }
+      },
+      "notes": ""
+    },
+    {
+      "id": "a7-platform",
+      "layout": "appendix",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Fitur platform",
+        "bullets": [
+          "Unggah data kandidat secara massal",
+          "Pengingat otomatis",
+          "Pemantauan progres secara langsung",
+          "Penandaan batas nilai (cut-off)",
+          "Hak akses berdasarkan peran pengguna"
+        ]
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "a9-pricing",
+      "layout": "table",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Tabel harga lengkap",
+        "subtitle": "Harga per kandidat, dalam Rupiah",
+        "table": {
+          "columns": [
+            "Jumlah modul",
+            "Starter (≤250 kandidat)",
+            "Growth (251–10.000 kandidat)"
+          ],
+          "rows": [
+            [
+              "1",
+              "99.000",
+              "69.000"
+            ],
+            [
+              "2",
+              "169.000",
+              "119.000"
+            ],
+            [
+              "3",
+              "229.000",
+              "159.000"
+            ],
+            [
+              "4 (paket lengkap)",
+              "279.000",
+              "199.000"
+            ]
+          ]
+        },
+        "footer": ""
+      },
+      "images": {},
+      "notes": ""
+    },
+    {
+      "id": "s-package",
+      "layout": "compare",
+      "section": "appendix",
+      "hidden": false,
+      "fields": {
+        "headline": "Paket Asesmen",
+        "note": "Satu asesmen berarti satu kandidat mengerjakan semua modul dalam paket.",
+        "quote": "Butuh kombinasi modul yang berbeda atau lebih dari 40 asesmen? Hubungi kami untuk penawaran khusus.",
+        "tiers": [
+          {
+            "name": "Essentials",
+            "price": "IDR 987k",
+            "amount": "10 asesmen",
+            "each": "Rp98.700 per asesmen"
+          },
+          {
+            "name": "Role Fit",
+            "price": "IDR 4.995k",
+            "amount": "25 asesmen",
+            "each": "Rp199.800 per asesmen"
+          },
+          {
+            "name": "Full Suite",
+            "price": "IDR 9.992k",
+            "amount": "40 asesmen",
+            "each": "≈ Rp249.800 per asesmen"
+          }
+        ],
+        "groups": [
+          {
+            "title": "Modul",
+            "rows": [
+              {
+                "label": "Kepribadian",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Kognitif",
+                "marks": [
+                  false,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Motivasi & Risiko",
+                "marks": [
+                  false,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Simulasi Kerja",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              }
+            ]
+          },
+          {
+            "title": "Yang Anda terima",
+            "rows": [
+              {
+                "label": "Laporan individu",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Ringkasan laporan batch",
+                "marks": [
+                  true,
+                  true,
+                  true
+                ]
+              },
+              {
+                "label": "Laporan kesesuaian, disesuaikan dengan peran Anda",
+                "marks": [
+                  false,
+                  false,
+                  true
+                ]
+              },
+              {
+                "label": "Dasbor interaktif",
+                "marks": [
+                  false,
+                  true,
+                  true
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "images": {},
+      "notes": "Satu asesmen berarti satu kandidat mengerjakan semua modul dalam paket. Role Fit menambahkan Kognitif, Motivasi & Risiko, dan dasbor interaktif; Full Suite menambahkan Simulasi Kerja dan laporan kesesuaian yang disesuaikan dengan peran Anda. Tidak ada kontrak jangka panjang."
+    }
+  ]
+}

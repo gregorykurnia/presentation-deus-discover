@@ -1,0 +1,53 @@
+/* Indonesian deck (content/deck-id.json, built with lang="id"): the longer Bahasa
+   Indonesia copy needs a little more room on a few slides. Every rule is scoped to
+   html[lang="id"], so the English deck never changes. */
+
+/* 03 Problem: a four-line headline; the list starts lower and runs the full width. */
+html[lang="id"] .layout-problem .problem__headline { height: 320px; }
+html[lang="id"] .layout-problem .problem__list { top: 540px; width: 1640px; }
+
+/* 04 Fit: a five-line headline at the standard headline size. */
+html[lang="id"] .layout-fit .fit__headline { font-size: 72px; }
+html[lang="id"] .layout-fit .fit__copy--two { top: 280px; height: 300px; }
+
+/* 06 Modules: the headline wraps to two lines and the cards move down. */
+html[lang="id"] .layout-modules .modules__headline { white-space: normal; height: 170px; }
+html[lang="id"] .layout-modules .modules__row { top: 370px; }
+html[lang="id"] .layout-modules .module__shot { height: 300px; }
+
+/* 08 Report: a seven-line question; with the video it spans the clip's full height. */
+html[lang="id"] .layout-report .report__headline { height: 480px; }
+html[lang="id"] .layout-report.report--video .report__headline { top: calc(var(--mid) - var(--clip-h) / 2); height: 480px; }
+html[lang="id"] .layout-report.report--video .report__footer { top: calc(var(--mid) + var(--clip-h) / 2 - 70px); }
+
+/* 12 Logos: a two-line headline; the panel moves down. */
+html[lang="id"] .layout-logos .logos__headline { height: 170px; }
+html[lang="id"] .layout-logos .logos__panel { top: 360px; height: 640px; }
+
+/* 13 Pilot: a three-line headline at the standard headline size. */
+html[lang="id"] .layout-pilot .pilot__headline { font-size: 72px; height: 240px; }
+
+/* A5 Report types: a narrower thumbnail keeps the three tags on one line. */
+html[lang="id"] .layout-appendix .appendix__thumb { width: 220px; }
+
+/* A8 Packages: "≈ Rp249.800 per asesmen" is wider than "≈ Rp277,800 each"; the label column gives up 100px. */
+html[lang="id"] .layout-compare .compare__corner { width: 540px; }
+/* ...so the longest row label wraps to two lines; the other rows give up 4px each to make room. */
+html[lang="id"] .layout-compare .compare__row > * { height: 44px; }
+html[lang="id"] .layout-compare .compare__label { white-space: normal; line-height: 1.1; padding-top: 4px; padding-bottom: 4px; }
+
+/* 01 Title and 13 Pilot: the Canva keeps the blue and coral circles on the right
+   (the English deck dropped them on 2026-10-21). Drawn as one decorative layer
+   under the text, coral over blue. */
+html[lang="id"] :is(.layout-title, .layout-pilot)::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle var(--r2) at var(--x2) var(--y2), rgba(255, 214, 200, 0.8), rgba(255, 184, 160, 0.75) calc(var(--r2) - 1px), transparent var(--r2)),
+    radial-gradient(circle var(--r1) at var(--x1) var(--y1), rgba(200, 214, 255, 0.85), rgba(165, 188, 255, 0.8) calc(var(--r1) - 1px), transparent var(--r1));
+}
+html[lang="id"] .layout-title { --x1: 1440px; --y1: 510px; --r1: 258px; --x2: 1626px; --y2: 708px; --r2: 209px; }
+html[lang="id"] .layout-pilot { --x1: 1533px; --y1: 644px; --r1: 200px; --x2: 1716px; --y2: 747px; --r2: 180px; }
+html[lang="id"] .layout-title .title__headline { width: 900px; }
+
+/* A Lampiran divider: white on a cobalt gradient, as in the Canva. */
+html[lang="id"] .layout-divider { background: linear-gradient(135deg, #3360FF 0%, #2A4FE0 100%); color: var(--white); }

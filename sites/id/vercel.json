@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd ../.. && npm ci",
+  "buildCommand": "cd ../.. && npm run build:id && rm -rf sites/id/public && cp -r dist/id/offline sites/id/public",
+  "outputDirectory": "public",
+  "rewrites": [
+    { "source": "/", "destination": "/deck.html" }
+  ],
+  "git": { "deploymentEnabled": { "staging": false, "lane-*": false } }
+}

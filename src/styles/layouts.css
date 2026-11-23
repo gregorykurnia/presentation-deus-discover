@@ -182,6 +182,7 @@
 .layout-modules .module__arrow { color: var(--cobalt); }
 
 /* ---------- 7. Report ---------- */
+.layout-report .report__headline .accent { color: var(--cobalt); }
 .layout-report .report__headline { left: 140px; top: 200px; width: 560px; height: 420px; }
 .layout-report .report__frame { left: 740px; top: 200px; width: 1180px; height: 740px; }
 .layout-report .report__shot {
@@ -344,6 +345,7 @@
   left: 140px; top: 430px; width: 1200px; height: 200px;
   font: 700 160px/1.16 var(--font); letter-spacing: -0.03em;
 }
+.layout-divider .divider__subtitle { left: 140px; top: 640px; width: 1640px; height: 60px; color: inherit; opacity: 0.85; }
 
 /* ---------- Appendix (A1-A6) ---------- */
 .layout-appendix .appendix__headline { left: 140px; top: 170px; width: 1640px; height: 90px; }

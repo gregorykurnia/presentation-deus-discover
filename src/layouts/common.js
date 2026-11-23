@@ -37,6 +37,8 @@ export function fieldAt(slide, path) {
  *   group: 'main'   -> data-no-overlap group
  *   lines: true     -> each sentence on its own line (spans; textContent unchanged)
  *   split: RegExp   -> wraps the first match in <span class="lead-part"> (e.g. the price)
+ *   accent: true    -> {braced} text shows in the accent colour (braces dropped);
+ *                      text without braces renders exactly as before
  */
 export function text(tag, slide, path, ctx, opts = {}) {
   const value = String(fieldAt(slide, path) ?? '');
@@ -67,7 +69,19 @@ export function text(tag, slide, path, ctx, opts = {}) {
   } else {
     el.innerHTML = highlightPlaceholders(value, ctx.highlight);
   }
+  if (opts.accent) accentBraces(el);
   return replaceSymbols(el);
+}
+
+/** Wraps each {braced} run in el's HTML in <span class="accent"> (no nesting; works across line spans). */
+function accentBraces(el) {
+  if (!el.innerHTML.includes('{')) return;
+  let open = false;
+  el.innerHTML = el.innerHTML.replace(/(<[^>]*>)|([{}])|([^<{}]+)/g, (m, tag, brace, txt) => {
+    if (brace) { open = brace === '{'; return ''; }
+    if (txt && open) return `<span class="accent">${txt}</span>`;
+    return m;
+  });
 }
 
 /**

@@ -113,7 +113,10 @@ async function main() {
   }
 
   const deck = JSON.parse(readFileSync(paths.deckFile, 'utf8'));
-  const html = await buildHtml();
+  let html = await buildHtml();
+  // A deck may name its own page language and tab title (the Indonesian site: lang "id").
+  if (deck.lang) html = html.replace(/<html lang="[^"]*">/, `<html lang="${deck.lang}">`);
+  if (deck.title) html = html.replace(/<title>[^<]*<\/title>/, `<title>${deck.title.replace(/[<&]/g, '')}</title>`);
 
   const assets = [...new Set([...CODE_ASSETS, ...deckSrcs(deck)])].filter((p) => existsSync(join(root, p)));
 

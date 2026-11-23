@@ -17,7 +17,7 @@ export function render(slide, ctx) {
   if (slide.images?.video?.src && ctx.mode === 'present') {
     const clip = imageSlot(slide, 'video', ctx, { class: 'report__shot', tag: 'video', autoplay: true });
     el.append(
-      text('h2', slide, 'headline', ctx, { class: 't-headline-sm report__headline', fit: true, lines: true, group: 'main' }),
+      text('h2', slide, 'headline', ctx, { class: 't-headline-sm report__headline', fit: true, lines: true, accent: true, group: 'main' }),
       h('div', { class: 'report__frame', 'data-no-overlap': 'main' }, clip),
       text('p', slide, 'footer', ctx, { class: 'pill pill--accent report__footer', fit: true, group: 'main' }),
     );
@@ -50,7 +50,7 @@ export function render(slide, ctx) {
     shot, h('div', { class: 'report__callouts', 'data-image-callouts': 'report' }, marks));
   placeOnImage(frame, shot, slide.images?.report);
   el.append(
-    text('h2', slide, 'headline', ctx, { class: 't-headline-sm report__headline', fit: true, lines: true, group: 'main' }),
+    text('h2', slide, 'headline', ctx, { class: 't-headline-sm report__headline', fit: true, lines: true, accent: true, group: 'main' }),
     frame,
     text('p', slide, 'footer', ctx, { class: 'pill pill--accent report__footer', fit: true, group: 'main' }),
   );

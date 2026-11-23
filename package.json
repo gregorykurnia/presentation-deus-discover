@@ -13,7 +13,10 @@
     "pdf": "node export-pdf.js",
     "qa": "node scripts/qa.js",
     "placeholders": "node scripts/placeholders.js",
-    "db:migrate": "node scripts/db-migrate.js"
+    "db:migrate": "node scripts/db-migrate.js",
+    "build:id": "DECK_FILE=content/deck-id.json DECK_OUT_DIR=dist/id node scripts/build-offline.js",
+    "qa:id": "DECK_FILE=content/deck-id.json DECK_OUT_DIR=dist/id node scripts/qa.js",
+    "pdf:id": "DECK_FILE=content/deck-id.json DECK_OUT_DIR=dist/id node export-pdf.js"
   },
   "devDependencies": {
     "@fontsource-variable/dm-sans": "^5.3.0",
