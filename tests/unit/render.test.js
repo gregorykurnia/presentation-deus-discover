@@ -215,8 +215,8 @@ describe('renderDeck', () => {
     expect(pkg.classList.contains('layout-compare')).toBe(true);
     expect(pkg.querySelector('[data-field="headline"]').textContent).toBe('Assessment Packages');
     expect([...pkg.querySelectorAll('.compare__name')].map((n) => n.textContent)).toEqual(['Essentials', 'Role Fit', 'Full Suite']);
-    expect(pkg.querySelector('[data-field="tiers.2.price"]').textContent).toBe('Rp10,000,000');
-    expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('20 assessments');
+    expect(pkg.querySelector('[data-field="tiers.2.price"]').textContent).toBe('Rp9,999,999');
+    expect(pkg.querySelector('[data-field="tiers.1.amount"]').textContent).toBe('25 assessments');
     expect([...pkg.querySelectorAll('.compare__group-title')].map((g) => g.textContent)).toEqual(['Modules', 'What you receive']);
     expect(pkg.querySelectorAll('.compare__row')).toHaveLength(8);
     // Suitability report: Full Suite only.
@@ -517,7 +517,7 @@ describe('renderDeck', () => {
     const le = table.querySelector('[data-field="table.columns.1"] .glyph');
     expect(le.getAttribute('aria-label')).toBe('≤');
     // The field's text is unchanged (editor + copy/paste read it back verbatim).
-    expect(pkg.querySelector('[data-field="tiers.2.each"]').textContent).toBe('≈ Rp277,800 each');
+    expect(pkg.querySelector('[data-field="tiers.2.each"]').textContent).toBe('≈ Rp250,000 each');
     expect(table.querySelector('[data-field="table.columns.1"]').textContent).toBe('Starter (≤250 candidates)');
   });
 

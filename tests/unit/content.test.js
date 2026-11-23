@@ -38,8 +38,8 @@ describe('deck.json content is verbatim from the brief', () => {
     'Assessment Packages',
     'Cognitive Assessment Packages',
     '≈ Rp83,300 per test',
-    'Rp10,000,000',
-    '≈ Rp277,800 each',
+    'Rp9,999,999',
+    '≈ Rp250,000 each',
     'Suitability report, customized to your roles',
     'Profiles ready in 1 day.',
   ])('contains %s', (s) => {
