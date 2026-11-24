@@ -116,9 +116,9 @@ Notes: "Don't just trust us. Check it in a pilot."
 Purpose: make the decision easy: show the packages, their prices and what each includes side by side.
 - Headline: "Assessment Packages"
 - A comparison table, one column per package (name, price, assessments, price per assessment):
-  - Essentials: Rp999,999, 10 assessments, ≈ Rp100,000 each
-  - Role Fit: Rp4,999,999, 25 assessments, ≈ Rp200,000 each
-  - Full Suite: Rp9,999,999, 40 assessments, ≈ Rp250,000 each
+  - Essentials: IDR 987k, 10 assessments, Rp98,700 each
+  - Role Fit: IDR 4,995k, 25 assessments, Rp199,800 each
+  - Full Suite: IDR 9,992k, 40 assessments, ≈ Rp249,800 each
 - Modules: Personality (all three); Cognitive, Drive & Risk (Role Fit and Full Suite); Job Simulation (Full Suite only)
 - What you receive: Individual report and Summarized batch report (all three); Suitability report, customized to your roles (Full Suite only); Interactive dashboard (Role Fit and Full Suite)
 - Note in the table's corner: "An assessment is one candidate taking every module in the package."

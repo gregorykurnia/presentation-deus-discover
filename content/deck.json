@@ -943,21 +943,21 @@
         "tiers": [
           {
             "name": "Essentials",
-            "price": "Rp999,999",
+            "price": "IDR 987k",
             "amount": "10 assessments",
-            "each": "≈ Rp100,000 each"
+            "each": "Rp98,700 each"
           },
           {
             "name": "Role Fit",
-            "price": "Rp4,999,999",
+            "price": "IDR 4,995k",
             "amount": "25 assessments",
-            "each": "≈ Rp200,000 each"
+            "each": "Rp199,800 each"
           },
           {
             "name": "Full Suite",
-            "price": "Rp9,999,999",
+            "price": "IDR 9,992k",
             "amount": "40 assessments",
-            "each": "≈ Rp250,000 each"
+            "each": "≈ Rp249,800 each"
           }
         ],
         "groups": [
